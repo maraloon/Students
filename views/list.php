@@ -1,15 +1,17 @@
-<?php
-/*Имя
-Фамилия
-Номер группы
-Баллов
-<br>
-<?foreach($student as $k=>$v):?>
-	<?=$v->name?>
-	<?=$v->sname?>
-	<?=$v->group_num?>
-	<?=$v->points?>
-	<br>
-<?endforeach;?>
-*/
-print_r($student);
+<table>
+	<tr>
+		<th>Имя</th>
+		<th>Фамилия</th>
+		<th>Номер группы</th>
+		<th>Баллов</th>
+	</tr>
+	
+	<?php foreach($students as $k=>$v):?>
+	<tr>
+		<td><?=$v->name?></td>
+		<td><?=$v->sname?></td>
+		<td><?=$v->group_num?></td>
+		<td><?=$v->points?></td>
+	</tr>
+	<?php endforeach;?>
+</table>

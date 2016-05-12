@@ -2,6 +2,8 @@
 /*implement
 
 __construct
+pdo_exec
+getStudents
 */
 class StudentDataGateway{
 	protected $db; //Объект PDO

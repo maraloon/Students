@@ -1,10 +1,6 @@
 <?php
-//Соединяемся с базой, берём все нужные значения
-$table=new StudentDataGateway($config->db); //возможно, это в bootstrap
+//Соединяемся с базой
+$table=new StudentDataGateway($config->db); //может быть это нужно в bootstrap?
 
-//возвращает массив, где каждый student - объект Student
-$student=$table->getStudents();
-
-
-//Передаем значения представлению
-include("views/list.php");
+//возвращает массив, где каждый students[] - объект Student
+$students=$table->getStudents();
