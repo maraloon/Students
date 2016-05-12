@@ -1,0 +1,11 @@
+{
+    "db": 
+    {
+		"driver": "mysql",
+		"host": "localhost",
+		"dbname": "students",
+        "user": "root",
+        "password": "",
+		"tablename": "students"
+    }
+}
