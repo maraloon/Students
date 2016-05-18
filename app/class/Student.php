@@ -15,6 +15,7 @@ class Student{
 	public $email; //string(200); [a-z]@[a-z].[a-z]{3}
 	public $b_year; //string(4); 1900-2016
 	public $is_resident; //bool; 1 - resident, 0 - foreign;
+	/*public $hash; её, с большой вероятностью нужно сделать protected*/
 	
 	function __construct($name,$sname,$group_num,$points,$gender,$email,$b_year,$is_resident){
 		$this->name=$name;

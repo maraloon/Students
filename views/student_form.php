@@ -1,7 +1,7 @@
-<input type='text' placeholder='Имя' name='' value='<?=$s->name?>'></input>
+<input type='text' placeholder='Имя' name='' value='<?=$s->name?>'>
 <br>
 
-<input type='text' placeholder='Фамилия' name=''value='<?=$s->sname?>'></input>
+<input type='text' placeholder='Фамилия' name='' value='<?=$s->sname?>'>
 <br>
 <?php if($s->gender): ?>
 	<input type="radio" name="sex" value="m" checked> Муж.
@@ -12,16 +12,16 @@
 <?php endif;?>
 <br>
 
-<input type='text' placeholder='Номер группы' name='' value='<?=$s->group_num?>'></input>
+<input type='text' placeholder='Номер группы' name='' value='<?=$s->group_num?>'>
 <br>
 
-<input type='email' placeholder='E-mail' name='' value='<?=$s->email?>'></input>
+<input type='email' placeholder='E-mail' name='' value='<?=$s->email?>'>
 <br>
 
-<input type='number' placeholder='Суммарное число баллов по ЕГЭ' name='' value='<?=$s->points?>'></input>
+<input type='number' placeholder='Суммарное число баллов по ЕГЭ' name='' value='<?=$s->points?>'>
 <br>
 
-<input type='number' placeholder='Год рождения' name='' value='<?=$s->b_year?>'></input>
+<input type='number' placeholder='Год рождения' name='' value='<?=$s->b_year?>'>
 <br>
 
 <?php if($s->is_resident): ?>
