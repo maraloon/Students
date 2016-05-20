@@ -26,7 +26,5 @@ class Student{
 		$this->email=$email;
 		$this->b_year=$b_year;
 		$this->is_resident=$is_resident;
-
-		//$validator=new StudentValidator($this); //вероятно, вызывать валидатор надо не здесь
 	}
 }

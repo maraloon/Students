@@ -3,14 +3,28 @@
 error_reporting(-1);
 mb_internal_encoding('utf-8');
 
+//Вспомогательные функции
+require_once('functions.php');
 
-function url($url){
-	return 'index.php?'.$url;
-}
+
 
 //Автозагрузка всех классов/моделей
-//Добавить try/catch на file_exists
-function __autoload($className){
-	require_once("app/class/".$className.".php");
-}
-Route::start();
+spl_autoload_register(
+	function ($className) {
+		// Получаем путь к файлу из имени класса
+		$path = "app/class/". $className . '.php';
+		if (file_exists($path)) {
+			require_once $path;
+		}
+	}
+);
+//Автозагрузка всех Exeption
+spl_autoload_register(
+	function ($className) {
+		// Получаем путь к файлу из имени класса
+		$path = "app/exeptions/". $className . '.php';
+		if (file_exists($path)) {
+			require_once $path;
+		}
+	}
+);

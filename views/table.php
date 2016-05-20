@@ -13,18 +13,18 @@ $cookie_user='Чин';
 		<th>Баллов</th>
 	</tr>
 	
-	<?php foreach($students as $k=>$v):?>
+	<?php foreach($students as $student):?>
 	
-		<?php if($cookie_user==$v->name): /*заменить это дерьмо на ссылку слева от строки "Изменить"*/?>
+		<?php if($cookie_user==$student->name): /*заменить это дерьмо на ссылку слева от строки "Изменить"*/?>
 			<tr bgcolor='green'>
 		<?php else: ?>
 			<tr>
 		<?php endif;?>	
 	
-		<td><?=$v->name?></td>
-		<td><?=$v->sname?></td>
-		<td><?=$v->group_num?></td>
-		<td><?=$v->points?></td>
+		<td><?=html($student->name)?></td>
+		<td><?=html($student->sname)?></td>
+		<td><?=html($student->group_num)?></td>
+		<td><?=html($student->points)?></td>
 		
 	</tr>
 	

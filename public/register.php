@@ -2,7 +2,7 @@
 
 //Токен
 if(!isset($_COOKIE['token'])){
-	$token=md5(uniqid(rand(), true));
+	$token=randHash(20);
 	setcookie('token',$token,time()+3600,'/',null,false,true);
 }
 else{
@@ -12,46 +12,80 @@ else{
 
 //Если данные формы передавались
 if(!empty($_POST)){
-	echo "Есть POST"; //del
-	print_r($_POST); //del
 	
 	//Проверка токена
 	if( (empty($_COOKIE['token'])) or (empty($_POST['token'])) or ($_COOKIE['token']!=$_POST['token']) ){
 		//Попытка взлома. Без предупреждений перекидываем на главную
-		/*Возможно, нужно по другому обрабатывать эту ошибку.
-		  Напирмер, записывать ip злоумышленника и посылать админу по почте*/
-		header('Location: index.php');
+		  //header($_SERVER["SERVER_PROTOCOL"]." 400 Bad Request"); 
+		  header(' ', true, 400); //Так, вроде правильней
 	}
-	//безопасное получение переданных значений
-	foreach($form_data as $k=>&$s){
-		$s=isset($_POST[$k]) ? trim(strval($_POST[$k])) : '';
-		$s=htmlspecialchars($s,ENT_QUOTES);
-		$s=preg_replace("#((data|javascript)(://))#iu","",$s);
-	}
-	print_r($form_data);	
-	
-	//Ищем ошибки в заполнении
-	$check_student=new Student($form_data['name'],$form_data['sname'],$form_data['group_num'],$form_data['points'],$form_data['gender'],$form_data['email'],$form_data['b_year'],$form_data['is_resident']);
-	//передаём данные формы в валидатор
-	$valid=new StudentValidator($check_student);
-	
-	//нет ошибок
-	if(empty($valid->errors)){
-		//Херня. Поменять на что-нибудь нормальное
-		header('Location: index.php?reg_status=true');
-	}
-	//ошибки в форме
 	else{
-		//заполняет форму регистрации значениями пользователя
-		$s=$check_student;
 
+
+		$newStudent=new Student($_POST['name'],$_POST['sname'],$_POST['group_num'],$_POST['points'],$_POST['gender'],$_POST['email'],$_POST['b_year'],$_POST['is_resident']);
+		
+		//безопасное получение переданных значений
+		foreach($newStudent as $k=>&$v){
+			$v=isset($_POST[$k]) ? trim(strval($_POST[$k])) : '';
+			/*
+			$v=htmlspecialchars($v,ENT_QUOTES);
+			$v=preg_replace("#((data|javascript)(://))#iu","",$v);
+			*/
+		}	
+		
+		//Ищем ошибки в заполнении
+		$valid=new StudentValidator($newStudent);
+		
+		//нет ошибок
+		if(empty($valid->errors)){
+			
+			/*
+			Попытка записи в базу
+			Установка хеша
+				Запись хеша в базу
+				Отдать кук с хешем
+			Страница со статусом
+			*/
+			$db=new StudentDataGateway($config->db);
+			$addNewStudent=$db->addStudent($newStudent);
+			if(empty($addNewStudent->errors)){
+				echo "Ошибок в StudentDataGateway нет"; //del
+				//Генерация хеша
+				$hash=randHash(20);
+				//Добавляем хеш в БД
+				$db->addHash($studentId,$hash);
+				//Передаём кук с хешем
+				
+				//Авторизовать
+				//еще не знаю как
+				
+				//Переправить
+				//header('Location: index.php?register_ok');	
+			}
+			else{
+				echo "Ошибка : в StudentDataGateway"; //del
+			}
+			
+			
+			
+
+		}
+		//ошибки в форме
+		else{
+			//заполняет форму регистрации значениями пользователя
+			$student=$newStudent;
+		}
+
+
+	
 	}
+
 }
 //Если юзер перешел на форму и еще ничего не передавал
 else{
 	
 	//заполняет форму регистрации пустыми значениями
-	$s=new Student('','','','',true,'','',true);
+	$student=new Student('','','','',true,'','',true);
 	
 }
 

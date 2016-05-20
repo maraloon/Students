@@ -3,9 +3,15 @@
 -для ссылки Выход сделать token
 +удалить вторую таблицу и наверное, обойтись без пароля, только хеш
 
--токен на регистрации
++токен на регистрации
 +$name = isset($_POST['name']) ? strval($_POST['name']) : '';
--дописать StudentValidator
+-дописать StudentValidator (регулярки)
++StudentValidator проверка типа
++StudentDataGateway->addStudent
++StudentDataGateway->errors
+-StudentDataGatewayСделать проверку, а нет ли такого чувака в базе по e-mail'у
+
+-StudentValidator: вместо bool enum:  'is_resident'=>array('enum',array('resident','foreign'))
 
 +как читать данные из JSON
 +заполнить JSON-конфиг
