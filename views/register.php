@@ -1,8 +1,6 @@
 <h1>Регистрация</h1>
 <br>
 
-<?php //print_r($s); ?>
-
 <?php if(!empty($valid->errors)): ?>
 	<ul>
 	<?php foreach($valid->errors as $error): ?>

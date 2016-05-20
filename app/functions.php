@@ -13,6 +13,5 @@ function randHash($count = 20){
 }
 function html($string){
 	$string=htmlspecialchars($string,ENT_QUOTES);
-	$string=preg_replace("#((data|javascript)(://))#iu","",$string);
 	return $string;
 }

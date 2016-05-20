@@ -46,7 +46,7 @@ class StudentDataGateway{
 				$$columnName=$student[$columnName];
 			}
 			
-			
+			//Изменить вывод
 			$st[$id]=new Student($name,$sname,$group_num,$points,$gender,$email,$b_year,$is_resident);
 		}		
 		
@@ -63,8 +63,8 @@ class StudentDataGateway{
 		
 			//SQL-запрос
 			$rows = $this->db->prepare("INSERT INTO `students`
-						(`name`,`sname`,`group_num`,`points`,`gender`,`email`,`b_year`,`is_resident`)
-						VALUES (:name,:sname,:group_num,:points,:gender,:email,:b_year,:is_resident)
+						(`name`,`sname`,`group_num`,`points`,`gender`,`email`,`b_year`,`is_resident`,`hash`)
+						VALUES (:name,:sname,:group_num,:points,:gender,:email,:b_year,:is_resident,:hash)
 			");
 			$rows->bindValue(':name', $student->name, PDO::PARAM_STR);
 			$rows->bindValue(':sname', $student->sname, PDO::PARAM_STR);
@@ -74,6 +74,7 @@ class StudentDataGateway{
 			$rows->bindValue(':email', $student->email, PDO::PARAM_STR);
 			$rows->bindValue(':b_year', $student->b_year, PDO::PARAM_INT);
 			$rows->bindValue(':is_resident', $student->is_resident, PDO::PARAM_STR);
+			$rows->bindValue(':hash', $student->hash, PDO::PARAM_STR);
 			$this->pdoExec($rows,__FUNCTION__);
 			
 			//Если есть SQL-ошибка

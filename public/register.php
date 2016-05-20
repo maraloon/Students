@@ -15,23 +15,23 @@ if(!empty($_POST)){
 	
 	//Проверка токена
 	if( (empty($_COOKIE['token'])) or (empty($_POST['token'])) or ($_COOKIE['token']!=$_POST['token']) ){
-		//Попытка взлома. Без предупреждений перекидываем на главную
+		//Попытка взлома
 		  //header($_SERVER["SERVER_PROTOCOL"]." 400 Bad Request"); 
 		  header(' ', true, 400); //Так, вроде правильней
 	}
 	else{
-
-
-		$newStudent=new Student($_POST['name'],$_POST['sname'],$_POST['group_num'],$_POST['points'],$_POST['gender'],$_POST['email'],$_POST['b_year'],$_POST['is_resident']);
-		
+		 
+		//Тестовый студент
+		$newStudent=new Student();
+		//Передаём весь POST, не фильтруя лишнее - это сделает класс
 		//безопасное получение переданных значений
 		foreach($newStudent as $k=>&$v){
 			$v=isset($_POST[$k]) ? trim(strval($_POST[$k])) : '';
-			/*
-			$v=htmlspecialchars($v,ENT_QUOTES);
-			$v=preg_replace("#((data|javascript)(://))#iu","",$v);
-			*/
-		}	
+		}
+		//Добавляем хеш для авторизации
+		$hash=randHash(20);
+		$newStudent->hash=$hash;
+
 		
 		//Ищем ошибки в заполнении
 		$valid=new StudentValidator($newStudent);
@@ -41,19 +41,13 @@ if(!empty($_POST)){
 			
 			/*
 			Попытка записи в базу
-			Установка хеша
-				Запись хеша в базу
-				Отдать кук с хешем
+			Отдать кук с хешем
 			Страница со статусом
 			*/
-			$db=new StudentDataGateway($config->db);
+			$db=new StudentDataGateway($config['db']);
 			$addNewStudent=$db->addStudent($newStudent);
 			if(empty($addNewStudent->errors)){
 				echo "Ошибок в StudentDataGateway нет"; //del
-				//Генерация хеша
-				$hash=randHash(20);
-				//Добавляем хеш в БД
-				$db->addHash($studentId,$hash);
 				//Передаём кук с хешем
 				
 				//Авторизовать
