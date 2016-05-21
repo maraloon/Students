@@ -5,5 +5,10 @@
 		"dbname": "students",
         "user": "root",
         "password": ""
-    }
+    },
+	"path":
+	{
+		"controllers": "app/controllers/",
+		"views": "app/views/"
+	}
 }

@@ -7,12 +7,11 @@ mb_internal_encoding('utf-8');
 require_once('functions.php');
 
 
-
-//Автозагрузка всех классов/моделей
+//Автозагрузка всех моделей
 spl_autoload_register(
 	function ($className) {
 		// Получаем путь к файлу из имени класса
-		$path = "app/class/". $className . '.php';
+		$path = "app/models/". $className . '.php';
 		if (file_exists($path)) {
 			require_once $path;
 		}
