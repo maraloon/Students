@@ -7,7 +7,7 @@ addInfo
 
 
 class Student{
-	//private $id - не знаю, нужен ли
+	//private $id; //- не знаю, нужен ли
 	public $name; //string(200)
 	public $sname; //string(200)
 	public $group_num; //string(5)
@@ -21,11 +21,19 @@ class Student{
 	function __construct(){}
 	
 	public function addInfo($infoArray){
-		//В массиве может быть любая чушь, но принимаются хначения только с ключами как в классе
-		foreach($infoArray as $key=>$value){
-			if(isset($this->$key)){
-				$this->$$key=$value;
-			}	
+		//В массиве может быть любая чушь, но принимаются значения только с ключами как в классе		
+		foreach($infoArray as $key=>$value){			
+			$object_vars=get_object_vars ($this);
+			//Если есть переменная в объекте
+			if(array_key_exists($key,$object_vars)){
+				//Если значение из массива не пустое
+				if(isset($value) and ($value!=NULL)){
+					//Передать значение объекту
+					$this->$key=$value;
+				}
+				
+			}
+
 		}
 	}
 }

@@ -8,32 +8,22 @@ addStudent
 */
 class StudentDataGateway{
 	protected $db; //Объект PDO
-	protected $p; //конфиг БД
 	public $errors; //Ошибки подключения итд
 	
 	
-	function __construct($db_params){
-		//подключаемся к БД через PDO
-        
-		$this->p=$db_params; //для последующих ф-ий
-		$p=$this->p; //для удобства
-		
-        $connect_str = 'mysql'
-            .':host='. $p['host']
-            .';dbname='.$p['dbname'];
-        $this->db = new PDO($connect_str,$p['user'],$p['password'],array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));
+	function __construct(PDO $connection){
+		$this->db=$connection;
 	}
 	
 	//Выполняет SQL-запрос или возвращает ошибку
 	protected function pdoExec($rows,$func_name){
 		if (!$rows->execute()){
-			throw new Exception("Ошибка в ф-ии $func_name: ".__CLASS__);	
+			throw new StudentDataGatewayException("Ошибка в ф-ии $func_name: ".__CLASS__);	
 		} 
 	}
 	
 	public function getStudents(){
 		//возвращает массив, где каждый students - объект Student	
-		$p=$this->p; //для удобства
 		
 		$rows = $this->db->prepare("SELECT * FROM `students`");
 		$this->pdoExec($rows,__FUNCTION__);
@@ -41,21 +31,16 @@ class StudentDataGateway{
 		$students=$rows->fetchAll(PDO::FETCH_ASSOC);
 		
 		//Подготавливаем массив
+		$st=array();
 		foreach($students as $student){
-			foreach($student as $columnName=>$val){
-				$$columnName=$student[$columnName];
-			}
-			
-			//Изменить вывод
-			$st[$id]=new Student($name,$sname,$group_num,$points,$gender,$email,$b_year,$is_resident);
+			$st[]=new Student();		
+			$st[count($st)-1]->addInfo($student);
 		}		
 		
 		return $st;
 	}
 	
-	public function addStudent(Student $student){
-		$p=$this->p;
-		
+	public function addStudent(Student $student){		
 		/*Сделать проверку, а нет ли такого чувака в базе по e-mail'у*/
 		
 		try{
@@ -81,7 +66,7 @@ class StudentDataGateway{
 			$error_array = $this->db->errorInfo();
 			if($this->db->errorCode() != 0000){
 				//Может создать какой-нить SQLExeption?
-				throw new Exception('SQL-ошибка '.$error_array[1].': '.$error_array[2]);
+				throw new StudentDataGatewayException('SQL-ошибка '.$error_array[1].': '.$error_array[2]);
 			}
 			
 			//Получаем id записи
@@ -97,7 +82,7 @@ class StudentDataGateway{
 			$id=$id[0]['id'];//приводим в удобный вид*/
 			
 		}
-		catch(Exception $e){
+		catch(StudentDataGatewayException $e){
 			echo "Исключение: ", $e->getMessage(),"\n";
 			$this->errors[0]=$e->getMessage();
 		}
