@@ -1,4 +1,8 @@
 <?php
+//Переменные
+$userErrors=array(); //все ошибки во время регистрации
+$systErrors=array(); //внутренние ошибки. Логгируются
+
 
 //Токен
 if(!isset($_COOKIE['token'])){
@@ -40,24 +44,38 @@ if(!empty($_POST)){
 		if(empty($valid->errors)){
 			
 			/*
-			Попытка записи в базу
-			Отдать кук с хешем
+			+Попытка записи в базу
+			+Отдать кук с хешем
 			Страница со статусом
 			*/
-			$db=new StudentDataGateway($config['db']);
-			$addNewStudent=$db->addStudent($newStudent);
-			if(empty($addNewStudent->errors)){
+			
+			//Соединяемся с базой
+			$db=new DataBase($config['db']);
+			//Соединяемся с таблицей
+			$table=new StudentDataGateway($db->connection());
+			//Добавляем студента в таблицу
+			//$addNewStudent=$table->addStudent($newStudent);
+			$table->addStudent($newStudent);
+			
+			if( (empty($table->userErrors)) and (empty($table->systErrors)) ){
 				echo "Ошибок в StudentDataGateway нет"; //del
 				//Передаём кук с хешем
-				
-				//Авторизовать
-				//еще не знаю как
+				setcookie('hash',$hash,time()+3600*12*365,'/',null,false,true);
+
 				
 				//Переправить
-				//header('Location: index.php?register_ok');	
+				//header('Location: index.php?register_ok');
+				header('Location: index.php?');	// потом это заменить	
 			}
+			//ошибки при добавлениии информации в таблицу
 			else{
-				echo "Ошибка : в StudentDataGateway"; //del
+				foreach($table->userErrors as $error){
+					$userErrors[]=$error;
+				}
+				
+				foreach($table->systErrors as $error){
+					$systErrors[]=$error;
+				}
 			}
 			
 			
@@ -65,11 +83,21 @@ if(!empty($_POST)){
 
 		}
 		//ошибки в форме
-		else{
+		else{		
+			foreach($valid->errors as $error){
+				$userErrors[]=$error;
+			}
+		}
+		
+		if(!empty($userErrors)){
 			//заполняет форму регистрации значениями пользователя
 			$student=$newStudent;
 		}
-
+		
+		if(!empty($systErrors)){
+			//Запись в лог итд.
+			echo "--==Системные ошибки==--\n\n"; print_r($systErrors); echo "\n\n";
+		}
 
 	
 	}
@@ -79,10 +107,7 @@ if(!empty($_POST)){
 else{
 	
 	//заполняет форму регистрации пустыми значениями
-	$student=new Student('','','','',true,'','',true);
+	$student=new Student();
 	
 }
-
-//Вид - форма регистрации
-$view='register';
 

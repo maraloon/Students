@@ -2,7 +2,6 @@
 //для теста. Удалить
 $pages=5;
 $currentPage=3;
-$cookie_user='Чин';
 ?>
 
 <table>
@@ -14,13 +13,12 @@ $cookie_user='Чин';
 	</tr>
 	
 	<?php foreach($students as $student):?>
-	
-		<?php if($cookie_user==$student->name): /*заменить это дерьмо на ссылку слева от строки "Изменить"*/?>
+		<?php if( (isset($userEmail)) and ($userEmail==$student->email) ):?>
 			<tr bgcolor='green'>
 		<?php else: ?>
-			<tr>
-		<?php endif;?>	
-	
+			<tr>	
+		<?php endif;?>
+		
 		<td><?=html($student->name)?></td>
 		<td><?=html($student->sname)?></td>
 		<td><?=html($student->group_num)?></td>

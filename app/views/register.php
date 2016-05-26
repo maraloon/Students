@@ -1,9 +1,9 @@
 <h1>Регистрация</h1>
 <br>
 
-<?php if(!empty($valid->errors)): ?>
+<?php if(!empty($userErrors)): ?>
 	<ul>
-	<?php foreach($valid->errors as $error): ?>
+	<?php foreach($userErrors as $error): ?>
 		<li><?=$error?></li>
 	<?php endforeach; ?>
 	</ul>

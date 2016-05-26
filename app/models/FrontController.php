@@ -17,9 +17,25 @@ class FrontController{
 		$view='main';
 		
 		//////
-		//Мега-ф-ия, вовращающая статус пользовтеля: гость, авторизован
-		//$authorized=is_authorized(blabla);
-		$authorized=false;
+		//Авторизация
+		
+		if (isset($_COOKIE['hash'])){
+			//$user=new Student;
+			$db=new DataBase($config['db']);
+			$table=new StudentDataGateway($db->connection());
+				
+			$authorized=$table->getStudentByHash($_COOKIE['hash']);
+			
+			if ($authorized){
+				//Для вида
+				$userName=$authorized['user'];
+				$userSName=$authorized['suser'];
+				$userEmail=$authorized['email'];
+			}
+		}
+		else{
+			$authorized=false;
+		}
 		//////
 		
 		

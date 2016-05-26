@@ -1,5 +1,5 @@
 <?php if($authorized): ?>
-	Вошли как: Вася Пупкин
+	Вошли как: <?=$userName?> <?=$userSName?>
 	<br>
 	<a href='<?=url('edit')?>'>Редактировать</a>
 	|
