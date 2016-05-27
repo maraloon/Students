@@ -64,8 +64,8 @@ if(!empty($_POST)){
 
 				
 				//Переправить
-				//header('Location: index.php?register_ok');
-				header('Location: index.php?');	// потом это заменить	
+				header('Location: register_ok');
+				//header('Location: index.php');	// потом это заменить	
 			}
 			//ошибки при добавлениии информации в таблицу
 			else{

@@ -8,7 +8,9 @@
 */
 
 function url($url){
-	return 'index.php?'.$url;
+	$routes = explode('/', $_SERVER['REQUEST_URI']);
+	$routes[count($routes)-1]=$url;
+	return implode('/', $routes);
 }
 //html->htmlspecialchars
 function html($string){
@@ -37,6 +39,25 @@ function config(){
 		$config=json_decode($config,true);
 		
 		return $config;
+	}
+	catch(ConfigException $e){
+		echo "Исключение: ", $e->getMessage(),"\n";
+		return false;
+	}	
+		
+}
+
+//Чтение JSON-роутера
+function router(){
+	try{
+		//Подключаем конфиг
+		if(!file_exists('router.json'))
+			throw new ConfigException('Файла router.json не существует');
+		//JSON->Object
+		$router=file_get_contents('router.json',FILE_IGNORE_NEW_LINES);
+		$router=json_decode($router,true);
+		
+		return $router;
 	}
 	catch(ConfigException $e){
 		echo "Исключение: ", $e->getMessage(),"\n";

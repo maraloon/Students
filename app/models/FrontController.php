@@ -11,16 +11,11 @@ class FrontController{
 
 		//Подключаем конфиг
 		$config=config();
-			
-		//По-умолчанию
-		$controller='main';
-		$view='main';
 		
 		//////
 		//Авторизация
 		
 		if (isset($_COOKIE['hash'])){
-			//$user=new Student;
 			$db=new DataBase($config['db']);
 			$table=new StudentDataGateway($db->connection());
 				
@@ -32,40 +27,51 @@ class FrontController{
 				$userSName=$authorized['suser'];
 				$userEmail=$authorized['email'];
 			}
+			//$authorized=true; //костыльчик
 		}
 		else{
 			$authorized=false;
 		}
-		//////
 		
+		//Роутер
+		$router=new Router();
+		$module=$router->getModule();
+		var_dump($authorized);
+		var_dump($module);
+		//Подключаем файл ассоциаций адреса и контроллеров с представлениями
+		$routing=router();
+		var_dump($routing);
 		
-		//Выбираем нужный контроллер
-		//В дальнейшем index?auth будет заменено на index/auth
-		//Анализ URL будет в классе Route
-		if(isset($_GET['auth'])){
-			if(!$authorized)
-				$controller='auth';
+		//Определяем нужный контроллер и представление
+		if(array_key_exists($module,$routing)){
+			if ( ($routing[$module]['show']=='all') or
+				 (  ($routing[$module]['show']=='guest') and !$authorized  ) or
+					(($routing[$module]['show']=='member') and $authorized)
+
+			){
+				$controller=$routing[$module]['controller'];
+				$view=$routing[$module]['view'];					
+			}
+			else{
+				$controller=$routing['403']['controller'];
+				$view=$routing['403']['view'];				
+			}
 		}
-		elseif(isset($_GET['register'])){
-			if(!$authorized)
-				$controller='register';
+		else{
+			$controller=$routing['404']['controller'];
+			$view=$routing['404']['view'];
 		}
-		elseif(isset($_GET['register_ok'])){
-			if($authorized)
-				$controller='register_ok';
-		}
-		elseif(isset($_GET['edit'])){
-			if($authorized)
-				$controller='edit';
-		}
+
 		
 		//Подключаем контроллер
-		include($config['path']['controllers'].$controller.'.php');
+		if (!empty($controller)){
+			include($config['path']['controllers'].$controller.'.php');
+		}
 
 		//Подключаем вид
-		$view=$controller; //Имя вида всегда такое же как и у контроллера
-		include($config['path']['views'].$view.'.php');
-			
+		if (!empty($view)){
+			include($config['path']['views'].$view.'.php');
+		}
 
 	}
 }

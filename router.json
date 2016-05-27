@@ -1,0 +1,50 @@
+{
+	"main":
+	{
+		"controller": "main",
+		"view": "main",
+		"show": "all"
+	},
+	
+	"auth":
+	{
+		"controller": "auth",
+		"view": "auth",
+		"show": "guest"
+	},
+	
+	"register":
+	{
+		"controller": "register",
+		"view": "register",
+		"show": "guest"
+	},
+	
+	"register_ok":
+	{
+		"controller": "",
+		"view": "register_ok",
+		"show": "member"
+	},
+
+	"edit":
+	{
+		"controller": "edit",
+		"view": "edit",
+		"show": "member"
+	},
+	
+	"403":
+	{
+		"controller": "",
+		"view": "403",
+		"show": "all"
+	},
+	
+	"404":
+	{
+		"controller": "",
+		"view": "404",
+		"show": "all"
+	}
+}
