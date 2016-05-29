@@ -23,45 +23,28 @@ function randHash($count = 20){
     for($i = 0; $i < $count; $i++){
         	    $result .= $array[mt_rand(0, 35)];
     }
- return $result;
+	
+	return $result;
 }
 
-
+//Чтение JSON-файла
+function readJSON($filename){
+	//Подключаем конфиг
+	if(!file_exists($filename))
+		throw new ConfigException("Файла $filename не существует");
+	//JSON->Array
+	$array=file_get_contents($filename,FILE_IGNORE_NEW_LINES);
+	$array=json_decode($array,true);
+	
+	return $array;
+}
 
 //Чтение JSON-конфига
 function config(){
-	try{
-		//Подключаем конфиг
-		if(!file_exists('config.json'))
-			throw new ConfigException('Файла config.json не существует');
-		//JSON->Object
-		$config=file_get_contents('config.json',FILE_IGNORE_NEW_LINES);
-		$config=json_decode($config,true);
-		
-		return $config;
-	}
-	catch(ConfigException $e){
-		echo "Исключение: ", $e->getMessage(),"\n";
-		return false;
-	}	
-		
+	return readJSON('config.json');
 }
 
 //Чтение JSON-роутера
 function router(){
-	try{
-		//Подключаем конфиг
-		if(!file_exists('router.json'))
-			throw new ConfigException('Файла router.json не существует');
-		//JSON->Object
-		$router=file_get_contents('router.json',FILE_IGNORE_NEW_LINES);
-		$router=json_decode($router,true);
-		
-		return $router;
-	}
-	catch(ConfigException $e){
-		echo "Исключение: ", $e->getMessage(),"\n";
-		return false;
-	}	
-		
+	return readJSON('router.json');
 }

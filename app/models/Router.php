@@ -9,15 +9,15 @@ class Router{
 	
 	
 	public function getModule(){
-		//$module='main';//По-умолчанию
 		
 		$routes = explode('/', $_SERVER['REQUEST_URI']);
 		$module=$routes[count($routes)-1];
 		
-		if($module=='index.php'){
+		if( ($module=='index.php') or ($module=='')){
 			$module='main';
 		}
 		
 		return $module;
+		
 	}
 }

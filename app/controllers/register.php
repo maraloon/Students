@@ -41,20 +41,12 @@ if(!empty($_POST)){
 		$valid=new StudentValidator($newStudent);
 		
 		//нет ошибок
-		if(empty($valid->errors)){
-			
-			/*
-			+Попытка записи в базу
-			+Отдать кук с хешем
-			Страница со статусом
-			*/
-			
+		if(empty($valid->errors)){		
 			//Соединяемся с базой
 			$db=new DataBase($config['db']);
 			//Соединяемся с таблицей
 			$table=new StudentDataGateway($db->connection());
 			//Добавляем студента в таблицу
-			//$addNewStudent=$table->addStudent($newStudent);
 			$table->addStudent($newStudent);
 			
 			if( (empty($table->userErrors)) and (empty($table->systErrors)) ){
@@ -64,8 +56,7 @@ if(!empty($_POST)){
 
 				
 				//Переправить
-				header('Location: register_ok');
-				//header('Location: index.php');	// потом это заменить	
+				header('Location: register_ok');	
 			}
 			//ошибки при добавлениии информации в таблицу
 			else{

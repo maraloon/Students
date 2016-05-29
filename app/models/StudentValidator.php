@@ -1,74 +1,99 @@
 <?php
 class StudentValidator{
 	public $errors=array(); //Errors
-	
-	
-	/* Непонятная ошибка: Constant expression contains invalid operations
-	public $year=date("Y");
-	public $yearint=(int) $year;
-	*/
-	private $masks=array(
-		//string, regexp, min(mb_strlen),max(mb_strlen)
-		//int, min(value),max(value)
-		//enum, array(values)
-		'name'=>array('string',"/^[а-яa-z ']+$/iu",1,200), //Эта рег-ка пропускает ''''''' и множество пробелов. Исправить
-		'sname'=>array('string',"/^[а-яa-z ']+$/iu",1,200),
-		'group_num'=>array('string',"/^[а-яa-z0-9]+$/iu",2,5),
-		'points'=>array('int',0,300),
-		'gender'=>array('enum',array('m','f')),
-		'email'=>array('string',"/\@/u",3,200), //Почему такая регулярка: https://habrahabr.ru/post/175375/
-		'b_year'=>array('int',1900,2016),
-		'is_resident'=>array('enum',array('resident','foreign'))
-	);
-	
 
-	/* //Как вариант
+	
 	private $masks=array(
 		'name'=>array(
 			'type'=>'string',
 			'regexp'=>"/^[а-яa-z ']+$/iu",
 			'min' => 1,
-			'max' => 200
+			'max' => 200,
+			'name' => 'Имя',
+			'message' => 'должно состоять из кириллицы или латиницы, может содержать знак \' и пробел'
 		),
-		//...
+		'sname'=>array(
+			'type'=>'string',
+			'regexp'=>"/^[а-яa-z ']+$/iu",
+			'min' => 1,
+			'max' => 200,
+			'name' => 'Фамилия',
+			'message' => 'должна состоять из кириллицы или латиницы, может содержать знак \' и пробел'
+		),
+		'group_num'=>array(
+			'type'=>'string',
+			'regexp'=>"/^[а-яa-z0-9]+$/iu",
+			'min' => 2,
+			'max' => 5,
+			'name' => 'Номер группы',
+			'message' => 'должен состоять из кириллицы, латиницы или цифр'
+		),
+		'points'=>array(
+			'type'=>'int',
+			'min' => 0,
+			'max' => 300,
+			'name' => 'Кол-во баллов',
+			'message' => 'должно быть от 0 до 300'
+		),
+		'gender'=>array(
+			'type'=>'enum',
+			'values' => array('m','f'),
+			'message' => 'Выбран неверный параметр в Мужской/Женский пол'
+		),
+		'email'=>array(
+			'type'=>'string',
+			'regexp'=>"/\@/u",
+			'min' => 3,
+			'max' => 200,
+			'message' => 'E-mail должен содержать знак @'
+		),
+		'b_year'=>array(
+			'type'=>'int',
+			'min' => 1900,
+			'max' => 2016,
+			'name' => 'Год рождения',
+			'message' => 'должнен быть от 1900 до 2016'
+		),
+		'is_resident'=>array(
+			'type'=>'enum',
+			'values' => array('resident','foreign'),
+			'message' => 'Выбран неверный параметр в Местный/Иногородний'
+		),
 	);
-	*/
+	
 	
 	function __construct(Student $s){
-		$masks=@$this->masks;
+		$masks=$this->masks;
 		$e=array();
 		
 		foreach($masks as $field=>$mask){			
-			if($mask[0]=='string'){
+			if($mask['type']=='string'){
 
-				if(!preg_match($mask[1],$s->$field)){
-					$e[]='Поле '.$field.' не соответствует маске'.$mask[1];
+				if(!preg_match($mask['regexp'],$s->$field)){
+					$e[]=$mask['name'].' '.$mask['message'];
 				}
-				if(mb_strlen($s->$field)<$mask[2]){
-					$e[]='В поле '.$field.' должно быть минимум '.$mask[2].' символов';
+				if(mb_strlen($s->$field)<$mask['min']){
+					$e[]=$mask['name'].' должно быть минимум '.$mask['min'].' символов';
 				}
-				if(mb_strlen($s->$field)>$mask[3]){
-					$e[]='В поле '.$field.' должно быть максимум '.$mask[3].' символов.';
+				if(mb_strlen($s->$field)>$mask['max']){
+					$e[]=$mask['name'].' должно быть максимум '.$mask['max'].' символов.';
 				}
 				
 			}
-			elseif($mask[0]=='int'){
+			elseif($mask['type']=='int'){
 				
 				if(!is_numeric($s->$field)){
-					$e[]='Поле '.$field.' должно быть числом';
+					$e[]='Поле '.$mask['name'].' должно быть числом';
 				}
 				
-				if($s->$field<$mask[1]){
-					$e[]='Минимальное значение поля '.$field.' - это '.$mask[1];
-				}
-				elseif($s->$field>$mask[2]){
-					$e[]='Максимальное значение поля '.$field.' - это '.$mask[2];
+				if(  ($s->$field<$mask['min'])  or  ($s->$field>$mask['max'])   ){
+					$e[]=$mask['name'].' '.$mask['message'];
 				}
 				
 			}
-			elseif($mask[0]=='enum'){
+			elseif($mask['type']=='enum'){
 				$inList=false; //переданное значение не соответствует ни одному шаблону
-				foreach($mask[1] as $value){
+				foreach($mask['values'] as $value){
 					
 					if($s->$field=$value){
 						$inList=true; //нашелся один соответствующий
@@ -77,7 +102,7 @@ class StudentValidator{
 				}
 				
 				if (!$inList){
-					$e[]='Значение поля '.$field.' не '.implode(' и не ',$mask[1]);					
+					$e[]=$mask['message'];					
 				}
 
 				

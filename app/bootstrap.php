@@ -5,9 +5,17 @@
 
 error_reporting(-1);
 mb_internal_encoding('utf-8');
-
 //Вспомогательные функции
 require_once('functions.php');
+
+//Ловец ошибок
+set_exception_handler(function (Exception $exception) {
+    // Функция будет вызвана при возникновении исключения
+	error_log($exception->__toString()."\n\n",3,'errors.log');
+	header('Location: 503.php'); //FrontController еще не запущен, поэтому кидаем не на представдение '503', а на публичную страницу 503.php
+});
+
+
 
 
 //Автозагрузка всех моделей

@@ -27,7 +27,6 @@ class FrontController{
 				$userSName=$authorized['suser'];
 				$userEmail=$authorized['email'];
 			}
-			//$authorized=true; //костыльчик
 		}
 		else{
 			$authorized=false;
@@ -36,11 +35,8 @@ class FrontController{
 		//Роутер
 		$router=new Router();
 		$module=$router->getModule();
-		var_dump($authorized);
-		var_dump($module);
 		//Подключаем файл ассоциаций адреса и контроллеров с представлениями
 		$routing=router();
-		var_dump($routing);
 		
 		//Определяем нужный контроллер и представление
 		if(array_key_exists($module,$routing)){

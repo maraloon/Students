@@ -1,0 +1,175 @@
+ConfigException: Файла config.json не существует in C:\xampp\htdocs\students\app\functions.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\functions.php(44): readJSON('config.json')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): config()
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ConfigException: Файла config.json не существует in C:\xampp\htdocs\students\app\functions.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\functions.php(44): readJSON('config.json')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): config()
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ConfigException: Файла config.json не существует in C:\xampp\htdocs\students\app\functions.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\functions.php(44): readJSON('config.json')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): config()
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ConfigException: Файла config.json не существует in C:\xampp\htdocs\students\app\functions.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\functions.php(44): readJSON('config.json')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): config()
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ConfigException: Файла config.json не существует in C:\xampp\htdocs\students\app\functions.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\functions.php(44): readJSON('config.json')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): config()
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ConfigException: Файла config.json не существует in C:\xampp\htdocs\students\app\functions.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\functions.php(44): readJSON('config.json')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): config()
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ConfigException: Файла config.json не существует in C:\xampp\htdocs\students\app\functions.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\functions.php(44): readJSON('config.json')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): config()
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ConfigException: Файла config.json не существует in C:\xampp\htdocs\students\app\functions.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\functions.php(44): readJSON('config.json')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): config()
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ConfigException: Файла config.json не существует in C:\xampp\htdocs\students\app\functions.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\functions.php(44): readJSON('config.json')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): config()
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ConfigException: Файла config.json не существует in C:\xampp\htdocs\students\app\functions.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\functions.php(44): readJSON('config.json')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): config()
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ConfigException: Файла config.json не существует in C:\xampp\htdocs\students\app\functions.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\functions.php(44): readJSON('config.json')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): config()
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ConfigException: Файла config.json не существует in C:\xampp\htdocs\students\app\functions.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\functions.php(44): readJSON('config.json')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): config()
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ConfigException: Файла config.json не существует in C:\xampp\htdocs\students\app\functions.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\functions.php(44): readJSON('config.json')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): config()
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ConfigException: Файла config.json не существует in C:\xampp\htdocs\students\app\functions.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\functions.php(44): readJSON('config.json')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): config()
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ConfigException: Файла config.json не существует in C:\xampp\htdocs\students\app\functions.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\functions.php(44): readJSON('config.json')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): config()
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ConfigException: Файла config.json не существует in C:\xampp\htdocs\students\app\functions.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\functions.php(44): readJSON('config.json')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): config()
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ConfigException: Файла config.json не существует in C:\xampp\htdocs\students\app\functions.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\functions.php(44): readJSON('config.json')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): config()
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ConfigException: Файла config.json не существует in C:\xampp\htdocs\students\app\functions.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\functions.php(44): readJSON('config.json')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): config()
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ConfigException: Файла config.json не существует in C:\xampp\htdocs\students\app\functions.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\functions.php(44): readJSON('config.json')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): config()
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ConfigException: Файла config.json не существует in C:\xampp\htdocs\students\app\functions.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\functions.php(44): readJSON('config.json')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): config()
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ConfigException: Файла config.json не существует in C:\xampp\htdocs\students\app\functions.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\functions.php(44): readJSON('config.json')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): config()
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ConfigException: Файла config.json не существует in C:\xampp\htdocs\students\app\functions.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\functions.php(44): readJSON('config.json')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): config()
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ConfigException: Файла config.json не существует in C:\xampp\htdocs\students\app\functions.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\functions.php(44): readJSON('config.json')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): config()
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ConfigException: Файла config.json не существует in C:\xampp\htdocs\students\app\functions.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\functions.php(44): readJSON('config.json')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): config()
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ConfigException: Файла config.json не существует in C:\xampp\htdocs\students\app\functions.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\functions.php(44): readJSON('config.json')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): config()
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
