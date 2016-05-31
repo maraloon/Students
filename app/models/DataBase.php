@@ -20,7 +20,10 @@ class DataBase{
             .':host='. $dBParams['host']
             .';dbname='.$dBParams['dbname'];
 
-			$this->db = new PDO($connect_str,$dBParams['user'],$dBParams['password'],array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8"));			
+			$this->db = new PDO($connect_str,$dBParams['user'],$dBParams['password']
+				,array(PDO::MYSQL_ATTR_INIT_COMMAND => "SET NAMES utf8, sql_mode='STRICT_ALL_TABLES'")
+				);
+			$this->db->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
 	}
 	
 	//Передаёт PDO объект

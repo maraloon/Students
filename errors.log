@@ -173,3 +173,29 @@ Stack trace:
 #2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
 #3 {main}
 
+PDOException: SQLSTATE[42000] [1064] You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'SET sql_mode='STRICT_ALL_TABLES'' at line 1 in C:\xampp\htdocs\students\app\models\DataBase.php:27
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\DataBase.php(27): PDO->__construct('mysql:host=loca...', 'root', '', Array)
+#1 C:\xampp\htdocs\students\app\controllers\main.php(3): DataBase->__construct(Array)
+#2 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#4 {main}
+
+PDOException: SQLSTATE[HY000] [2002] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение.
+ in C:\xampp\htdocs\students\app\models\DataBase.php:24
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\DataBase.php(24): PDO->__construct('mysql:host=loca...', 'root', '', Array)
+#1 C:\xampp\htdocs\students\app\controllers\main.php(3): DataBase->__construct(Array)
+#2 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#4 {main}
+
+PDOException: SQLSTATE[HY000] [2002] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение.
+ in C:\xampp\htdocs\students\app\models\DataBase.php:24
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\DataBase.php(24): PDO->__construct('mysql:host=loca...', 'root', '', Array)
+#1 C:\xampp\htdocs\students\app\controllers\main.php(3): DataBase->__construct(Array)
+#2 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#4 {main}
+

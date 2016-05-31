@@ -29,8 +29,8 @@ if(!empty($_POST)){
 		$newStudent=new Student();
 		//Передаём весь POST, не фильтруя лишнее - это сделает класс
 		//безопасное получение переданных значений
-		foreach($newStudent as $k=>&$v){
-			$v=isset($_POST[$k]) ? trim(strval($_POST[$k])) : '';
+		foreach($newStudent as $fieldName=>&$fieldValue){
+			$fieldValue=isset($_POST[$fieldName]) ? trim(strval($_POST[$fieldName])) : '';
 		}
 		//Добавляем хеш для авторизации
 		$hash=randHash(20);
@@ -49,7 +49,7 @@ if(!empty($_POST)){
 			//Добавляем студента в таблицу
 			$table->addStudent($newStudent);
 			
-			if( (empty($table->userErrors)) and (empty($table->systErrors)) ){
+			if( (empty($table->userErrors)) /*and (empty($table->systErrors)*/) ){
 				echo "Ошибок в StudentDataGateway нет"; //del
 				//Передаём кук с хешем
 				setcookie('hash',$hash,time()+3600*12*365,'/',null,false,true);
@@ -64,9 +64,9 @@ if(!empty($_POST)){
 					$userErrors[]=$error;
 				}
 				
-				foreach($table->systErrors as $error){
+				/*foreach($table->systErrors as $error){
 					$systErrors[]=$error;
-				}
+				}*/
 			}
 			
 			
@@ -85,10 +85,10 @@ if(!empty($_POST)){
 			$student=$newStudent;
 		}
 		
-		if(!empty($systErrors)){
+		/*if(!empty($systErrors)){
 			//Запись в лог итд.
 			echo "--==Системные ошибки==--\n\n"; print_r($systErrors); echo "\n\n";
-		}
+		}*/
 
 	
 	}
@@ -101,4 +101,3 @@ else{
 	$student=new Student();
 	
 }
-

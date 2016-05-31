@@ -26,18 +26,12 @@ class StudentDataGateway{
 	
 	
 	
-	//Выполняет SQL-запрос или возвращает ошибку
+	//Выполняет SQL-запрос или выкидывает ошибку
 	protected function pdoExec($rows,$func_name){
-		
-		try{
-			if (!$rows->execute()){
-				throw new StudentDataGatewayException("Ошибка в ф-ии $func_name: ".__CLASS__);	
-			} 
-		}
-		catch(StudentDataGatewayException $e){
-			$this->systErrors[]=$e->getMessage();
-		}
 
+		if (!$rows->execute()){
+			throw new StudentDataGatewayException("Ошибка в ф-ии $func_name: ".__CLASS__);	
+		} 
 	}
 	
 	
@@ -109,21 +103,14 @@ class StudentDataGateway{
 	
 	
 	
-	
+	//Добавляет новую строку в БД
 	public function addStudent(Student $student){		
-		/*Сделать проверку, а нет ли такого чувака в базе по e-mail'у*/
-		try{
-			$alredyRegistered=$this->checkEmail($student->email);
-			if(!$alredyRegistered){
-				throw new StudentDataGatewayException('Такой e-mail уже зарегистрирован');
-			}
-		}
-		catch(StudentDataGatewayException $e){
-			$this->userErrors[]=$e->getMessage();
+		//Проверяет, а нет ли  в базе такого e-mail'а
+		$alredyRegistered=$this->checkEmail($student->email);
+		if(!$alredyRegistered){
+			$this->userErrors[]='Такой e-mail уже зарегистрирован';
 			return;
 		}
-		
-		
 
 		//SQL-запрос
 		$rows = $this->db->prepare("INSERT INTO `students`
@@ -142,15 +129,11 @@ class StudentDataGateway{
 		$this->pdoExec($rows,__FUNCTION__);
 		
 		//Если есть SQL-ошибка
-		try{
-			$error_array = $this->db->errorInfo();
-			if($this->db->errorCode() != 0000){
-				throw new StudentDataGatewayException('SQL-ошибка '.$error_array[1].': '.$error_array[2]);
-			}
+		$error_array = $this->db->errorInfo();
+		if($this->db->errorCode() != 0000){
+			throw new StudentDataGatewayException('SQL-ошибка '.$error_array[1].': '.$error_array[2]);
 		}
-		catch(StudentDataGatewayException $e){
-			$this->systErrors[]=$e->getMessage();
-		}
+
 		
 		
 		
