@@ -3,6 +3,7 @@
 
 __construct
 pdoExec
+countStudents
 getStudents
 getStudentByHash
 checkEmail
@@ -21,7 +22,7 @@ class StudentDataGateway{
 	}
 	
 	
-	
+
 	
 	
 	
@@ -35,17 +36,33 @@ class StudentDataGateway{
 	}
 	
 	
+
+
+
+
+	//Кол-во записей в таблице
+	public function countStudents(){
+
+		$rows = $this->db->prepare("SELECT COUNT(*) FROM `students`");
+		$this->pdoExec($rows,__FUNCTION__);
+
+		$count=$rows->fetchAll(PDO::FETCH_ASSOC);
+		return $count[0]["COUNT(*)"];
+	}	
 	
 	
 	
 	
 	
-	
-	
-	public function getStudents(){
-		//возвращает массив, где каждый studentsRows - объект Student	
+	public function getStudents($limit,$offset){
+		/*
+		* возвращает массив, где каждый studentsRows - объект Student
+		* $limit записей, начиная с $offset
+		*/	
 		
-		$rows = $this->db->prepare("SELECT * FROM `students`");
+		$rows = $this->db->prepare("SELECT * FROM `students` LIMIT :y OFFSET :x");
+		$rows->bindValue(':y', $limit, PDO::PARAM_INT);
+		$rows->bindValue(':x', $offset, PDO::PARAM_INT);
 		$this->pdoExec($rows,__FUNCTION__);
 		
 		$studentsRows=$rows->fetchAll(PDO::FETCH_ASSOC);
@@ -55,8 +72,7 @@ class StudentDataGateway{
 		foreach($studentsRows as $studentRow){
 			$students[]=new Student();		
 			$students[count($students)-1]->addInfo($studentRow);
-		}		
-		
+		}
 		return $students;
 	}
 	

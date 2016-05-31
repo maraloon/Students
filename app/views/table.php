@@ -1,9 +1,3 @@
-<?php
-//для теста. Удалить
-$pages=5;
-$currentPage=3;
-?>
-
 <table>
 	<tr>
 		<th>Имя</th>
@@ -30,7 +24,7 @@ $currentPage=3;
 </table>
 
 
-
+<br>
 
 
 <?php if(isset($pages)): ?>
@@ -43,7 +37,7 @@ $currentPage=3;
 			[<?=$i?>]
 			
 		<?php else: ?>
-			[<a href='<?=$i?>.php'><?=$i?></a>]
+			[<a href='<?=url("main?page=$i")?>'><?=$i?></a>]
 			
 		<?php endif;?>	
 		
