@@ -9,7 +9,7 @@ mb_internal_encoding('utf-8');
 require_once('functions.php');
 
 //Ловец ошибок
-set_exception_handler(function (Exception $exception) {
+set_exception_handler(function (Throwable $exception) {
     // Функция будет вызвана при возникновении исключения
 	error_log($exception->__toString()."\n\n",3,'errors.log');
 	header('Location: 503.php'); //FrontController еще не запущен, поэтому кидаем не на представдение '503', а на публичную страницу 503.php

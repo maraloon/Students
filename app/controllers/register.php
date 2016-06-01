@@ -49,7 +49,7 @@ if(!empty($_POST)){
 			//Добавляем студента в таблицу
 			$table->addStudent($newStudent);
 			
-			if( (empty($table->userErrors)) /*and (empty($table->systErrors)*/) ){
+			if( empty($table->userErrors) /*and (empty($table->systErrors)*/ ){
 				echo "Ошибок в StudentDataGateway нет"; //del
 				//Передаём кук с хешем
 				setcookie('hash',$hash,time()+3600*12*365,'/',null,false,true);

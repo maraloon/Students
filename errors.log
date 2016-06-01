@@ -199,3 +199,8 @@ Stack trace:
 #3 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
 #4 {main}
 
+ParseError: syntax error, unexpected ')' in C:\xampp\htdocs\students\app\controllers\register.php:52
+Stack trace:
+#0 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#1 {main}
+
