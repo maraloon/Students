@@ -1,9 +1,13 @@
 <table>
 	<tr>
-		<th>Имя</th>
-		<th>Фамилия</th>
-		<th>Номер группы</th>
-		<th>Баллов</th>
+		<th>
+			<a href='<?=$sort->makeSortUrl('name')?>'>Имя</a>
+			<?=$sort->getVisual('name')?>
+		</th>
+		<th><a href='<?=$sort->makeSortUrl('sname')?>'>Фамилия</a><?=$sort->getVisual('sname')?></th>
+		<th><a href='<?=$sort->makeSortUrl('group_num')?>'>Номер группы</a><?=$sort->getVisual('group_num')?></th>
+		<th><a href='<?=$sort->makeSortUrl('points')?>'>Баллов</a><?=$sort->getVisual('points')?></th>
+
 	</tr>
 	
 	<?php foreach($students as $student):?>

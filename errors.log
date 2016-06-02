@@ -204,3 +204,58 @@ Stack trace:
 #0 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
 #1 {main}
 
+ParseError: syntax error, unexpected '$rows' (T_VARIABLE), expecting function (T_FUNCTION) in C:\xampp\htdocs\students\app\views\table.php:4
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\FrontController.php(69): include()
+#1 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#2 {main}
+
+ParseError: syntax error, unexpected 'var_dump' (T_STRING), expecting function (T_FUNCTION) in C:\xampp\htdocs\students\app\views\table.php:5
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\FrontController.php(69): include()
+#1 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#2 {main}
+
+Error: Cannot access empty property in C:\xampp\htdocs\students\app\views\table.php:28
+Stack trace:
+#0 C:\xampp\htdocs\students\app\views\table.php(40): Sort->getUrl('name')
+#1 C:\xampp\htdocs\students\app\views\main.php(2): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\students\app\models\FrontController.php(69): include('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#4 {main}
+
+Error: Cannot access empty property in C:\xampp\htdocs\students\app\views\table.php:28
+Stack trace:
+#0 C:\xampp\htdocs\students\app\views\table.php(40): Sort->getUrl('name')
+#1 C:\xampp\htdocs\students\app\views\main.php(2): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\students\app\models\FrontController.php(69): include('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#4 {main}
+
+Error: Cannot access empty property in C:\xampp\htdocs\students\app\views\table.php:29
+Stack trace:
+#0 C:\xampp\htdocs\students\app\views\table.php(40): Sort->getUrl('name')
+#1 C:\xampp\htdocs\students\app\views\main.php(2): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\students\app\models\FrontController.php(69): include('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#4 {main}
+
+ParseError: syntax error, unexpected ';', expecting ']' in C:\xampp\htdocs\students\app\controllers\main.php:35
+Stack trace:
+#0 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#1 {main}
+
+ParseError: syntax error, unexpected ']', expecting ',' or ')' in C:\xampp\htdocs\students\app\controllers\main.php:36
+Stack trace:
+#0 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#1 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'NULL OFFSET NULL' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:33
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(33): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(66): StudentDataGateway->pdoExec(Object(PDOStatement), 'getStudents')
+#2 C:\xampp\htdocs\students\app\controllers\main.php(55): StudentDataGateway->getStudents(NULL, NULL, 10, 20)
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+

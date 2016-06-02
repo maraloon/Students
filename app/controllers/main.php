@@ -14,5 +14,18 @@ if($currentPage<=0){$currentPage=1;} //если хакир передаст ст
 $offset=($currentPage-1)*$limit; //сдвиг, иначе - с какой строки начать отображение
 
 
+//Параметры для сортировки
+$sort=new Sort('points','asc');
+var_dump($sort);
+if (isset($_GET['sortBy'])) {
+	if (in_array($_GET['sortBy'], array('name','sname','group_num','points'))){
+		$sort->sortBy=$_GET['sortBy'];
+	}	
+}
+if (isset($_GET['orderBy'])) {
+	if (in_array($_GET['orderBy'], array('asc','desc'))){
+		$sort->orderBy=$_GET['orderBy'];
+	}
+}
 //возвращает массив нужных студентов
-$students=$table->getStudents($limit,$offset);
+$students=$table->getStudents(/*$sortBy,$orderBy,*/$limit,$offset);
