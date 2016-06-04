@@ -8,7 +8,7 @@
 <br>
 <?php
 	//$array=file_get_contents('../errors.log',FILE_IGNORE_NEW_LINES);
-	$array=file('../errors.log');
+	$array=file('errors.log');
 
 	$count=count($array);
 

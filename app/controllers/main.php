@@ -15,17 +15,22 @@ $offset=($currentPage-1)*$limit; //сдвиг, иначе - с какой стр
 
 
 //Параметры для сортировки
-$sort=new Sort('points','asc');
-var_dump($sort);
+$sortBy='points';
+$orderBy='asc';
+
 if (isset($_GET['sortBy'])) {
 	if (in_array($_GET['sortBy'], array('name','sname','group_num','points'))){
-		$sort->sortBy=$_GET['sortBy'];
+		$sortBy=$_GET['sortBy'];
 	}	
 }
 if (isset($_GET['orderBy'])) {
 	if (in_array($_GET['orderBy'], array('asc','desc'))){
-		$sort->orderBy=$_GET['orderBy'];
+		$orderBy=$_GET['orderBy'];
 	}
 }
+
+//Генерация ссылок
+$linker= new Linker($_GET);
+
 //возвращает массив нужных студентов
-$students=$table->getStudents(/*$sortBy,$orderBy,*/$limit,$offset);
+$students=$table->getStudents($sortBy,$orderBy,$limit,$offset);

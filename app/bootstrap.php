@@ -12,7 +12,7 @@ require_once('functions.php');
 set_exception_handler(function (Throwable $exception) {
     // Функция будет вызвана при возникновении исключения
 	error_log($exception->__toString()."\n\n",3,'errors.log');
-	header('Location: 503.php'); //FrontController еще не запущен, поэтому кидаем не на представдение '503', а на публичную страницу 503.php
+	include('public/503.php');
 });
 
 

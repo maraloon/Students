@@ -1,12 +1,22 @@
 <table>
 	<tr>
+	
 		<th>
-			<a href='<?=$sort->makeSortUrl('name')?>'>Имя</a>
-			<?=$sort->getVisual('name')?>
+			<a href='<?=$linker->makeSortUrl('name')?>'>Имя</a>
+			<?=$linker->getVisual('name')?>
 		</th>
-		<th><a href='<?=$sort->makeSortUrl('sname')?>'>Фамилия</a><?=$sort->getVisual('sname')?></th>
-		<th><a href='<?=$sort->makeSortUrl('group_num')?>'>Номер группы</a><?=$sort->getVisual('group_num')?></th>
-		<th><a href='<?=$sort->makeSortUrl('points')?>'>Баллов</a><?=$sort->getVisual('points')?></th>
+		<th>
+			<a href='<?=$linker->makeSortUrl('sname')?>'>Фамилия</a>
+			<?=$linker->getVisual('sname')?>
+		</th>
+		<th>
+			<a href='<?=$linker->makeSortUrl('group_num')?>'>Номер группы</a>
+			<?=$linker->getVisual('group_num')?>
+		</th>
+		<th>
+			<a href='<?=$linker->makeSortUrl('points')?>'>Баллов</a>
+			<?=$linker->getVisual('points')?>
+		</th>
 
 	</tr>
 	
@@ -41,7 +51,7 @@
 			[<?=$i?>]
 			
 		<?php else: ?>
-			[<a href='<?=url("main?page=$i")?>'><?=$i?></a>]
+			[<a href='<?=$linker->makePageUrl($i)?>'><?=$i?></a>]
 			
 		<?php endif;?>	
 		

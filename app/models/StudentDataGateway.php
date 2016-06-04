@@ -54,19 +54,29 @@ class StudentDataGateway{
 	
 	
 	
-	public function getStudents($limit,$offset){
+	public function getStudents($sortBy,$orderBy,$limit,$offset){
 		/*
 		* возвращает массив, где каждый studentsRows - объект Student
 		* $limit записей, начиная с $offset
-		*/	
-		
-		$rows = $this->db->prepare("SELECT * FROM `students` LIMIT :y OFFSET :x");
+		*/
+
+		//$columnsName=fetchAll
+
+	    /*if (in_array($sortBy, array('name','sname','group_num','points'))) {
+	    	if (in_array($orderBy, array('asc','desc'))){
+
+	    	}
+	    }*/
+		$rows = $this->db->prepare("SELECT * FROM `students` ORDER BY $sortBy $orderBy LIMIT :y OFFSET :x");
+		//$rows->bindValue(':sort', $sortBy, PDO::PARAM_STR);
+		//$rows->bindValue(':order', $orderBy, PDO::PARAM_STR);
 		$rows->bindValue(':y', $limit, PDO::PARAM_INT);
 		$rows->bindValue(':x', $offset, PDO::PARAM_INT);
+
 		$this->pdoExec($rows,__FUNCTION__);
 		
 		$studentsRows=$rows->fetchAll(PDO::FETCH_ASSOC);
-		
+
 		//Подготавливаем массив
 		$students=array();
 		foreach($studentsRows as $studentRow){
