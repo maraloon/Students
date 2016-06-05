@@ -2,23 +2,23 @@
 	<tr>
 	
 		<th>
-			<a href='<?=$linker->makeSortUrl('name')?>'>Имя</a>
-			<?=$linker->showSortOrder('name')?>
+			<a href='<?=$viewer->makeSortUrl('name')?>'>Имя</a>
+			<?=$viewer->showSortOrder('name')?>
 		</th>
 
 		<th>
-			<a href='<?=$linker->makeSortUrl('sname')?>'>Фамилия</a>
-			<?=$linker->showSortOrder('sname')?>
+			<a href='<?=$viewer->makeSortUrl('sname')?>'>Фамилия</a>
+			<?=$viewer->showSortOrder('sname')?>
 		</th>
 
 		<th>
-			<a href='<?=$linker->makeSortUrl('group_num')?>'>Номер группы</a>
-			<?=$linker->showSortOrder('group_num')?>
+			<a href='<?=$viewer->makeSortUrl('group_num')?>'>Номер группы</a>
+			<?=$viewer->showSortOrder('group_num')?>
 		</th>
-		
+
 		<th>
-			<a href='<?=$linker->makeSortUrl('points')?>'>Баллов</a>
-			<?=$linker->showSortOrder('points')?>
+			<a href='<?=$viewer->makeSortUrl('points')?>'>Баллов</a>
+			<?=$viewer->showSortOrder('points')?>
 		</th>
 
 	</tr>
@@ -54,7 +54,7 @@
 			[<?=$i?>]
 			
 		<?php else: ?>
-			[<a href='<?=$linker->makePageUrl($i)?>'><?=$i?></a>]
+			[<a href='<?=$viewer->makePageUrl($i)?>'><?=$i?></a>]
 			
 		<?php endif;?>	
 		

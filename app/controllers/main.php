@@ -5,6 +5,9 @@ $db=new DataBase($config['db']);
 //Соединяемся с таблицей
 $table=new StudentDataGateway($db->connection());
 
+
+
+
 //Параметры для постраничной навигации
 $limit=10; //студентов на странице
 $studentsNum=$table->countStudents(); //всего студентов в базе
@@ -29,13 +32,8 @@ if (isset($_GET['orderBy'])) {
 	}
 }
 
-//Генерация ссылок
-$linker= new Linker($_GET);
-
-/*$linker= new Linker();
-$linker->page=$currentPage;
-$linker->sortBy=$sortBy;
-$linker->orderBy=$orderBy;*/
-
 //возвращает массив нужных студентов
 $students=$table->getStudents($sortBy,$orderBy,$limit,$offset);
+
+//Генерация динамического контента для представления
+$viewer = new ViewHelper($currentPage,$sortBy,$orderBy);

@@ -247,3 +247,21 @@ Stack trace:
 #2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
 #3 {main}
 
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'LIMIT 10 OFFSET 0' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:33
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(33): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(76): StudentDataGateway->pdoExec(Object(PDOStatement), 'getStudents')
+#2 C:\xampp\htdocs\students\app\controllers\main.php(38): StudentDataGateway->getStudents(NULL, NULL, 10, 0)
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'LIMIT 10 OFFSET 0' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:33
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(33): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(76): StudentDataGateway->pdoExec(Object(PDOStatement), 'getStudents')
+#2 C:\xampp\htdocs\students\app\controllers\main.php(34): StudentDataGateway->getStudents(NULL, NULL, 10, 0)
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
