@@ -240,3 +240,10 @@ Stack trace:
 #3 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
 #4 {main}
 
+Error: Call to undefined method Linker::showSortOrder() in C:\xampp\htdocs\students\app\views\table.php:6
+Stack trace:
+#0 C:\xampp\htdocs\students\app\views\main.php(2): include()
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(69): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+

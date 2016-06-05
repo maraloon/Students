@@ -14,6 +14,14 @@ class Linker{
 
 	function __construct(Array $get){
 		$this->get=$get;
+
+		if (!isset($this->get['sortBy'])) {
+			$this->get['sortBy']='points';
+		}
+		if (!isset($this->get['orderBy'])) {
+			$this->get['orderBy']='asc';
+		}
+		
 	}
 
 
@@ -41,7 +49,7 @@ class Linker{
 
 
 
-
+	//Меняет или добавляет в текущий url значение переменоых sortBy, orderBy
 	function makeSortUrl($row){
 		$sortBy=$this->get['sortBy'];
 		$orderBy=$this->get['orderBy'];
@@ -52,7 +60,7 @@ class Linker{
 			}
 		}
 		else{
-			$orderBy='desc';
+			$orderBy='asc';
 		}
 
 
@@ -63,7 +71,7 @@ class Linker{
 
 
 
-
+	//Меняет или добавляет в текущий url значение переменой page
 	function makePageUrl($row){
 		return $this->makeUrl(array('page'=>$row));
 	}
@@ -74,7 +82,7 @@ class Linker{
 
 
 
-	function getVisual($row){
+	function showSortOrder($row){
 		if ($row==$this->get['sortBy']) {
 			if ($this->get['orderBy']=='asc') {
 				echo '[▲]';

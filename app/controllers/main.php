@@ -32,5 +32,10 @@ if (isset($_GET['orderBy'])) {
 //Генерация ссылок
 $linker= new Linker($_GET);
 
+/*$linker= new Linker();
+$linker->page=$currentPage;
+$linker->sortBy=$sortBy;
+$linker->orderBy=$orderBy;*/
+
 //возвращает массив нужных студентов
 $students=$table->getStudents($sortBy,$orderBy,$limit,$offset);

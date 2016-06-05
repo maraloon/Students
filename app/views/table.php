@@ -3,19 +3,22 @@
 	
 		<th>
 			<a href='<?=$linker->makeSortUrl('name')?>'>Имя</a>
-			<?=$linker->getVisual('name')?>
+			<?=$linker->showSortOrder('name')?>
 		</th>
+
 		<th>
 			<a href='<?=$linker->makeSortUrl('sname')?>'>Фамилия</a>
-			<?=$linker->getVisual('sname')?>
+			<?=$linker->showSortOrder('sname')?>
 		</th>
+
 		<th>
 			<a href='<?=$linker->makeSortUrl('group_num')?>'>Номер группы</a>
-			<?=$linker->getVisual('group_num')?>
+			<?=$linker->showSortOrder('group_num')?>
 		</th>
+		
 		<th>
 			<a href='<?=$linker->makeSortUrl('points')?>'>Баллов</a>
-			<?=$linker->getVisual('points')?>
+			<?=$linker->showSortOrder('points')?>
 		</th>
 
 	</tr>
