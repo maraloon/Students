@@ -1,9 +1,9 @@
 <?php $s=$student; ?>
 
-<input type='text' placeholder='Имя' name='name' value='<?=html($s->name)?>'>
+<input type='text' placeholder='Имя' name='name' value='<?=ViewHelper::html($s->name)?>'>
 <br>
 
-<input type='text' placeholder='Фамилия' name='sname' value='<?=html($s->sname)?>'>
+<input type='text' placeholder='Фамилия' name='sname' value='<?=ViewHelper::html($s->sname)?>'>
 <br>
 <?php if($s->gender): ?>
 	<input type="radio" name="gender" value="m" checked> Муж.
@@ -14,16 +14,16 @@
 <?php endif;?>
 <br>
 
-<input type='text' placeholder='Номер группы' name='group_num' value='<?=html($s->group_num)?>'>
+<input type='text' placeholder='Номер группы' name='group_num' value='<?=ViewHelper::html($s->group_num)?>'>
 <br>
 
-<input type='email' placeholder='E-mail' name='email' value='<?=html($s->email)?>'>
+<input type='email' placeholder='E-mail' name='email' value='<?=ViewHelper::html($s->email)?>'>
 <br>
 
-<input type='number' placeholder='Суммарное число баллов по ЕГЭ' name='points' value='<?=html($s->points)?>'>
+<input type='number' placeholder='Суммарное число баллов по ЕГЭ' name='points' value='<?=ViewHelper::html($s->points)?>'>
 <br>
 
-<input type='number' placeholder='Год рождения' name='b_year' value='<?=html($s->b_year)?>'>
+<input type='number' placeholder='Год рождения' name='b_year' value='<?=ViewHelper::html($s->b_year)?>'>
 <br>
 
 <?php if($s->is_resident): ?>

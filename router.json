@@ -26,6 +26,13 @@
 		"view": "register_ok",
 		"show": "member"
 	},
+	
+	"edit_ok":
+	{
+		"controller": "",
+		"view": "edit_ok",
+		"show": "member"
+	},
 
 	"edit":
 	{

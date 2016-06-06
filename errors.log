@@ -265,3 +265,111 @@ Stack trace:
 #4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
 #5 {main}
 
+ParseError: syntax error, unexpected '}', expecting end of file in C:\xampp\htdocs\students\app\controllers\edit.php:63
+Stack trace:
+#0 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#1 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE `hash`=''' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(34): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(202): StudentDataGateway->pdoExec(Object(PDOStatement), 'editStudent')
+#2 C:\xampp\htdocs\students\app\controllers\edit.php(62): StudentDataGateway->editStudent(Object(Student))
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE `hash`=''' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(34): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(202): StudentDataGateway->pdoExec(Object(PDOStatement), 'editStudent')
+#2 C:\xampp\htdocs\students\app\controllers\edit.php(64): StudentDataGateway->editStudent(Object(Student))
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE `hash`=''' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(34): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(202): StudentDataGateway->pdoExec(Object(PDOStatement), 'editStudent')
+#2 C:\xampp\htdocs\students\app\controllers\edit.php(64): StudentDataGateway->editStudent(Object(Student))
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE `hash`='dvm8nrt82qh4lxdeicfa'' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(34): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(202): StudentDataGateway->pdoExec(Object(PDOStatement), 'editStudent')
+#2 C:\xampp\htdocs\students\app\controllers\edit.php(65): StudentDataGateway->editStudent(Object(Student))
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE `hash`='dvm8nrt82qh4lxdeicfa'' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(34): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(202): StudentDataGateway->pdoExec(Object(PDOStatement), 'editStudent')
+#2 C:\xampp\htdocs\students\app\controllers\edit.php(65): StudentDataGateway->editStudent(Object(Student))
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'WHERE `hash`='dvm8nrt82qh4lxdeicfa'' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:34
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(34): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(202): StudentDataGateway->pdoExec(Object(PDOStatement), 'editStudent')
+#2 C:\xampp\htdocs\students\app\controllers\edit.php(65): StudentDataGateway->editStudent(Object(Student))
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[HY000] [2002] Подключение не установлено, т.к. конечный компьютер отверг запрос на подключение.
+ in C:\xampp\htdocs\students\app\models\DataBase.php:24
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\DataBase.php(24): PDO->__construct('mysql:host=loca...', 'root', '', Array)
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(19): DataBase->__construct(Array)
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+Error: Call to undefined function config() in C:\xampp\htdocs\students\app\models\FrontController.php:13
+Stack trace:
+#0 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#1 {main}
+
+ParseError: syntax error, unexpected 'class' (T_CLASS), expecting :: (T_PAAMAYIM_NEKUDOTAYIM) in C:\xampp\htdocs\students\app\models\JSON.php:5
+Stack trace:
+#0 [internal function]: {closure}('JSON')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): spl_autoload_call('JSON')
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ParseError: syntax error, unexpected 'class' (T_CLASS), expecting :: (T_PAAMAYIM_NEKUDOTAYIM) in C:\xampp\htdocs\students\app\models\JSON.php:5
+Stack trace:
+#0 [internal function]: {closure}('JSON')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): spl_autoload_call('JSON')
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ParseError: syntax error, unexpected 'static' (T_STATIC), expecting identifier (T_STRING) in C:\xampp\htdocs\students\app\models\JSON.php:5
+Stack trace:
+#0 [internal function]: {closure}('JSON')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(13): spl_autoload_call('JSON')
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+Error: Using $this when not in object context in C:\xampp\htdocs\students\app\models\JSON.php:21
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\FrontController.php(13): JSON::config()
+#1 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#2 {main}
+
+Error: Call to undefined function html() in C:\xampp\htdocs\students\app\models\ViewHelper.php:36
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\ViewHelper.php(52): ViewHelper->makeUrl(Array)
+#1 C:\xampp\htdocs\students\app\views\table.php(5): ViewHelper->makeSortUrl('name')
+#2 C:\xampp\htdocs\students\app\views\main.php(2): include('C:\\xampp\\htdocs...')
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(69): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+

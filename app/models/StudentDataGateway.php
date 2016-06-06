@@ -8,11 +8,12 @@ getStudents
 getStudentByHash
 checkEmail
 addStudent
+editStudent
 */
 class StudentDataGateway{
 	protected $db; //Объект PDO
 	public $userErrors=array(); //Ошибки, которые будут показаны пользователю
-	public $systErrors=array(); //Ошибки системные, скрытые от пользователя
+	//public $systErrors=array(); //Ошибки системные, скрытые от пользователя
 	
 	
 	
@@ -59,17 +60,7 @@ class StudentDataGateway{
 		* возвращает массив, где каждый studentsRows - объект Student
 		* $limit записей, начиная с $offset
 		*/
-
-		//$columnsName=fetchAll
-
-	    /*if (in_array($sortBy, array('name','sname','group_num','points'))) {
-	    	if (in_array($orderBy, array('asc','desc'))){
-
-	    	}
-	    }*/
 		$rows = $this->db->prepare("SELECT * FROM `students` ORDER BY $sortBy $orderBy LIMIT :y OFFSET :x");
-		//$rows->bindValue(':sort', $sortBy, PDO::PARAM_STR);
-		//$rows->bindValue(':order', $orderBy, PDO::PARAM_STR);
 		$rows->bindValue(':y', $limit, PDO::PARAM_INT);
 		$rows->bindValue(':x', $offset, PDO::PARAM_INT);
 
@@ -92,16 +83,14 @@ class StudentDataGateway{
 	
 	//Принимает хеш. Возвращает имя, фамилию. И email для идентификации пользователя (см. вид)
 	public function getStudentByHash($hashFromCookie){
-		$rows = $this->db->prepare("SELECT `name`,`sname`,`email` FROM `students` WHERE `hash`=:hash");
+		$rows = $this->db->prepare("SELECT * FROM `students` WHERE `hash`=:hash");
 		$rows->bindValue(':hash', $hashFromCookie, PDO::PARAM_STR);
 		$this->pdoExec($rows,__FUNCTION__);
 
 		$studentRow=$rows->fetchAll(PDO::FETCH_ASSOC);
 		
 		$student=array();
-		$student['user']=$studentRow[0]['name'];
-		$student['suser']=$studentRow[0]['sname'];
-		$student['email']=$studentRow[0]['email'];
+		$student=$studentRow[0];
 		return $student;
 	}
 	
@@ -180,4 +169,26 @@ class StudentDataGateway{
 	}
 	
 		
+	function editStudent(Student $student){
+
+
+			$rows = $this->db->prepare("UPDATE `students` SET `name`=:name,`sname`=:sname,`group_num`=:group_num,`points`=:points,`gender`=:gender,`email`=:email,`b_year`=:b_year,`is_resident`=:is_resident WHERE `hash`=:hash");
+
+			$rows->bindValue(':name', $student->name, PDO::PARAM_STR);
+			$rows->bindValue(':sname', $student->sname, PDO::PARAM_STR);
+			$rows->bindValue(':group_num', $student->group_num, PDO::PARAM_STR);
+			$rows->bindValue(':points', $student->points, PDO::PARAM_INT);
+			$rows->bindValue(':gender', $student->gender, PDO::PARAM_STR);
+			$rows->bindValue(':email', $student->email, PDO::PARAM_STR);
+			$rows->bindValue(':b_year', $student->b_year, PDO::PARAM_INT);
+			$rows->bindValue(':is_resident', $student->is_resident, PDO::PARAM_STR);
+			$rows->bindValue(':hash', $student->hash, PDO::PARAM_STR);
+			$this->pdoExec($rows,__FUNCTION__);
+
+			//Если есть SQL-ошибка
+			$error_array = $this->db->errorInfo();
+			if($this->db->errorCode() != 0000){
+				throw new StudentDataGatewayException('SQL-ошибка '.$error_array[1].': '.$error_array[2]);
+			}
+	}
 }

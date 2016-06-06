@@ -17,6 +17,23 @@ class ViewHelper{
 
 
 
+
+
+	static function url($url){
+		$routes = explode('/', $_SERVER['REQUEST_URI']);
+		$routes[count($routes)-1]=$url;
+		return implode('/', $routes);
+	}
+
+
+	//html->htmlspecialchars
+	static function html($string){
+		return htmlspecialchars($string,ENT_QUOTES);
+	}
+
+
+
+
 	function makeUrl(Array $params){
 		$urlVars= array('page' => $this->page, 'sortBy' => $this->sortBy,'orderBy' => $this->orderBy);
 		$blockedParams=array_diff_key($urlVars,$params); //ключи что есть в $urlVars, но нет в $params
@@ -33,7 +50,7 @@ class ViewHelper{
 		//вставляем гет-переменные с новыми значениями
 		$url.=http_build_query($params);
 
-		return html($url);
+		return self::html($url);
 	}
 
 
@@ -71,6 +88,12 @@ class ViewHelper{
 		if ($row==$this->sortBy) {
 			return $this->orderBy=='asc' ? '[▲]' : '[▼]';
 		}
+		else{
+			return false;
+		}
 	}
+
+
+
 
 }

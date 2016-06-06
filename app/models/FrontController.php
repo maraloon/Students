@@ -10,7 +10,7 @@ class FrontController{
 	function Start(){
 
 		//Подключаем конфиг
-		$config=config();
+		$config=JSON::config();
 		
 		//////
 		//Авторизация
@@ -23,8 +23,8 @@ class FrontController{
 			
 			if ($authorized){
 				//Для вида
-				$userName=$authorized['user'];
-				$userSName=$authorized['suser'];
+				$userName=$authorized['name'];
+				$userSName=$authorized['sname'];
 				$userEmail=$authorized['email'];
 			}
 		}
@@ -36,7 +36,7 @@ class FrontController{
 		$router=new Router();
 		$module=$router->getModule();
 		//Подключаем файл ассоциаций адреса и контроллеров с представлениями
-		$routing=router();
+		$routing=JSON::router();
 		
 		//Определяем нужный контроллер и представление
 		if(array_key_exists($module,$routing)){

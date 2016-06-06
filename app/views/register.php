@@ -9,8 +9,8 @@
 	</ul>
 <?php endif; ?>
 
-<form method='post' action='<?=url('register')?>'>
+<form method='post' action='<?=ViewHelper::url('register')?>'>
 	<?php include('student_form.php'); ?>
-	<input type='hidden' name='token'  value='<?=html($token)?>'>
+	<input type='hidden' name='token'  value='<?=ViewHelper::html($token)?>'>
 	<input type='submit' value='Зарегистрироваться'>
 </form>

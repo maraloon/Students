@@ -30,10 +30,10 @@
 			<tr>	
 		<?php endif;?>
 		
-		<td><?=html($student->name)?></td>
-		<td><?=html($student->sname)?></td>
-		<td><?=html($student->group_num)?></td>
-		<td><?=html($student->points)?></td>
+		<td><?=ViewHelper::html($student->name)?></td>
+		<td><?=ViewHelper::html($student->sname)?></td>
+		<td><?=ViewHelper::html($student->group_num)?></td>
+		<td><?=ViewHelper::html($student->points)?></td>
 		
 	</tr>
 	

@@ -1,12 +1,11 @@
 <?php
 //Переменные
 $userErrors=array(); //все ошибки во время регистрации
-$systErrors=array(); //внутренние ошибки. Логгируются
 
 
 //Токен
 if(!isset($_COOKIE['token'])){
-	$token=randHash(20);
+	$token=Util::randHash(20);
 	setcookie('token',$token,time()+3600,'/',null,false,true);
 }
 else{
@@ -33,7 +32,7 @@ if(!empty($_POST)){
 			$fieldValue=isset($_POST[$fieldName]) ? trim(strval($_POST[$fieldName])) : '';
 		}
 		//Добавляем хеш для авторизации
-		$hash=randHash(20);
+		$hash=Util::randHash(20);
 		$newStudent->hash=$hash;
 
 		
@@ -49,7 +48,7 @@ if(!empty($_POST)){
 			//Добавляем студента в таблицу
 			$table->addStudent($newStudent);
 			
-			if( empty($table->userErrors) /*and (empty($table->systErrors)*/ ){
+			if( empty($table->userErrors) ){
 				echo "Ошибок в StudentDataGateway нет"; //del
 				//Передаём кук с хешем
 				setcookie('hash',$hash,time()+3600*12*365,'/',null,false,true);
@@ -63,10 +62,7 @@ if(!empty($_POST)){
 				foreach($table->userErrors as $error){
 					$userErrors[]=$error;
 				}
-				
-				/*foreach($table->systErrors as $error){
-					$systErrors[]=$error;
-				}*/
+
 			}
 			
 			
@@ -84,11 +80,6 @@ if(!empty($_POST)){
 			//заполняет форму регистрации значениями пользователя
 			$student=$newStudent;
 		}
-		
-		/*if(!empty($systErrors)){
-			//Запись в лог итд.
-			echo "--==Системные ошибки==--\n\n"; print_r($systErrors); echo "\n\n";
-		}*/
 
 	
 	}
