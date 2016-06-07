@@ -373,3 +373,87 @@ Stack trace:
 #4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
 #5 {main}
 
+ParseError: syntax error, unexpected ';' in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:67
+Stack trace:
+#0 [internal function]: {closure}('StudentDataGate...')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(20): spl_autoload_call('StudentDataGate...')
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ParseError: syntax error, unexpected '&' in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:67
+Stack trace:
+#0 [internal function]: {closure}('StudentDataGate...')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(20): spl_autoload_call('StudentDataGate...')
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ParseError: syntax error, unexpected '%' in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:67
+Stack trace:
+#0 [internal function]: {closure}('StudentDataGate...')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(20): spl_autoload_call('StudentDataGate...')
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'a@aqaq' for key 'email' in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:35
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(35): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(219): StudentDataGateway->pdoExec(Object(PDOStatement), 'editStudent')
+#2 C:\xampp\htdocs\students\app\controllers\edit.php(63): StudentDataGateway->editStudent(Object(Student))
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'a@aqaq' for key 'email' in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:35
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(35): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(219): StudentDataGateway->pdoExec(Object(PDOStatement), 'editStudent')
+#2 C:\xampp\htdocs\students\app\controllers\edit.php(63): StudentDataGateway->editStudent(Object(Student))
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'a@aqaq' for key 'email' in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:35
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(35): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(219): StudentDataGateway->pdoExec(Object(PDOStatement), 'editStudent')
+#2 C:\xampp\htdocs\students\app\controllers\edit.php(63): StudentDataGateway->editStudent(Object(Student))
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'a@aqaq' for key 'email' in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:35
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(35): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(222): StudentDataGateway->pdoExec(Object(PDOStatement), 'editStudent')
+#2 C:\xampp\htdocs\students\app\controllers\edit.php(63): StudentDataGateway->editStudent(Object(Student))
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'a@aqaq' for key 'email' in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:35
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(35): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(223): StudentDataGateway->pdoExec(Object(PDOStatement), 'editStudent')
+#2 C:\xampp\htdocs\students\app\controllers\edit.php(63): StudentDataGateway->editStudent(Object(Student))
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'a@aqaq' for key 'email' in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:35
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(35): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(223): StudentDataGateway->pdoExec(Object(PDOStatement), 'editStudent')
+#2 C:\xampp\htdocs\students\app\controllers\edit.php(63): StudentDataGateway->editStudent(Object(Student))
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[23000]: Integrity constraint violation: 1062 Duplicate entry 'a@aqaq' for key 'email' in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:35
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(35): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(223): StudentDataGateway->pdoExec(Object(PDOStatement), 'editStudent')
+#2 C:\xampp\htdocs\students\app\controllers\edit.php(63): StudentDataGateway->editStudent(Object(Student))
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+

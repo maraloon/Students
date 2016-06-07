@@ -11,11 +11,11 @@
 
 
 
--editStudent: проверка на e-mail
--getStudent: проверка $sortBy $orderBy
--controllers/edit: проверка $_COOKIE['hash']
--controllers/edit,register: убрать, по возможности копипасты
--showSortOrder не должен выводить символы, а возвращать true/false
++editStudent: проверка на e-mail
++getStudent: проверка $sortBy $orderBy
+-controllers/edit: проверка $_COOKIE['hash'] - нужно ли?
+-controllers/edit,register: убрать, по возможности копипасты - не знаю как
+-showSortOrder не должен выводить символы, а возвращать true/false - усложнение кода, не нужно
 -разобраться с set_exception_handler
 
 Редирект это отдача в качестве ответа кода 3xx и заголовка Location. Редиректить при ошибке, как и при 404 или 403 - неправильно. Вдобавок, в адресной строке браузера теряется УРЛ и обновить страницу нельзя.

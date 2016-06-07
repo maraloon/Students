@@ -5,8 +5,6 @@
 
 error_reporting(-1);
 mb_internal_encoding('utf-8');
-//Вспомогательные функции
-require_once('functions.php');
 
 //Ловец ошибок
 set_exception_handler(function (Throwable $exception) {

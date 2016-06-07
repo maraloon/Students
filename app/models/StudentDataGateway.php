@@ -4,6 +4,7 @@
 __construct
 pdoExec
 countStudents
+private function getColumns
 getStudents
 getStudentByHash
 checkEmail
@@ -53,13 +54,31 @@ class StudentDataGateway{
 	
 	
 	
-	
+	private function getColumns(){
+		$rows = $this->db->prepare("SHOW COLUMNS FROM `students`");
+		$this->pdoExec($rows,__FUNCTION__);
+		$columns=$rows->fetchAll(PDO::FETCH_ASSOC);
+		foreach ($columns as &$column) {
+			$column=$column["Field"];
+		}
+
+		return $columns;
+	}
 	
 	public function getStudents($sortBy,$orderBy,$limit,$offset){
 		/*
 		* возвращает массив, где каждый studentsRows - объект Student
 		* $limit записей, начиная с $offset
 		*/
+
+		//Фильтруем данные
+		if(!in_array($sortBy, $this->getColumns())){
+			$sortBy='points';
+		}
+		$orderBy= $orderBy=='asc'? 'asc' : 'desc'; //если передаётся шняга, то desc
+
+
+
 		$rows = $this->db->prepare("SELECT * FROM `students` ORDER BY $sortBy $orderBy LIMIT :y OFFSET :x");
 		$rows->bindValue(':y', $limit, PDO::PARAM_INT);
 		$rows->bindValue(':x', $offset, PDO::PARAM_INT);
@@ -67,7 +86,7 @@ class StudentDataGateway{
 		$this->pdoExec($rows,__FUNCTION__);
 		
 		$studentsRows=$rows->fetchAll(PDO::FETCH_ASSOC);
-
+		//var_dump($studentsRows);
 		//Подготавливаем массив
 		$students=array();
 		foreach($studentsRows as $studentRow){
@@ -81,7 +100,7 @@ class StudentDataGateway{
 	
 	
 	
-	//Принимает хеш. Возвращает имя, фамилию. И email для идентификации пользователя (см. вид)
+	//Принимает хеш. Возвращает строку студента
 	public function getStudentByHash($hashFromCookie){
 		$rows = $this->db->prepare("SELECT * FROM `students` WHERE `hash`=:hash");
 		$rows->bindValue(':hash', $hashFromCookie, PDO::PARAM_STR);
@@ -96,21 +115,24 @@ class StudentDataGateway{
 	
 	
 	
-	//Проверка на существование e-mail'а
+	/*Проверка на существование e-mail'а
+	* true - уже есть такой email
+	* false - нет
+	*/
 	private function checkEmail($email){
 		$rows = $this->db->prepare("SELECT * FROM `students` WHERE `email`=:email");
 		$rows->bindValue(':email', $email, PDO::PARAM_STR);
 		$this->pdoExec($rows,__FUNCTION__);
 
 		$studentRow=$rows->fetchAll(PDO::FETCH_ASSOC);	
-		
+
 		if( (count($studentRow)) > 0){
-			$status=false;
-		}
-		else{
 			$status=true;
 		}
-		
+		else{
+			$status=false;
+		}
+
 		return $status;
 	}	
 	
@@ -122,7 +144,7 @@ class StudentDataGateway{
 	public function addStudent(Student $student){		
 		//Проверяет, а нет ли  в базе такого e-mail'а
 		$alredyRegistered=$this->checkEmail($student->email);
-		if(!$alredyRegistered){
+		if($alredyRegistered){
 			$this->userErrors[]='Такой e-mail уже зарегистрирован';
 			return;
 		}
@@ -172,6 +194,21 @@ class StudentDataGateway{
 	function editStudent(Student $student){
 
 
+		//Исключение совпадения e-mail'ов разных юзеров
+		$currentStudentData=$this->getStudentByHash($student->hash);
+		$currentEmail=$currentStudentData['email'];
+
+		if ($currentEmail!=$student->email){ //Если юзер пытается изменить текущий e-mail
+			$alredyRegistered=$this->checkEmail($student->email);
+		}
+
+		if ($alredyRegistered) { //Если юзер меняет свой e-mail на e-mail другого юзера
+			$this->userErrors[]='Такой e-mail уже зарегистрирован';
+			return;
+		}
+		else{
+
+
 			$rows = $this->db->prepare("UPDATE `students` SET `name`=:name,`sname`=:sname,`group_num`=:group_num,`points`=:points,`gender`=:gender,`email`=:email,`b_year`=:b_year,`is_resident`=:is_resident WHERE `hash`=:hash");
 
 			$rows->bindValue(':name', $student->name, PDO::PARAM_STR);
@@ -190,5 +227,12 @@ class StudentDataGateway{
 			if($this->db->errorCode() != 0000){
 				throw new StudentDataGatewayException('SQL-ошибка '.$error_array[1].': '.$error_array[2]);
 			}
+
+
+
+		}
+
+
+
 	}
 }
