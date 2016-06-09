@@ -6,11 +6,13 @@ $db=new DataBase($config['db']);
 $table=new StudentDataGateway($db->connection());
 
 
+//Параметры для поиска
+$find=isset($_GET['find']) ? $_GET['find'] : NULL;
 
 
 //Параметры для постраничной навигации
 $limit=10; //студентов на странице
-$studentsNum=$table->countStudents(); //всего студентов в базе
+$studentsNum=$table->countStudents($find); //всего студентов в базе
 $pages=ceil($studentsNum/$limit); //всего страниц
 $currentPage=isset($_GET['page']) ? $_GET['page'] : 1; //текущая страница
 if($currentPage<=0){$currentPage=1;} //если хакир передаст строку, она преобразуется в int 1
@@ -32,8 +34,11 @@ if (isset($_GET['orderBy'])) {
 	}
 }
 
+
+
+
 //возвращает массив нужных студентов
-$students=$table->getStudents($sortBy,$orderBy,$limit,$offset);
+$students=$table->getStudents($sortBy,$orderBy,$limit,$offset,$find);
 
 //Генерация динамического контента для представления
-$viewer = new ViewHelper($currentPage,$sortBy,$orderBy);
+$viewer = new ViewHelper($currentPage,$sortBy,$orderBy,$find);

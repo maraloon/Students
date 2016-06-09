@@ -12,9 +12,12 @@ addStudent
 editStudent
 */
 class StudentDataGateway{
+
+
+
+
 	protected $db; //Объект PDO
 	public $userErrors=array(); //Ошибки, которые будут показаны пользователю
-	//public $systErrors=array(); //Ошибки системные, скрытые от пользователя
 	
 	
 	
@@ -42,10 +45,26 @@ class StudentDataGateway{
 
 
 
-	//Кол-во записей в таблице
-	public function countStudents(){
+
+	/* Кол-во записей в таблице
+	*
+	* Если $search=NULL
+	*	Вернуть кол-во всех строк таблицы
+	* Иначе
+	*	Вернуть кол-во строк, в которых есть вхождение $search
+	*
+	*/
+	public function countStudents($search=NULL){
 
 		$rows = $this->db->prepare("SELECT COUNT(*) FROM `students`");
+
+		//Если задан поиск по строке $search
+		if (isset($search)) {
+			$rows = $this->db->prepare("SELECT COUNT(*) FROM `students` WHERE CONCAT(`name`,' ',`sname`,' ',`group_num`,' ',`points`,' ',`gender`,' ',`email`,' ',`b_year`,' ',`is_resident`) LIKE '%$search%'");
+		}
+		
+
+		
 		$this->pdoExec($rows,__FUNCTION__);
 
 		$count=$rows->fetchAll(PDO::FETCH_ASSOC);
@@ -65,21 +84,26 @@ class StudentDataGateway{
 		return $columns;
 	}
 	
-	public function getStudents($sortBy,$orderBy,$limit,$offset){
+	public function getStudents($sortBy,$orderBy,$limit,$offset,$search=NULL){
 		/*
 		* возвращает массив, где каждый studentsRows - объект Student
 		* $limit записей, начиная с $offset
 		*/
-
 		//Фильтруем данные
 		if(!in_array($sortBy, $this->getColumns())){
 			$sortBy='points';
 		}
 		$orderBy= $orderBy=='asc'? 'asc' : 'desc'; //если передаётся шняга, то desc
 
-
-
+		
+		//Формируем строку запроса
 		$rows = $this->db->prepare("SELECT * FROM `students` ORDER BY $sortBy $orderBy LIMIT :y OFFSET :x");
+		//Если задан поиск по строке $search
+		if (isset($search)) {
+			$rows = $this->db->prepare("SELECT * FROM `students` WHERE CONCAT(`name`,' ',`sname`,' ',`group_num`,' ',`points`,' ',`gender`,' ',`email`,' ',`b_year`,' ',`is_resident`) LIKE '%$search%' ORDER BY $sortBy $orderBy LIMIT :x,:y");
+		}
+
+
 		$rows->bindValue(':y', $limit, PDO::PARAM_INT);
 		$rows->bindValue(':x', $offset, PDO::PARAM_INT);
 
@@ -95,7 +119,6 @@ class StudentDataGateway{
 		}
 		return $students;
 	}
-	
 	
 	
 	
@@ -170,28 +193,12 @@ class StudentDataGateway{
 		if($this->db->errorCode() != 0000){
 			throw new StudentDataGatewayException('SQL-ошибка '.$error_array[1].': '.$error_array[2]);
 		}
-
-		
-		
-		
-		//Получаем id записи
-		//Пока это не нужно
-		/*
-		$get_id = $this->db->prepare("SELECT id FROM `".$p->tablename."`
-									WHERE `name`=:name AND `sname`=:sname");
-		$get_id->bindValue(':name', $student->name, PDO::PARAM_STR);
-		$get_id->bindValue(':sname', $student->sname, PDO::PARAM_STR);
-		$this->pdoExec($get_id,__FUNCTION__);
-		
-		$id=$get_id->fetchAll(PDO::FETCH_ASSOC);
-		$id=$id[0]['id'];//приводим в удобный вид*/
-			
-		
+	
 
 	}
 	
 		
-	function editStudent(Student $student){
+	public function editStudent(Student $student){
 
 
 		//Исключение совпадения e-mail'ов разных юзеров
@@ -231,8 +238,7 @@ class StudentDataGateway{
 
 
 		}
-
-
-
 	}
+
+
 }

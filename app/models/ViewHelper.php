@@ -6,13 +6,15 @@ class ViewHelper{
 	public $page;
 	public $sortBy;
 	public $orderBy;
+	public $find;
 
 
 
-	function __construct($page,$sortBy,$orderBy){
+	function __construct($page,$sortBy,$orderBy,$find){
 		$this->page=$page;
 		$this->sortBy=$sortBy;
 		$this->orderBy=$orderBy;
+		$this->find=$find;
 	}
 
 
@@ -35,7 +37,7 @@ class ViewHelper{
 
 
 	function makeUrl(Array $params){
-		$urlVars= array('page' => $this->page, 'sortBy' => $this->sortBy,'orderBy' => $this->orderBy);
+		$urlVars= array('page' => $this->page, 'sortBy' => $this->sortBy,'orderBy' => $this->orderBy,'find' => $this->find);
 		$blockedParams=array_diff_key($urlVars,$params); //ключи что есть в $urlVars, но нет в $params
 		//возможно эти 2 строчки нужно в main.php и передавать уже строку в конструктор
 		$router=new Router();

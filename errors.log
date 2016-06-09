@@ -457,3 +457,279 @@ Stack trace:
 #4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
 #5 {main}
 
+ParseError: syntax error, unexpected 'public' (T_PUBLIC) in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:221
+Stack trace:
+#0 [internal function]: {closure}('StudentDataGate...')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(20): spl_autoload_call('StudentDataGate...')
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ParseError: syntax error, unexpected '}', expecting end of file in C:\xampp\htdocs\students\app\controllers\search.php:38
+Stack trace:
+#0 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#1 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '`sname`,`group_num`,`points`,`gender`,`email`,`b_year`,`is_resident` LIKE `%'Х' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:36
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(36): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(236): StudentDataGateway->pdoExec(Object(PDOStatement), 'search')
+#2 C:\xampp\htdocs\students\app\controllers\search.php(37): StudentDataGateway->search('\xD0\xA5\xD0\xB8', 'points', 'asc', 10, 0)
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '`sname`,`group_num`,`points`,`gender`,`email`,`b_year`,`is_resident` LIKE `%'qwe' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:36
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(36): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(236): StudentDataGateway->pdoExec(Object(PDOStatement), 'search')
+#2 C:\xampp\htdocs\students\app\controllers\search.php(37): StudentDataGateway->search('qwe', 'points', 'asc', 10, 0)
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '`sname`,`group_num`,`points`,`gender`,`email`,`b_year`,`is_resident` LIKE `%qwe%' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:36
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(36): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(236): StudentDataGateway->pdoExec(Object(PDOStatement), 'search')
+#2 C:\xampp\htdocs\students\app\controllers\search.php(37): StudentDataGateway->search('qwe', 'points', 'asc', 10, 0)
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '`sname`,`group_num`,`points`,`gender`,`email`,`b_year`,`is_resident` LIKE `%qwe%' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:36
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(36): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(236): StudentDataGateway->pdoExec(Object(PDOStatement), 'search')
+#2 C:\xampp\htdocs\students\app\controllers\search.php(37): StudentDataGateway->search('qwe', 'points', 'asc', 10, 0)
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '`sname`,`group_num`,`points`,`gender`,`email`,`b_year`,`is_resident` LIKE `%Хи' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:36
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(36): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(236): StudentDataGateway->pdoExec(Object(PDOStatement), 'search')
+#2 C:\xampp\htdocs\students\app\controllers\search.php(37): StudentDataGateway->search('qwe', 'points', 'asc', 10, 0)
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '`sname`,`group_num`,`points`,`gender`,`email`,`b_year`,`is_resident` LIKE %Хи%' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:36
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(36): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(236): StudentDataGateway->pdoExec(Object(PDOStatement), 'search')
+#2 C:\xampp\htdocs\students\app\controllers\search.php(37): StudentDataGateway->search('qwe', 'points', 'asc', 10, 0)
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '%Хи% ORDER BY points asc LIMIT 10 OFFSET 0' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:36
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(36): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(236): StudentDataGateway->pdoExec(Object(PDOStatement), 'search')
+#2 C:\xampp\htdocs\students\app\controllers\search.php(37): StudentDataGateway->search('qwe', 'points', 'asc', 10, 0)
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '`sname`,`group_num`,`points`,`gender`,`email`,`b_year`,`is_resident` LIKE %Хи%' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:36
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(36): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(236): StudentDataGateway->pdoExec(Object(PDOStatement), 'search')
+#2 C:\xampp\htdocs\students\app\controllers\search.php(37): StudentDataGateway->search('qwe', 'points', 'asc', 10, 0)
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '`sname` `group_num` `points` `gender` `email` `b_year` `is_resident` LIKE `%Хи' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:36
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(36): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(236): StudentDataGateway->pdoExec(Object(PDOStatement), 'search')
+#2 C:\xampp\htdocs\students\app\controllers\search.php(37): StudentDataGateway->search('qwe', 'points', 'asc', 10, 0)
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '`sname` `group_num` `points` `gender` `email` `b_year` `is_resident` LIKE `%Хи' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:36
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(36): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(238): StudentDataGateway->pdoExec(Object(PDOStatement), 'search')
+#2 C:\xampp\htdocs\students\app\controllers\search.php(37): StudentDataGateway->search('qwe', 'points', 'asc', 10, 0)
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '`sname` `group_num` `points` `gender` `email` `b_year` `is_resident` LIKE `%Хи' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:36
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(36): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(238): StudentDataGateway->pdoExec(Object(PDOStatement), 'search')
+#2 C:\xampp\htdocs\students\app\controllers\search.php(37): StudentDataGateway->search('qwe', 'points', 'asc', 10, 0)
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '`sname` `group_num` `points` `gender` `email` `b_year` `is_resident` LIKE `%Хи' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:36
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(36): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(237): StudentDataGateway->pdoExec(Object(PDOStatement), 'search')
+#2 C:\xampp\htdocs\students\app\controllers\search.php(37): StudentDataGateway->search('qwe', 'points', 'asc', 10, 0)
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '`sname` `group_num` `points` `gender` `email` `b_year` `is_resident` LIKE `%Хи' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:36
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(36): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(237): StudentDataGateway->pdoExec(Object(PDOStatement), 'search')
+#2 C:\xampp\htdocs\students\app\controllers\search.php(37): StudentDataGateway->search('qwe', 'points', true, 10, 0)
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '`sname` `group_num` `points` `gender` `email` `b_year` `is_resident` LIKE `%Хи' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:36
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(36): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(237): StudentDataGateway->pdoExec(Object(PDOStatement), 'search')
+#2 C:\xampp\htdocs\students\app\controllers\search.php(37): StudentDataGateway->search('qwe', 'points', 'asc', 10, 0)
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '`sname` `group_num` `points` `gender` `email` `b_year` `is_resident` LIKE `%Хи' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:36
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(36): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(237): StudentDataGateway->pdoExec(Object(PDOStatement), 'search')
+#2 C:\xampp\htdocs\students\app\controllers\search.php(37): StudentDataGateway->search('qwe', 'points', 'asc', 10, 0)
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+ParseError: syntax error, unexpected ';' in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:226
+Stack trace:
+#0 [internal function]: {closure}('StudentDataGate...')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(20): spl_autoload_call('StudentDataGate...')
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+ParseError: syntax error, unexpected ';' in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:226
+Stack trace:
+#0 [internal function]: {closure}('StudentDataGate...')
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(20): spl_autoload_call('StudentDataGate...')
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '`sname` `group_num` `points` `gender` `email` `b_year` `is_resident` LIKE `%Хи' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:36
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(36): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(237): StudentDataGateway->pdoExec(Object(PDOStatement), 'search')
+#2 C:\xampp\htdocs\students\app\controllers\search.php(37): StudentDataGateway->search('qwe', 'points', 'asc', 10, 0)
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+Error: Call to a member function makeSortUrl() on unknown in C:\xampp\htdocs\students\app\views\table.php:5
+Stack trace:
+#0 C:\xampp\htdocs\students\app\views\main.php(3): include()
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(69): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+Error: Call to a member function makeSortUrl() on unknown in C:\xampp\htdocs\students\app\views\table.php:5
+Stack trace:
+#0 C:\xampp\htdocs\students\app\views\main.php(3): include()
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(69): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+Error: Call to a member function makeSortUrl() on unknown in C:\xampp\htdocs\students\app\views\table.php:5
+Stack trace:
+#0 C:\xampp\htdocs\students\app\views\main.php(3): include()
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(69): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+Error: Call to a member function makeSortUrl() on unknown in C:\xampp\htdocs\students\app\views\table.php:5
+Stack trace:
+#0 C:\xampp\htdocs\students\app\views\main.php(3): include()
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(69): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+Error: Call to a member function makeSortUrl() on unknown in C:\xampp\htdocs\students\app\views\table.php:5
+Stack trace:
+#0 C:\xampp\htdocs\students\app\views\main.php(3): include()
+#1 C:\xampp\htdocs\students\app\models\FrontController.php(69): include('C:\\xampp\\htdocs...')
+#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#3 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near '(`name`,' ',`sname`,' ',`group_num`,' ',`points`,' ',`gender`,' ',`email`,' ',`b' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:36
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(36): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(238): StudentDataGateway->pdoExec(Object(PDOStatement), 'search')
+#2 C:\xampp\htdocs\students\app\controllers\search.php(37): StudentDataGateway->search('\xD0\xA5\xD0\xB8', 'points', 'asc', 10, 0)
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+ParseError: syntax error, unexpected ''>' (T_CONSTANT_ENCAPSED_STRING), expecting ',' or ';' in C:\xampp\htdocs\students\app\views\search_form.php:3
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\FrontController.php(69): include()
+#1 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#2 {main}
+
+ParseError: syntax error, unexpected ')' in C:\xampp\htdocs\students\app\controllers\search.php:4
+Stack trace:
+#0 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#1 {main}
+
+PDOException: SQLSTATE[HY093]: Invalid parameter number: number of bound variables does not match number of tokens in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:36
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(36): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(238): StudentDataGateway->pdoExec(Object(PDOStatement), 'search')
+#2 C:\xampp\htdocs\students\app\controllers\search.php(41): StudentDataGateway->search('\xD0\xA5\xD0\xB8', 'points', 'asc', 10, 0)
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+Error: Unsupported operand types in C:\xampp\htdocs\students\app\controllers\search.php:6
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\FrontController.php(64): include()
+#1 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#2 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'NULL,0' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:36
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(36): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(109): StudentDataGateway->pdoExec(Object(PDOStatement), 'getStudents')
+#2 C:\xampp\htdocs\students\app\controllers\main.php(41): StudentDataGateway->getStudents('name', 'points', 'desc', 0)
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'NULL,0' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:36
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(36): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(109): StudentDataGateway->pdoExec(Object(PDOStatement), 'getStudents')
+#2 C:\xampp\htdocs\students\app\controllers\main.php(41): StudentDataGateway->getStudents('name', 'points', 'desc', 0)
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'NULL' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:36
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(36): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(109): StudentDataGateway->pdoExec(Object(PDOStatement), 'getStudents')
+#2 C:\xampp\htdocs\students\app\controllers\main.php(42): StudentDataGateway->getStudents('points', 'asc', 10, NULL)
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+
+PDOException: SQLSTATE[42000]: Syntax error or access violation: 1064 You have an error in your SQL syntax; check the manual that corresponds to your MariaDB server version for the right syntax to use near 'NULL' at line 1 in C:\xampp\htdocs\students\app\models\StudentDataGateway.php:36
+Stack trace:
+#0 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(36): PDOStatement->execute()
+#1 C:\xampp\htdocs\students\app\models\StudentDataGateway.php(109): StudentDataGateway->pdoExec(Object(PDOStatement), 'getStudents')
+#2 C:\xampp\htdocs\students\app\controllers\main.php(42): StudentDataGateway->getStudents('points', 'asc', 10)
+#3 C:\xampp\htdocs\students\app\models\FrontController.php(64): include('C:\\xampp\\htdocs...')
+#4 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
+#5 {main}
+

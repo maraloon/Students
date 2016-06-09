@@ -41,6 +41,13 @@
 		"show": "member"
 	},
 	
+	"search":
+	{
+		"controller": "main",
+		"view": "search",
+		"show": "all"
+	},
+
 	"403":
 	{
 		"controller": "",

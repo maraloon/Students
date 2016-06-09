@@ -1,12 +1,12 @@
 <?php
 class StudentValidator{
-	public $errors=array(); //Errors
+	public $errors=array();
 
 	
 	private $masks=array(
 		'name'=>array(
 			'type'=>'string',
-			'regexp'=>"/^[а-яa-z ']+$/iu",
+			'regexp'=>"/^([а-яa-z][ ']*)+$/iu",
 			'min' => 1,
 			'max' => 200,
 			'name' => 'Имя',
@@ -14,7 +14,7 @@ class StudentValidator{
 		),
 		'sname'=>array(
 			'type'=>'string',
-			'regexp'=>"/^[а-яa-z ']+$/iu",
+			'regexp'=>"/^([а-яa-z][ ']*)+$/iu",
 			'min' => 1,
 			'max' => 200,
 			'name' => 'Фамилия',
