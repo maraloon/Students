@@ -29,8 +29,16 @@ class ViewHelper{
 
 
 	//html->htmlspecialchars
-	static function html($string){
-		return htmlspecialchars($string,ENT_QUOTES);
+	static function html($string,$find=NULL){
+		$string=htmlspecialchars($string,ENT_QUOTES);
+
+		//Обозначать цветом найденную подстроку
+		if (isset($find)) {
+			$reg="/$find/ui";
+			$string=preg_replace($reg, "<font style='background-color: yellow;'>$0</font>", $string);
+		}
+
+		return $string;
 	}
 
 
