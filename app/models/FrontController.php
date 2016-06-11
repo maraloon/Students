@@ -66,7 +66,14 @@ class FrontController{
 
 		//Подключаем вид
 		if (!empty($view)){
+			$title=$routing[$module]['title'];
+			$cssFile=$config['path']['css'];
+			
+			include($config['path']['views'].'header.php');
+			
 			include($config['path']['views'].$view.'.php');
+			
+			include($config['path']['views'].'footer.php');
 		}
 
 	}

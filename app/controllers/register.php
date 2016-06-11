@@ -4,14 +4,8 @@ $userErrors=array(); //все ошибки во время регистраци�
 
 
 //Токен
-if(!isset($_COOKIE['token'])){
-	$token=Util::randHash(20);
-	setcookie('token',$token,time()+3600,'/',null,false,true);
-}
-else{
-	$token=$_COOKIE['token'];
-	setcookie('token',$token,time()+3600,'/',null,false,true);
-}
+$token= (isset($_COOKIE['token'])) ? $_COOKIE['token'] : Util::randHash(20);
+setcookie('token',$token,time()+3600,'/',null,false,true);
 
 //Если данные формы передавались
 if(!empty($_POST)){

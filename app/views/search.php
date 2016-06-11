@@ -22,3 +22,4 @@
 
 
 <?php include('table.php'); ?>
+<?php include('bottom.php'); ?>
