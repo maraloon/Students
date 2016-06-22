@@ -24,7 +24,7 @@
 	</tr>
 	
 	<?php foreach($students as $student):?>
-		<?php if( (isset($userEmail)) and ($userEmail==$student->email) ):?>
+		<?php if( (isset($user['email'])) and ($user['email']==$student->email) ):?>
 			<tr bgcolor='green'>
 		<?php else: ?>
 			<tr>	

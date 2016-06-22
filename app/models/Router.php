@@ -21,7 +21,7 @@ class Router{
 		}
 
 
-		if( ($module=='index.php') or ($module=='')){
+		if($module==''){
 			$module='main';
 		}
 		

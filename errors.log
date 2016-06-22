@@ -1,7 +1,0 @@
-Error: Call to undefined method ViewHelper::show() in C:\xampp\htdocs\students\app\views\table.php:34
-Stack trace:
-#0 C:\xampp\htdocs\students\app\views\search.php(24): include()
-#1 C:\xampp\htdocs\students\app\models\FrontController.php(69): include('C:\\xampp\\htdocs...')
-#2 C:\xampp\htdocs\students\public\index.php(8): FrontController->Start()
-#3 {main}
-

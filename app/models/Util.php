@@ -15,6 +15,12 @@ class Util{
 		return $result;
 	}
 
+
+	static function getAbsolutePath($file){
+		return realpath(__DIR__.'/../../'.$file);
+	}
+
+
 	/*static function setToken(){
 		if(!isset($_COOKIE['token'])){
 			$token=Util::randHash(20);

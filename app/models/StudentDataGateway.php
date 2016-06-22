@@ -131,9 +131,14 @@ class StudentDataGateway{
 
 		$studentRow=$rows->fetchAll(PDO::FETCH_ASSOC);
 		
-		$student=array();
-		$student=$studentRow[0];
-		return $student;
+		if ($studentRow!=NULL) {
+			$student=array();
+			$student=$studentRow[0];
+			return $student;
+		}
+		else{
+			return false;
+		}
 	}
 	
 	

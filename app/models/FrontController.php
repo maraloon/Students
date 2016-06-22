@@ -4,77 +4,58 @@
  * Решает, какой подконтроллер использовать и какие виды показывать
  *
  *
- * Вероятно, подконтроллер возвращает нужное представление, а маршрутизатор его вызывает
+ * Проверить статус пользователя (авторизован/гость)
+ * Определить нужный контроллер и вид
+ * Подключить кнтроллер
+ * Подключить вид
 **/
-class FrontController{
-	function Start(){
 
-		//Подключаем конфиг
-		$config=JSON::config();
-		
-		//////
-		//Авторизация
-		
-		if (isset($_COOKIE['hash'])){
-			$db=new DataBase($config['db']);
-			$table=new StudentDataGateway($db->connection());
-				
-			$authorized=$table->getStudentByHash($_COOKIE['hash']);
-			
-			if ($authorized){
-				//Для вида
-				$userName=$authorized['name'];
-				$userSName=$authorized['sname'];
-				$userEmail=$authorized['email'];
-			}
-		}
-		else{
-			$authorized=false;
-		}
-		
-		//Роутер
-		$router=new Router();
-		$module=$router->getModule();
-		//Подключаем файл ассоциаций адреса и контроллеров с представлениями
-		$routing=JSON::router();
-		
-		//Определяем нужный контроллер и представление
-		if(array_key_exists($module,$routing)){
-			if ( ($routing[$module]['show']=='all') or
-				 (  ($routing[$module]['show']=='guest') and !$authorized  ) or
-					(($routing[$module]['show']=='member') and $authorized)
 
-			){
-				$controller=$routing[$module]['controller'];
-				$view=$routing[$module]['view'];					
-			}
-			else{
-				$controller=$routing['403']['controller'];
-				$view=$routing['403']['view'];				
-			}
-		}
-		else{
-			$controller=$routing['404']['controller'];
-			$view=$routing['404']['view'];
+class FrontController extends Controller{	
+	public $isAuthorized=false; //возможно, нужно будет изменить на private
+
+
+
+	function __construct($container){
+		parent::__construct($container);
+
+		if (isset($_COOKIE['hash'])) {
+			$this->isAuthorized=$this->c['auth']->checkAuth($_COOKIE['hash']);
 		}
 
-		
-		//Подключаем контроллер
-		if (!empty($controller)){
-			include($config['path']['controllers'].$controller.'.php');
-		}
-
-		//Подключаем вид
-		if (!empty($view)){
-			$title=$routing[$module]['title'];
-			$cssFile=$config['path']['css'];
-			
-			include($config['path']['views'].'header.php');
-			
-			include($config['path']['views'].$view.'.php');
-			
-			include($config['path']['views'].'footer.php');
-		}
+		$components=$this->setComponents();
+		$components['controller'].='Controller';
+		$controller= new $components['controller']($container,$this->isAuthorized); //new RegisterController extends Controller
+		$controller->showView($components['view']);
 
 	}
+
+
+	private function setComponents(){
+		//Получаем текущий модуль
+		$module=$this->c['router']->getModule();
+		//Читаем зависимости названий контроллеров и представлений от url из JSON-файла
+		$list=$this->c['routerFile'];
+		//Определяем нужный контроллер и представление
+		if(array_key_exists($module,$list)){
+			if ( ($list[$module]['show']=='all') or
+				 (  ($list[$module]['show']=='guest') and !$this->isAuthorized  ) or
+					(($list[$module]['show']=='member') and $this->isAuthorized)
+			){
+				$controller=$list[$module]['controller'];
+				$view=$list[$module]['view'];					
+			}
+			else{
+				$controller=$list['403']['controller'];
+				$view=$list['403']['view'];				
+			}
+		}
+		else{
+			$controller=$list['404']['controller'];
+			$view=$list['404']['view'];
+		}
+
+		return array('controller'=>$controller,'view'=>$view);
+	}
+
 }

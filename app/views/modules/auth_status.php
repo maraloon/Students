@@ -1,6 +1,6 @@
 <?php if($authorized): ?>
 	
-	Вошли как: <?=$userName?> <?=$userSName?>
+	Вошли как: <?=$user['name']?> <?=$user['sname']?>
 	<br>
 	<a href='<?=ViewHelper::url('edit')?>'>Редактировать</a>
 

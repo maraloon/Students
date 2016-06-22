@@ -1,7 +1,7 @@
 {
 	"main":
 	{
-		"controller": "main",
+		"controller": "Main",
 		"view": "main",
 		"title": "Студенты",
 		"show": "all"

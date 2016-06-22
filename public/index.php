@@ -1,8 +1,4 @@
 <?php
-chdir ('../');
-include ('app/bootstrap.php');
-
-
+include ("../app/bootstrap.php");
 //Запускаем главный контроллер
-$frontController=new FrontController();
-$frontController->start();
+$frontController=new FrontController($container);

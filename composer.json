@@ -1,0 +1,7 @@
+{
+    "name": "sidspears/students",
+    "description": "StudentDB",
+    "require": {
+        "pimple/pimple": "^3.0"
+    }
+}
