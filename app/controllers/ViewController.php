@@ -14,9 +14,12 @@ abstract class ViewController  extends Controller{
 
 
 		//распаковываем массив в переменные
-		foreach ($viewData as $key => $value) {
-			$$key=$value;
+		if (isset($viewData)) {
+			foreach ($viewData as $key => $value) {
+				$$key=$value;
+			}
 		}
+
 
 		//Показываем страницу
 		foreach ($path as &$file) {
@@ -25,7 +28,8 @@ abstract class ViewController  extends Controller{
 
 		$cssFile=$path['css'];
 		include($path['views'].'/modules/header.php');
-		include($path['views'].'/pages/'.$view.'.php');
+		//include($path['views'].'/pages/'.$view.'.php');
+		include($path['views'].'/'.$view.'.php');
 		include($path['views'].'/modules/footer.php');
 	}
 }

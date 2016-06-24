@@ -45,7 +45,8 @@ class StudentValidator{
 			'regexp'=>"/\@/u",
 			'min' => 3,
 			'max' => 200,
-			'message' => 'E-mail должен содержать знак @'
+			'name' => 'E-mail',
+			'message' => 'должен содержать знак @'
 		),
 		'b_year'=>array(
 			'type'=>'int',

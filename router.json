@@ -2,7 +2,7 @@
 	"main":
 	{
 		"controller": "Main",
-		"view": "main",
+		"view": "pages/main",
 		"title": "Студенты",
 		"show": "all"
 	},
@@ -33,16 +33,16 @@
 	
 	"edit_ok":
 	{
-		"controller": "",
-		"view": "edit_ok",
+		"controller": "Edit",
+		"view": "status/edit_ok",
 		"title": "Успешное изменение данных",
 		"show": "member"
 	},
 
 	"edit":
 	{
-		"controller": "edit",
-		"view": "edit",
+		"controller": "Edit",
+		"view": "pages/edit",
 		"title": "Изменение данных",
 		"show": "member"
 	},
