@@ -17,18 +17,18 @@
 	
 	"register":
 	{
-		"controller": "register",
-		"view": "register",
+		"controller": "Register",
+		"view": "pages/register",
 		"title": "Регистрация",
 		"show": "guest"
 	},
 	
 	"register_ok":
 	{
-		"controller": "",
-		"view": "register_ok",
+		"controller": "Register",
+		"view": "status/register_ok",
 		"title": "Успешная регистрация",
-		"show": "member"
+		"show": "all"
 	},
 	
 	"edit_ok":

@@ -1,7 +1,7 @@
 <?php
 
-class EditController extends ViewController{
-	protected $validModules=array('edit','edit_ok');
+abstract class ERController extends ViewController{
+	protected $validModules=array();
 	protected $student;
 	protected $token;
 	protected $userErrors=array(); //все ошибки во время регистрации
