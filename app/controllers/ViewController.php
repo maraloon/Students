@@ -1,24 +1,19 @@
 <?php
 
 abstract class ViewController  extends Controller{
-	function __construct($container){
-		parent::__construct($container);
-	}
+	protected $viewData;
 
-
-	public function showView($view,$viewData){
+	public function showView($view){
 		$path=array(
 				'views'=>'app/views/',
 				'css'=>'public/src/style.css'
 				);
-
-
 		//распаковываем массив в переменные
-		if (isset($viewData)) {
-			foreach ($viewData as $key => $value) {
+		//if (isset($this->viewData)) {
+			foreach ($this->viewData as $key => $value) {
 				$$key=$value;
 			}
-		}
+		//}
 
 
 		//Показываем страницу

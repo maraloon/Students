@@ -87,22 +87,21 @@ class MainController extends ViewController{
 		$this->orderBy=$orderBy;
 	}
 
-	public function showView($viewName,$viewData=NULL){
+	public function showView($viewName){
 		//Данные, спользуемые в представлении
 		//Возможно, нужно сделать viewData объектом (MainViewData), в котором будут перечисленны обязательные переменные, используемые представлением
-		$viewData['students']=$this->c['table']->getStudents($this->sortBy,$this->orderBy,$this->limit,$this->offset,$this->find);
+		$this->viewData['students']=$this->c['table']->getStudents($this->sortBy,$this->orderBy,$this->limit,$this->offset,$this->find);
 		//Генерация динамического контента для представления
-		$viewData['viewer'] = new ViewHelper($this->currentPage,$this->sortBy,$this->orderBy,$this->find);
+		$this->viewData['viewer'] = new ViewHelper($this->currentPage,$this->sortBy,$this->orderBy,$this->find);
 		//Остальное
-		$viewData['authorized']=$this->isAuthorized;
+		$this->viewData['authorized']=$this->isAuthorized;
 		if ($this->isAuthorized) {
-			$viewData['user']=$this->user;
+			$this->viewData['user']=$this->user;
 		}
-		$viewData['find']=$this->find;
-		$viewData['pages']=$this->pages;
-		$viewData['currentPage']=$this->currentPage;
-		//$viewData['title']=$title;
+		$this->viewData['find']=$this->find;
+		$this->viewData['pages']=$this->pages;
+		$this->viewData['currentPage']=$this->currentPage;
 
-		parent::showView($viewName,$viewData);
+		parent::showView($viewName);
 	}
 }

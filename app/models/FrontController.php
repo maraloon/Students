@@ -28,7 +28,6 @@ class FrontController extends Controller{
 
 		}*/
 		$components['controller'].='Controller';
-		var_dump($components);
 		$controller= new $components['controller']($container,$this->isAuthorized); //new RegisterController extends Controller
 		$controller->showView($components['view']);
 
