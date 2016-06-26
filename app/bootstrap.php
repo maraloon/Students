@@ -8,8 +8,9 @@ mb_internal_encoding('utf-8');
 //Ловец ошибок
 /*set_exception_handler(function (Throwable $exception) {
     // Функция будет вызвана при возникновении исключения
-	error_log($exception->__toString()."\n\n",3,'errors.log');
-	include('public/503.php');
+	//error_log($exception->__toString()."\n\n",3,'errors.log');
+	error_log($exception->__toString()."\n\n",0);
+	include('../public/error_pages/503.php');
 });*/
 
 
@@ -19,7 +20,7 @@ mb_internal_encoding('utf-8');
 spl_autoload_register(
 	function ($className) {
 		// Получаем путь к файлу из имени класса
-		$folders=array('models','exeptions','controllers');
+		$folders=array('classes','exeptions','controllers');
 
 		foreach ($folders as $folder) {
 			$path = "../app/$folder/$className.php";

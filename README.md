@@ -72,26 +72,9 @@ json_decode может вернуть null если в JSON ошибка. Тут
 https://github.com/TheSidSpears/Students/blob/master/app/models/JSON.php
 Название класса мало что говорит о его функции. Надо назвать вроде ConfigLoader.
 
-####ToDo####
-
 https://github.com/TheSidSpears/Students/blob/master/errors.log
 Этот файл надо убрать из репозитория, добавив в .gitignore и сделав git rm с нужными флагами
 
-https://github.com/TheSidSpears/Students/blob/master/public/503.php#L1
-> header(' ', true, 503); 
-Что это за синтаксис? Что за пустой заголовок? По моему это не будет работать. Там надо отправлять заголоок вроде HTTP/1.1 503 xxxx, почитай хотя бы мануал по функции header().
-
-
-
-https://github.com/TheSidSpears/Students/blob/master/app/bootstrap.php#L12
-А зачем заводить свой собственный лог? Не лучше ли писать в стандартный лог PHP? ты кстати, знаешь, где он находится?
-
-https://github.com/TheSidSpears/Students/blob/master/app/bootstrap.php#L20
-> spl_autoload_register(
-Тут незачем делать 2 автозагрузчика, проще сделать один, который проверяет разные пути. А еще лучше, конечно, было бы использовать PSR-4 при выборе названий классов и файлов.
-
-https://github.com/TheSidSpears/Students/tree/master/app/models
-Тут в папку свалены разные классы, часть из которых точно не модели - например, FrontController никак моделью не является. Роутер явно не является частью модели. И вообще, MVC не значит что у тебя должно быть ровно 3 папки view, controller и model. Это деление приложения на 3 части, а не файлов на 3 папки.
 
 https://github.com/TheSidSpears/Students/blob/master/app/models/FrontController.php
 Тут единственная функция со стеной кода. Учись разбивать код на части и выносить в отдельные функции. Я тут явно вижу функции вроде определения контроллера или вроде вывода шаблона.
@@ -108,7 +91,12 @@ https://github.com/TheSidSpears/Students/blob/master/app/models/FrontController.
 > if (!empty($view)){
 Опять же, мне это не нравится, ты полагаешься на то, что код где-то в другом месте приложения выставит переменную. Это очень неочевидно и ненадежно, как мне кажется.
 
+https://github.com/TheSidSpears/Students/blob/master/public/503.php#L1
+> header(' ', true, 503); 
+Что это за синтаксис? Что за пустой заголовок? По моему это не будет работать. Там надо отправлять заголоок вроде HTTP/1.1 503 xxxx, почитай хотя бы мануал по функции header().
 
+https://github.com/TheSidSpears/Students/blob/master/app/bootstrap.php#L12
+А зачем заводить свой собственный лог? Не лучше ли писать в стандартный лог PHP? ты кстати, знаешь, где он находится?
 
 https://github.com/TheSidSpears/Students/blob/master/app/models/Router.php
 Для "игнорирования" query string праивльне использовать функцию parse_url а не самодельный сомнительный код. Он еще и работает неправильно в случае /a/b/c?d=e/f
@@ -120,6 +108,7 @@ https://github.com/TheSidSpears/Students/blob/master/app/models/Router.php
 
 https://github.com/TheSidSpears/Students/blob/master/app/controllers/main.php
 Если ты используешь ООП, почему бы и контроллер не сделать классом?
+
 ------------------------------
 > $db=new DataBase($config['db']);
 Это раскидано в нескольких местах кода. Вообще-то идея была, чтобы в bootstrap создать нужные объекты один раз. Ты создаешь несколько соединений с базой данных например, несколько StudentDataGateway. Это не очень логично.
@@ -144,6 +133,20 @@ $container->add('pdo', new PDO...);
 
 Я советую не делать слишком сложных решений. Для простой задачи наверно и массив сойдет. 
 -----------------------------------------------
+
+####ToDo####
+
+
+
+https://github.com/TheSidSpears/Students/blob/master/app/bootstrap.php#L20
+> spl_autoload_register(
+Тут незачем делать 2 автозагрузчика, проще сделать один, который проверяет разные пути. А еще лучше, конечно, было бы использовать PSR-4 при выборе названий классов и файлов.
+
+https://github.com/TheSidSpears/Students/tree/master/app/models
+Тут в папку свалены разные классы, часть из которых точно не модели - например, FrontController никак моделью не является. Роутер явно не является частью модели. И вообще, MVC не значит что у тебя должно быть ровно 3 папки view, controller и model. Это деление приложения на 3 части, а не файлов на 3 папки.
+
+
+
 > if($currentPage<=0){$currentPage=1;} 
 Тебе надо лучше форматировать код. Иф пишется в 3 строки, а не в одну. Также, тут можно было обойтись функцией max.
 

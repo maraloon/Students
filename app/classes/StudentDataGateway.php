@@ -12,26 +12,13 @@ addStudent
 editStudent
 */
 class StudentDataGateway{
-
-
-
-
 	protected $db; //Объект PDO
 	public $userErrors=array(); //Ошибки, которые будут показаны пользователю
-	
-	
-	
-	
+
 	function __construct(PDO $connection){
 		$this->db=$connection;
 	}
-	
-	
 
-	
-	
-	
-	
 	//Выполняет SQL-запрос или выкидывает ошибку
 	protected function pdoExec($rows,$func_name){
 
@@ -39,12 +26,6 @@ class StudentDataGateway{
 			throw new StudentDataGatewayException("Ошибка в ф-ии $func_name: ".__CLASS__);	
 		} 
 	}
-	
-	
-
-
-
-
 
 	/* Кол-во записей в таблице
 	*
@@ -163,10 +144,8 @@ class StudentDataGateway{
 
 		return $status;
 	}	
-	
-	
-	
-	
+
+
 	
 	//Добавляет новую строку в БД
 	public function addStudent(Student $student){		

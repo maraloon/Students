@@ -14,8 +14,6 @@
 class FrontController extends Controller{	
 	public $isAuthorized=false; //возможно, нужно будет изменить на private
 
-
-
 	function __construct($container){
 		parent::__construct($container);
 
@@ -24,9 +22,7 @@ class FrontController extends Controller{
 		}
 
 		$components=$this->setComponents();
-		/*if (!empty($components['controller'])) {
-
-		}*/
+		//var_dump($components);
 		$components['controller'].='Controller';
 		$controller= new $components['controller']($container,$this->isAuthorized); //new RegisterController extends Controller
 		$controller->showView($components['view']);
@@ -49,13 +45,13 @@ class FrontController extends Controller{
 				$view=$list[$module]['view'];					
 			}
 			else{
-				$controller=$list['403']['controller'];
-				$view=$list['403']['view'];				
+				include(Util::getAbsolutePath('/public/error_pages/403.php'));
+				exit;
 			}
 		}
 		else{
-			$controller=$list['404']['controller'];
-			$view=$list['404']['view'];
+			include(Util::getAbsolutePath('/public/error_pages/404.php'));
+			exit;
 		}
 
 		return array('controller'=>$controller,'view'=>$view);

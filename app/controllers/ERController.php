@@ -26,7 +26,7 @@ abstract class ERController extends ViewController{
 			if(!$this->checkToken()){
 				//Попытка взлома
 				  //header($_SERVER["SERVER_PROTOCOL"]." 400 Bad Request"); 
-				  header(' ', true, 400); //Так, вроде правильней
+				  header(' ', true, 400);
 			}
 			else{
 				//Тестовый студент
@@ -57,8 +57,6 @@ abstract class ERController extends ViewController{
 		}
 		//Если юзер перешел на форму и еще ничего не передавал
 		else{
-			
-			//заполняет форму регистрации пустыми значениями
 			$this->student=static::prepareStudentForForm();
 			
 		}

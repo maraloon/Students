@@ -7,41 +7,39 @@ class ViewHelper{
 	public $sortBy;
 	public $orderBy;
 	public $find;
+	protected $c;
 
-
-	function __construct($page,$sortBy,$orderBy,$find){
+	function __construct($page,$sortBy,$orderBy,$find,$container){
 		$this->page=$page;
 		$this->sortBy=$sortBy;
 		$this->orderBy=$orderBy;
 		$this->find=$find;
+		$this->c=$container;
 	}
 
-	static function url($url){
+/*	static function url($url){
 		$routes = explode('/', $_SERVER['REQUEST_URI']);
 		$routes[count($routes)-1]=$url;
 		return implode('/', $routes);
-	}
+	}*/
 
 
 	//html->htmlspecialchars
-	static function html($string,$find=NULL){
-		$string=htmlspecialchars($string,ENT_QUOTES);
+	static function html($string){
+		return htmlspecialchars($string,ENT_QUOTES);
+	}
 
-		//Обозначать цветом найденную подстроку
-		if (isset($find)) {
-			$reg="/$find/ui";
-			$string=preg_replace($reg, "<font style='background-color: yellow;'>$0</font>", $string);
-		}
-
+	//Обозначать цветом найденную подстроку
+	static function highlight($string,$find){
+		$reg=preg_quote("/$find/ui");
+		$string=preg_replace($reg, "<font style='background-color: yellow;'>$0</font>", $string);
 		return $string;
 	}
 
 	function makeUrl(Array $params){
 		$urlVars= array('page' => $this->page, 'sortBy' => $this->sortBy,'orderBy' => $this->orderBy,'find' => $this->find);
 		$blockedParams=array_diff_key($urlVars,$params); //ключи что есть в $urlVars, но нет в $params
-		//возможно эти 2 строчки нужно в main.php и передавать уже строку в конструктор
-		$router=new Router();
-		$module=$router->getModule();
+		$module=$this->c['router']->getModule();
 
 		$url=$module."?";
 		

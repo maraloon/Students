@@ -7,14 +7,6 @@
 		"show": "all"
 	},
 	
-	"auth":
-	{
-		"controller": "auth",
-		"view": "auth",
-		"title": "Авторизация",
-		"show": "guest"
-	},
-	
 	"register":
 	{
 		"controller": "Register",
@@ -49,8 +41,8 @@
 	
 	"search":
 	{
-		"controller": "main",
-		"view": "search",
+		"controller": "Main",
+		"view": "pages/search",
 		"title": "Поиск",
 		"show": "all"
 	},
@@ -58,21 +50,21 @@
 	"403":
 	{
 		"controller": "",
-		"view": "403",
+		"view": "errors/403",
 		"show": "all"
 	},
 	
 	"404":
 	{
 		"controller": "",
-		"view": "404",
+		"view": "errors/404",
 		"show": "all"
 	},
 	
 	"503":
 	{
 		"controller": "",
-		"view": "503",
+		"view": "errors/503",
 		"show": "all"
 	}
 }

@@ -1,5 +1,5 @@
 <br><br>
-<a href='<?=ViewHelper::url('main')?>'>Главная</a>
+<a href='<?=Router::url('main')?>'>Главная</a>
 <br><br>
 
 <hr>

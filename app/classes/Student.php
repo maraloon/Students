@@ -7,7 +7,6 @@ addInfo
 
 
 class Student{
-	//private $id; //- не знаю, нужен ли
 	public $name; //string(200)
 	public $sname; //string(200)
 	public $group_num; //string(5)
@@ -31,10 +30,7 @@ class Student{
 					//Передать значение объекту
 					$this->$key=$value;
 				}
-				
 			}
-
 		}
 	}
-
 }

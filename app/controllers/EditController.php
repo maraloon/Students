@@ -4,13 +4,7 @@ class EditController extends ERController{
 	protected $validModules=array('edit','edit_ok');
 
 	protected function editModule(){
-		if (isset($_COOKIE['hash'])) {
 			parent::Module();
-		}
-		else{
-			header(' ', true, 503);
-		}
-
 	}
 
 	protected function edit_okModule(){}

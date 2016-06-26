@@ -59,7 +59,9 @@ class MainController extends ViewController{
 		$studentsNum=$this->c['table']->countStudents($this->find); //всего студентов в базе
 		$pages=ceil($studentsNum/$limit); //всего страниц
 		$currentPage=isset($_GET['page']) ? $_GET['page'] : 1; //текущая страница
-		if($currentPage<=0){$currentPage=1;} //если хакир передаст строку, она преобразуется в int 1
+		if($currentPage<=0){ //если хакир передаст строку, она преобразуется в int 1
+			$currentPage=1;
+		} 
 		$offset=($currentPage-1)*$limit; //сдвиг, иначе - с какой строки начать отображение
 
 		$this->currentPage=$currentPage;
@@ -92,7 +94,7 @@ class MainController extends ViewController{
 		//Возможно, нужно сделать viewData объектом (MainViewData), в котором будут перечисленны обязательные переменные, используемые представлением
 		$this->viewData['students']=$this->c['table']->getStudents($this->sortBy,$this->orderBy,$this->limit,$this->offset,$this->find);
 		//Генерация динамического контента для представления
-		$this->viewData['viewer'] = new ViewHelper($this->currentPage,$this->sortBy,$this->orderBy,$this->find);
+		$this->viewData['viewer'] = new ViewHelper($this->currentPage,$this->sortBy,$this->orderBy,$this->find,$this->c);
 		//Остальное
 		$this->viewData['authorized']=$this->isAuthorized;
 		if ($this->isAuthorized) {
@@ -101,7 +103,7 @@ class MainController extends ViewController{
 		$this->viewData['find']=$this->find;
 		$this->viewData['pages']=$this->pages;
 		$this->viewData['currentPage']=$this->currentPage;
-
+		
 		parent::showView($viewName);
 	}
 }
