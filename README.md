@@ -1,9 +1,5 @@
--Чтение <title> из json удалить. Такую инфу лучше держать в БД
-
-
 ToDo (по условию):
 -при ошибке ввода отображать --- и выделенным красным цветом ошибочным полем
--Выводятся по 50 человек на страницу (у меня 10)
 -ахуинный css дезигн (стырить)
 
 
@@ -17,26 +13,10 @@ ToDo (по условию):
 -Student: данные можно добавлять как через addInfo, так и напрямую. Верно ли это?
 
 
-
-Мелочишки:
--controllers/edit: проверка $_COOKIE['hash'] - нужно ли?
--controllers/edit,register: убрать, по возможности копипасты - не знаю как
--showSortOrder не должен выводить символы, а возвращать true/false - усложнение кода, не нужно
--разобраться с set_exception_handler
-
-
 Редирект это отдача в качестве ответа кода 3xx и заголовка Location. Редиректить при ошибке, как и при 404 или 403 - неправильно. Вдобавок, в адресной строке браузера теряется УРЛ и обновить страницу нельзя.
 
 
 Кстати, тебе дополнительное задание. Сделай Cli скрипт который загружает по очереди всех студентов из БД, проверяет каждого на правильность и если есть ошибки, пишет id студента и подробности ошибок.
-
-https://github.com/TheSidSpears/Students/blob/master/public/index.php
-> chdir ('../')
-Вместо того, чтобы полагаться на текущий каталог, лучше использовать абсолютные пути, например, содержащие _ _ DIR _ _ в начале. А то у тебя код получается зависит от того праивльный ли текущий каталог задан, что создает возможности сделать ошибку.
->  Мне в начале каждого адреса такую шнагу прописывать __DIR__.'/../ ?
-Либо прописывать, либо сделать функцию например так:
-$helper->getAbsolutePath('/config.json');
-PathHelper::getAbsolutePath('/confog.json');
 
 
 //--------------ОТВЕТЫ-------------//
@@ -142,20 +122,20 @@ https://github.com/TheSidSpears/Students/blob/master/app/bootstrap.php#L20
 > spl_autoload_register(
 Тут незачем делать 2 автозагрузчика, проще сделать один, который проверяет разные пути. А еще лучше, конечно, было бы использовать PSR-4 при выборе названий классов и файлов.
 
-https://github.com/TheSidSpears/Students/tree/master/app/models
-Тут в папку свалены разные классы, часть из которых точно не модели - например, FrontController никак моделью не является. Роутер явно не является частью модели. И вообще, MVC не значит что у тебя должно быть ровно 3 папки view, controller и model. Это деление приложения на 3 части, а не файлов на 3 папки.
+<!-- https://github.com/TheSidSpears/Students/tree/master/app/models
+Тут в папку свалены разные классы, часть из которых точно не модели - например, FrontController никак моделью не является. Роутер явно не является частью модели. И вообще, MVC не значит что у тебя должно быть ровно 3 папки view, controller и model. Это деление приложения на 3 части, а не файлов на 3 папки. -->
 
 
 
-> if($currentPage<=0){$currentPage=1;} 
-Тебе надо лучше форматировать код. Иф пишется в 3 строки, а не в одну. Также, тут можно было обойтись функцией max.
+<!-- > if($currentPage<=0){$currentPage=1;} 
+Тебе надо лучше форматировать код. Иф пишется в 3 строки, а не в одну. Также, тут можно было обойтись функцией max. -->
 
-https://github.com/TheSidSpears/Students/blob/master/app/models/ViewHelper.php
-Тут оформление кода ужасное. Что за полотна из пустых строк? Почему скобка на одной строке с заголовком функции?
+<!-- https://github.com/TheSidSpears/Students/blob/master/app/models/ViewHelper.php
+Тут оформление кода ужасное. Что за полотна из пустых строк? Почему скобка на одной строке с заголовком функции? -->
 
-> $routes = explode('/', $_SERVER['REQUEST_URI']);
+<!-- > $routes = explode('/', $_SERVER['REQUEST_URI']);
 >        $routes[count($routes)-1]=$url;
-Это копипаста (причем неточная) кода из роутера. Почему у тебя разбор УРЛ сделан в 2 разных местах, причем еще и по-разному? Принцип "единой ответственности", когда за каждую задачу отвечает кто-то один, не соблюдается.
+Это копипаста (причем неточная) кода из роутера. Почему у тебя разбор УРЛ сделан в 2 разных местах, причем еще и по-разному? Принцип "единой ответственности", когда за каждую задачу отвечает кто-то один, не соблюдается. -->
 
 <!-- > static function html($string,$find=NULL){
 По моему экранирование и подсветка совпадений - это две разные функции. --> 
@@ -167,14 +147,17 @@ https://github.com/TheSidSpears/Students/blob/master/app/models/ViewHelper.php
 > $router=new Router();
 Опять же, почему-то у тебя создается несколько экземплятров роутера в приложении.
  -->
-https://github.com/TheSidSpears/Students/blob/master/app/models/ViewHelper.php#L63
+<!-- https://github.com/TheSidSpears/Students/blob/master/app/models/ViewHelper.php#L63
 > return self::html($url);
-Почему функция makeUrl вызывает self::html? А что если нам нужен исходный неискаженный УРЛ (например мы хотим редиректить на него)?
+Почему функция makeUrl вызывает self::html? А что если нам нужен исходный неискаженный УРЛ (например мы хотим редиректить на него)? -->
+Изменить в представлениях: <?=ViewHelper::html($viewer->makePageUrl($i))?>
 
-> https://github.com/TheSidSpears/Students/blob/master/app/models/ViewHelper.php#L57
+
+
+<!-- > https://github.com/TheSidSpears/Students/blob/master/app/models/ViewHelper.php#L57
 > foreach ($blockedParams as $key => $value) {
 >                $url.=$key."=".$value."&";
-Что если в value содержится символ &, #, ? или какой-то еще, имеющий специальное значение в УРЛ?
+Что если в value содержится символ &, #, ? или какой-то еще, имеющий специальное значение в УРЛ? -->
 
 <!-- https://github.com/TheSidSpears/Students/blob/master/app/models/Util.php#L12
 >  $result .= $array[mt_rand(0, 35)];
@@ -224,17 +207,17 @@ https://github.com/TheSidSpears/Students/blob/master/app/models/ViewHelper.php#L
 >            throw new StudentDataGatewayException("Ошибка в ф-ии $func_name: ".__CLASS__);  
 Если ты используешь ERRMODE_EXCEPTION то PDO сам выкидывает искючения при ошибке. Этот иф не нужен.
  -->
-https://github.com/TheSidSpears/Students/blob/master/app/models/StudentDataGateway.php#L63
+<!-- https://github.com/TheSidSpears/Students/blob/master/app/models/StudentDataGateway.php#L63
 > LIKE '%$search%'");
-Это SQL инъекция. Не вставляй данные напрямую в запрос
+Это SQL инъекция. Не вставляй данные напрямую в запрос -->
 
 > $count=$rows->fetchAll(PDO::FETCH_ASSOC);
 >        return $count[0]["COUNT(*)"];
 В PDO есть функция чтобы вернуть первое значение из первой строки.
 
-> foreach ($columns as &$column) {
+<!-- > foreach ($columns as &$column) {
 >            $column=$column["Field"];
-Есть array_column для этого
+Есть array_column для этого -->
 
 > $students[]=new Student();        
 >            $students[count($students)-1]->addInfo($studentRow);
@@ -261,13 +244,13 @@ https://github.com/TheSidSpears/Students/blob/master/app/views/auth_form.php
 br вернй признак того, что ты не знаешь CSS. Обрати внимание, в ОП посте есть задачи по CSS.
 
 https://github.com/TheSidSpears/Students/blob/master/app/views/student_form.php
-Тут стоит добавить html5 валидацию, хотя бы required например.
+Тут стоит добавить html5 валидацию, хотя бы <!-- required --> например.
 
-> <?php if($s->is_resident): ?>
+<!-- > <?php if($s->is_resident): ?>
 >    <input type="radio" name="is_resident" value="resident" checked> Местный
 > <?php else: ?>
 >    <input type="radio" name="is_resident" value="resident"> Местный
-Не требуется копипастить input, хватит <?= $resident ? ' checked ' : '' ?>
+Не требуется копипастить input, хватит <?= $resident ? ' checked ' : '' ?> -->
 
 <!-- https://github.com/TheSidSpears/Students/tree/master/app/views
 тут у тебя много файлов и их надо хотя бы по папкам организровать как-то -->

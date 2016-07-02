@@ -52,9 +52,6 @@ class StudentDataGateway{
 		$rows = $this->db->prepare("SHOW COLUMNS FROM `students`");
 		$rows->execute();
 		$columns=$rows->fetchAll(PDO::FETCH_ASSOC);
-		/*foreach ($columns as &$column) {
-			$column=$column["Field"];
-		}*/
 		$columns = array_column($columns, 'Field');
 
 		return $columns;

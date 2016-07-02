@@ -40,17 +40,9 @@ class ViewHelper{
 		$urlVars= array('page' => $this->page, 'sortBy' => $this->sortBy,'orderBy' => $this->orderBy,'find' => $this->find);
 		$blockedParams=array_diff_key($urlVars,$params); //ключи что есть в $urlVars, но нет в $params
 		$module=$this->c['router']->getModule();
-
-		$url=$module."?";
 		
-		//вставляем гет-переменные, которые не нужно менять
-		foreach ($blockedParams as $key => $value) {
-				$url.=$key."=".$value."&";		
-		}
-		//вставляем гет-переменные с новыми значениями
-		$url.=http_build_query($params);
-
-		return self::html($url);
+		$url=$module."?".http_build_query(array_merge($blockedParams,$params));
+		return $url;
 	}
 
 	//Меняет или добавляет в текущий url значение переменоых sortBy, orderBy

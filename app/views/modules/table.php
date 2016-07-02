@@ -60,8 +60,7 @@
 					[<?=$i?>]
 					
 				<?php else: ?>
-					[<a href='<?=$viewer->makePageUrl($i)?>'><?=$i?></a>]
-					
+					[<a href='<?=ViewHelper::html($viewer->makePageUrl($i))?>'><?=$i?></a>]
 				<?php endif;?>	
 				
 				
