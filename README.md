@@ -157,16 +157,16 @@ https://github.com/TheSidSpears/Students/blob/master/app/models/ViewHelper.php
 >        $routes[count($routes)-1]=$url;
 Это копипаста (причем неточная) кода из роутера. Почему у тебя разбор УРЛ сделан в 2 разных местах, причем еще и по-разному? Принцип "единой ответственности", когда за каждую задачу отвечает кто-то один, не соблюдается.
 
-> static function html($string,$find=NULL){
-По моему экранирование и подсветка совпадений - это две разные функции. 
+<!-- > static function html($string,$find=NULL){
+По моему экранирование и подсветка совпадений - это две разные функции. --> 
 
-> $reg="/$find/ui";
-Ты подставляешь то, что ввел пользователь, в регулярку, но что если там есть специсмволы, например, плюс, звездочка, точка? надо либо использовать str_replace либо экранировать спецсимволы с помощью preg_quote.
+<!-- > $reg="/$find/ui";
+Ты подставляешь то, что ввел пользователь, в регулярку, но что если там есть специсмволы, например, плюс, звездочка, точка? надо либо использовать str_replace либо экранировать спецсимволы с помощью preg_quote. -->
 
-https://github.com/TheSidSpears/Students/blob/master/app/models/ViewHelper.php#L51
+<!-- https://github.com/TheSidSpears/Students/blob/master/app/models/ViewHelper.php#L51
 > $router=new Router();
 Опять же, почему-то у тебя создается несколько экземплятров роутера в приложении.
-
+ -->
 https://github.com/TheSidSpears/Students/blob/master/app/models/ViewHelper.php#L63
 > return self::html($url);
 Почему функция makeUrl вызывает self::html? А что если нам нужен исходный неискаженный УРЛ (например мы хотим редиректить на него)?
@@ -176,11 +176,11 @@ https://github.com/TheSidSpears/Students/blob/master/app/models/ViewHelper.php#L
 >                $url.=$key."=".$value."&";
 Что если в value содержится символ &, #, ? или какой-то еще, имеющий специальное значение в УРЛ?
 
-https://github.com/TheSidSpears/Students/blob/master/app/models/Util.php#L12
+<!-- https://github.com/TheSidSpears/Students/blob/master/app/models/Util.php#L12
 >  $result .= $array[mt_rand(0, 35)];
 Число 35 надо не вписывать в код, а считать из размера массива.
-
-https://github.com/TheSidSpears/Students/blob/master/app/controllers/edit.php
+ -->
+<!-- https://github.com/TheSidSpears/Students/blob/master/app/controllers/edit.php
 Этот класс на 90% копипаста класса register.php. Ты не должен копипастить код, надо остановиться и подумать, а как можно избежать дублирования кода? Вообще, регистрация и редактирование это практически одно и то же действие.
 
 Те кто копипастят, не думают что будет с кодом дальше, ведь дальше им же самим придется править или добавлять что-то в несколько копий кода.
@@ -188,11 +188,11 @@ https://github.com/TheSidSpears/Students/blob/master/app/controllers/edit.php
 > if (isset($_COOKIE['hash'])) { //нет кука с хешем => не выполнять скрипт
 > ОП, эту куку нужно как-то проверять?
 Надо проверять что она соответствует реальному студенту в БД
-
-> $token= (isset($_COOKIE['token'])) ? $_COOKIE['token'] : Util::randHash(20);
+ -->
+<!-- > $token= (isset($_COOKIE['token'])) ? $_COOKIE['token'] : Util::randHash(20);
 >    setcookie('token',$token,time()+3600,'/',null,false,true);
 Не лучше ли работу с CSRF кукой вынести в отдельный класс? Как ты повторно исплоьзуешь этот код в другом месте? Надо сделать универсальный класс, позволяющий бороться с CSRF в любом контроллере.
-
+ -->
 > foreach($editStudent as $fieldName=>&$fieldValue){
 Это неправильно. В студенте могут быть поля, которые не должны быть доступны для изменения. более того, их могут добавить уже после написания этого кода.
 
@@ -206,24 +206,24 @@ https://github.com/TheSidSpears/Students/blob/master/app/controllers/edit.php
 >                if( empty($table->userErrors) ){
 Вот у тебя есть функция, которая может вернуть ошибки. Почему ты использешь лишнее поле вместо return? Вообще, это плохое поле так как например до вызова функции editStudent оно ничего не содержит. А если вызвать функцию несколько раз то ошибки накапливаются в ней и перестают соответствовать действительности. То есть это поле большую часть времени содержит недействительные данные.
 
->  header(' ', true, 400); //Так, вроде правильней
+<!-- >  header(' ', true, 400); //Так, вроде правильней
 Мало того, что это в общем неправильный синтаксис, так ты еще и дальше продолжаешь выполнять код как ни в чем не бывало.
-
-https://github.com/TheSidSpears/Students/blob/master/app/models/DataBase.php
+ -->
+<!-- https://github.com/TheSidSpears/Students/blob/master/app/models/DataBase.php
 Что делает этот класс? Что он добавляет, чего нет в PDO?
-
-> public function connection(){
+ -->
+<!-- > public function connection(){
 Имена функций начинаются с глагола
-
-https://github.com/TheSidSpears/Students/blob/master/app/models/Student.php#L11
+ -->
+<!-- https://github.com/TheSidSpears/Students/blob/master/app/models/Student.php#L11
 > public $name; //string(200)
 Этот комментарий может быстро устареть, если поменяют код в валидаторе.
-
-https://github.com/TheSidSpears/Students/blob/master/app/models/StudentDataGateway.php#L38
+ -->
+<!-- https://github.com/TheSidSpears/Students/blob/master/app/models/StudentDataGateway.php#L38
 > if (!$rows->execute()){
 >            throw new StudentDataGatewayException("Ошибка в ф-ии $func_name: ".__CLASS__);  
 Если ты используешь ERRMODE_EXCEPTION то PDO сам выкидывает искючения при ошибке. Этот иф не нужен.
-
+ -->
 https://github.com/TheSidSpears/Students/blob/master/app/models/StudentDataGateway.php#L63
 > LIKE '%$search%'");
 Это SQL инъекция. Не вставляй данные напрямую в запрос
@@ -249,9 +249,9 @@ https://github.com/TheSidSpears/Students/blob/master/app/models/StudentDataGatew
 >            $this->userErrors[]='Такой e-mail уже зарегистрирован';
 Разве это не задача валидатора?
 
-> $error_array = $this->db->errorInfo();
+<!-- > $error_array = $this->db->errorInfo();
 >        if($this->db->errorCode() != 0000){
-Это не надо проверять при ERRMODE_EXCEPTION
+Это не надо проверять при ERRMODE_EXCEPTION -->
 
 > //Исключение совпадения e-mail'ов разных юзеров
 >        $currentStudentData=$this->getStudentByHash($student->hash);
@@ -269,8 +269,8 @@ https://github.com/TheSidSpears/Students/blob/master/app/views/student_form.php
 >    <input type="radio" name="is_resident" value="resident"> Местный
 Не требуется копипастить input, хватит <?= $resident ? ' checked ' : '' ?>
 
-https://github.com/TheSidSpears/Students/tree/master/app/views
-тут у тебя много файлов и их надо хотя бы по папкам организровать как-то
+<!-- https://github.com/TheSidSpears/Students/tree/master/app/views
+тут у тебя много файлов и их надо хотя бы по папкам организровать как-то -->
 
 > У меня два файла очень схожи по структуре. Эту копипасту можно как-то сократить? А нужно ли?
 

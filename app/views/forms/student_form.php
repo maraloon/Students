@@ -25,12 +25,16 @@
 
 <input type='number' placeholder='Год рождения' name='b_year' value='<?=ViewHelper::html($s->b_year)?>'>
 <br>
-
+<!-- удалить нижнее -->
 <?php if($s->is_resident): ?>
 	<input type="radio" name="is_resident" value="resident" checked> Местный
 	<input type="radio" name="is_resident" value="foreign" > Иногородний
 <?php else: ?>
 	<input type="radio" name="is_resident" value="resident"> Местный
 	<input type="radio" name="is_resident" value="foreign" checked> Иногородний
+
+	<input type="radio" name="is_resident" value="resident" <?= $s->is_resident ? ' checked ' : '' ?>> Местный
+	<input type="radio" name="is_resident" value="foreign" <?= !$s->is_resident ? ' checked ' : '' ?>> Иногородний
 <?php endif;?>
 <br>
+

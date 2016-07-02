@@ -58,10 +58,11 @@ class MainController extends ViewController{
 		$limit=$this->limit; //студентов на странице
 		$studentsNum=$this->c['table']->countStudents($this->find); //всего студентов в базе
 		$pages=ceil($studentsNum/$limit); //всего страниц
-		$currentPage=isset($_GET['page']) ? $_GET['page'] : 1; //текущая страница
+		/*$currentPage=isset($_GET['page']) ? $_GET['page'] : 1; //текущая страница
 		if($currentPage<=0){ //если хакир передаст строку, она преобразуется в int 1
 			$currentPage=1;
-		} 
+		} */
+		$currentPage=isset($_GET['page']) ? max($_GET['page'],1) : 1;
 		$offset=($currentPage-1)*$limit; //сдвиг, иначе - с какой строки начать отображение
 
 		$this->currentPage=$currentPage;

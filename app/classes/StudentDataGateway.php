@@ -2,7 +2,6 @@
 /*implement
 
 __construct
-pdoExec
 countStudents
 private function getColumns
 getStudents
@@ -19,13 +18,6 @@ class StudentDataGateway{
 		$this->db=$connection;
 	}
 
-	//Выполняет SQL-запрос или выкидывает ошибку
-	protected function pdoExec($rows,$func_name){
-
-		if (!$rows->execute()){
-			throw new StudentDataGatewayException("Ошибка в ф-ии $func_name: ".__CLASS__);	
-		} 
-	}
 
 	/* Кол-во записей в таблице
 	*
@@ -42,11 +34,13 @@ class StudentDataGateway{
 		//Если задан поиск по строке $search
 		if (isset($search)) {
 			$rows = $this->db->prepare("SELECT COUNT(*) FROM `students` WHERE CONCAT(`name`,' ',`sname`,' ',`group_num`,' ',`points`,' ',`gender`,' ',`email`,' ',`b_year`,' ',`is_resident`) LIKE '%$search%'");
+			$search='%'.$search.'%';
+			$rows->bindValue(':search', $search, PDO::PARAM_STR);
 		}
 		
 
 		
-		$this->pdoExec($rows,__FUNCTION__);
+		$rows->execute();
 
 		$count=$rows->fetchAll(PDO::FETCH_ASSOC);
 		return $count[0]["COUNT(*)"];
@@ -56,11 +50,12 @@ class StudentDataGateway{
 	
 	private function getColumns(){
 		$rows = $this->db->prepare("SHOW COLUMNS FROM `students`");
-		$this->pdoExec($rows,__FUNCTION__);
+		$rows->execute();
 		$columns=$rows->fetchAll(PDO::FETCH_ASSOC);
-		foreach ($columns as &$column) {
+		/*foreach ($columns as &$column) {
 			$column=$column["Field"];
-		}
+		}*/
+		$columns = array_column($columns, 'Field');
 
 		return $columns;
 	}
@@ -81,14 +76,16 @@ class StudentDataGateway{
 		$rows = $this->db->prepare("SELECT * FROM `students` ORDER BY $sortBy $orderBy LIMIT :y OFFSET :x");
 		//Если задан поиск по строке $search
 		if (isset($search)) {
-			$rows = $this->db->prepare("SELECT * FROM `students` WHERE CONCAT(`name`,' ',`sname`,' ',`group_num`,' ',`points`,' ',`gender`,' ',`email`,' ',`b_year`,' ',`is_resident`) LIKE '%$search%' ORDER BY $sortBy $orderBy LIMIT :x,:y");
+			$rows = $this->db->prepare("SELECT * FROM `students` WHERE CONCAT(`name`,' ',`sname`,' ',`group_num`,' ',`points`,' ',`gender`,' ',`email`,' ',`b_year`,' ',`is_resident`) LIKE :search ORDER BY $sortBy $orderBy LIMIT :x,:y");
+			$search='%'.$search.'%';
+			$rows->bindValue(':search', $search, PDO::PARAM_STR);
 		}
 
-
+		
 		$rows->bindValue(':y', $limit, PDO::PARAM_INT);
 		$rows->bindValue(':x', $offset, PDO::PARAM_INT);
 
-		$this->pdoExec($rows,__FUNCTION__);
+		$rows->execute();
 		
 		$studentsRows=$rows->fetchAll(PDO::FETCH_ASSOC);
 		//var_dump($studentsRows);
@@ -108,7 +105,7 @@ class StudentDataGateway{
 	public function getStudentByHash($hashFromCookie){
 		$rows = $this->db->prepare("SELECT * FROM `students` WHERE `hash`=:hash");
 		$rows->bindValue(':hash', $hashFromCookie, PDO::PARAM_STR);
-		$this->pdoExec($rows,__FUNCTION__);
+		$rows->execute();
 
 		$studentRow=$rows->fetchAll(PDO::FETCH_ASSOC);
 		
@@ -131,7 +128,7 @@ class StudentDataGateway{
 	private function checkEmail($email){
 		$rows = $this->db->prepare("SELECT * FROM `students` WHERE `email`=:email");
 		$rows->bindValue(':email', $email, PDO::PARAM_STR);
-		$this->pdoExec($rows,__FUNCTION__);
+		$rows->execute();
 
 		$studentRow=$rows->fetchAll(PDO::FETCH_ASSOC);	
 
@@ -170,15 +167,7 @@ class StudentDataGateway{
 		$rows->bindValue(':b_year', $student->b_year, PDO::PARAM_INT);
 		$rows->bindValue(':is_resident', $student->is_resident, PDO::PARAM_STR);
 		$rows->bindValue(':hash', $student->hash, PDO::PARAM_STR);
-		$this->pdoExec($rows,__FUNCTION__);
-		
-		//Если есть SQL-ошибка
-		$error_array = $this->db->errorInfo();
-		if($this->db->errorCode() != 0000){
-			throw new StudentDataGatewayException('SQL-ошибка '.$error_array[1].': '.$error_array[2]);
-		}
-	
-
+		$rows->execute();
 	}
 	
 		
@@ -211,7 +200,7 @@ class StudentDataGateway{
 			$rows->bindValue(':b_year', $student->b_year, PDO::PARAM_INT);
 			$rows->bindValue(':is_resident', $student->is_resident, PDO::PARAM_STR);
 			$rows->bindValue(':hash', $student->hash, PDO::PARAM_STR);
-			$this->pdoExec($rows,__FUNCTION__);
+			$rows->execute();
 
 			//Если есть SQL-ошибка
 			$error_array = $this->db->errorInfo();

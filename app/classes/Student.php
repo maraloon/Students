@@ -7,12 +7,12 @@ addInfo
 
 
 class Student{
-	public $name; //string(200)
-	public $sname; //string(200)
-	public $group_num; //string(5)
-	public $points; //integer; 0-300
+	public $name;
+	public $sname;
+	public $group_num;
+	public $points;
 	public $gender; //bool; 1 - male, 0 - female
-	public $email; //string(200); [a-z]@[a-z].[a-z]{3}
+	public $email;
 	public $b_year; //string(4); 1900-2016
 	public $is_resident; //bool; 1 - resident, 0 - foreign;
 	public $hash;
