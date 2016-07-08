@@ -7,6 +7,7 @@ addInfo
 
 
 class Student{
+	protected $id;
 	public $name;
 	public $sname;
 	public $group_num;
@@ -19,6 +20,14 @@ class Student{
 	
 	function __construct(){}
 	
+	public function getId(){
+		return $this->id;
+	}
+
+	public function setId($id){
+		$this->id=$id;
+	}
+
 	public function addInfo($infoArray){
 		//В массиве может быть любая чушь, но принимаются значения только с ключами как в классе		
 		foreach($infoArray as $key=>$value){			
@@ -31,6 +40,10 @@ class Student{
 					$this->$key=$value;
 				}
 			}
+		}
+
+		if(isset($infoArray['id'])){
+			$this->setId($infoArray['id']);
 		}
 	}
 }

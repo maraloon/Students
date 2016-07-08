@@ -4,7 +4,7 @@ class EditController extends ERController{
 	protected $validModules=array('edit','edit_ok');
 
 	protected function editModule(){
-			parent::Module();
+		parent::Module();
 	}
 
 	protected function edit_okModule(){}
@@ -19,9 +19,11 @@ class EditController extends ERController{
 		//Создаём объект студента
 		$student=new Student();
 		//безопасное получение переданных значений
-		foreach($student as $fieldName=>&$fieldValue){
-			$fieldValue=isset($studentRow[$fieldName]) ? trim(strval($studentRow[$fieldName])) : '';
+		foreach($studentRow as $fieldValue){
+			$fieldValue=trim(strval($fieldValue));
 		}
+		$student->addInfo($studentRow);
+
 		return $student;
 	}
 
@@ -32,18 +34,7 @@ class EditController extends ERController{
 	}
 
 	protected function editStudent(Student $student){
-		$this->c['table']->editStudent($student);
-
-		if( empty($this->c['table']->userErrors) ){
-			//Успешное изменение данных
-			header('Location: edit_ok');	
-		}
-		//ошибки при добавлениии информации в таблицу
-		else{
-			foreach($this->c['table']->userErrors as $error){
-				$this->userErrors[]=$error;
-			}
-
-		}
+		$edit=$this->c['table']->editStudent($student);
+		header('Location: edit_ok');
 	}
 }

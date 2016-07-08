@@ -8,6 +8,7 @@
 
 <input type="radio" name="gender" value="m" <?= $s->gender ? ' checked ' : '' ?>> Муж.
 <input type="radio" name="gender" value="f" <?= !$s->gender ? ' checked ' : '' ?>> Жен.
+<br>
 
 <input type='text' placeholder='Номер группы' name='group_num' required value='<?=ViewHelper::html($s->group_num)?>'>
 <br>

@@ -6,22 +6,22 @@
 		<tr>
 		
 			<th>
-				<a href='<?=$viewer->makeSortUrl('name')?>'>Имя</a>
+				<a href='<?=ViewHelper::html($viewer->makeSortUrl('name'))?>'>Имя</a>
 				<?=$viewer->showSortOrder('name')?>
 			</th>
 
 			<th>
-				<a href='<?=$viewer->makeSortUrl('sname')?>'>Фамилия</a>
+				<a href='<?=ViewHelper::html($viewer->makeSortUrl('sname'))?>'>Фамилия</a>
 				<?=$viewer->showSortOrder('sname')?>
 			</th>
 
 			<th>
-				<a href='<?=$viewer->makeSortUrl('group_num')?>'>Номер группы</a>
+				<a href='<?=ViewHelper::html($viewer->makeSortUrl('group_num'))?>'>Номер группы</a>
 				<?=$viewer->showSortOrder('group_num')?>
 			</th>
 
 			<th>
-				<a href='<?=$viewer->makeSortUrl('points')?>'>Баллов</a>
+				<a href='<?=ViewHelper::html($viewer->makeSortUrl('points'))?>'>Баллов</a>
 				<?=$viewer->showSortOrder('points')?>
 			</th>
 

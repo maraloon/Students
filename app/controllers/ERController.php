@@ -19,6 +19,8 @@ abstract class ERController extends ViewController{
 	protected function Module(){
 
 		$this->setToken();
+
+		$this->student=static::prepareStudentForForm();
 		//Если данные формы передавались
 		if(!empty($_POST)){
 			
@@ -35,30 +37,21 @@ abstract class ERController extends ViewController{
 				$student=static::fillStudent($student);
 
 				//Ищем ошибки в заполнении
-				$valid=new StudentValidator($student);
-				
+				$id=$this->student->getId();
+				$validator=new StudentValidator($student,$this->c,$id);
+				$validErrors=$validator->getErrors();
+
 				//нет ошибок
-				if(empty($valid->errors)){	
-					//$this->addStudent($student);
+				if(empty($validErrors)){
 					static::writeStudentToDB($student);	
 				}
 				//ошибки в форме
-				else{		
-					foreach($valid->errors as $error){
-						$this->userErrors[]=$error;
-					}
-				}
-				
-				if(!empty($this->userErrors)){
+				else{
 					$this->student=$student;
+					$this->userErrors=$validErrors;	
 				}
 			}
 
-		}
-		//Если юзер перешел на форму и еще ничего не передавал
-		else{
-			$this->student=static::prepareStudentForForm();
-			
 		}
 	}
 
@@ -78,9 +71,10 @@ abstract class ERController extends ViewController{
 	//Передаём весь POST, не фильтруя лишнее - это сделает класс
 	//безопасное получение переданных значений
 	protected function fillStudent(Student $student){
-		foreach($student as $fieldName=>&$fieldValue){
-			$fieldValue=isset($_POST[$fieldName]) ? trim(strval($_POST[$fieldName])) : '';
+		foreach ($_POST as $post) {
+			$post=trim(strval($post));
 		}
+		$student->addInfo($_POST);
 		return $student;
 	}
 
@@ -95,8 +89,6 @@ abstract class ERController extends ViewController{
 	* Какой текст показать в полях формы
 	*/
 	protected function prepareStudentForForm(){}
-
-
 
 	public function showView($viewName){
 		$this->viewData['student']=$this->student;

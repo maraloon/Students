@@ -26,20 +26,8 @@ class RegisterController extends ERController{
 
 	protected function addStudent(Student $student){
 		$this->c['table']->addStudent($student);
-
-		if( empty($this->c['table']->userErrors) ){
-			//Передаём кук с хешем
-			setcookie('hash',$student->hash,time()+3600*12*365,'/',null,false,true);
-			//Переправить
-			header('Location: register_ok');	
-		}
-		//ошибки при добавлениии информации в таблицу
-		else{
-			foreach($this->c['table']->userErrors as $error){
-				$this->userErrors[]=$error;
-			}
-
-		}
+		setcookie('hash',$student->hash,time()+3600*12*365,'/',null,false,true);
+		header('Location: register_ok');	
 	}
 
 

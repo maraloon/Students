@@ -30,9 +30,11 @@ class ViewHelper{
 	}
 
 	//Обозначать цветом найденную подстроку
-	static function highlight($string,$find){
+	static function highlight($string,$find=NULL){
+		If($find!=NULL){
 		$reg=preg_quote("/$find/ui");
 		$string=preg_replace($reg, "<font style='background-color: yellow;'>$0</font>", $string);
+	}
 		return $string;
 	}
 

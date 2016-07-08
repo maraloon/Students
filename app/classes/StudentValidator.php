@@ -1,7 +1,7 @@
 <?php
 class StudentValidator{
-	public $errors=array();
-
+	protected $errors=array();
+	protected $c;
 	
 	private $masks=array(
 		'name'=>array(
@@ -63,7 +63,8 @@ class StudentValidator{
 	);
 	
 	
-	function __construct(Student $s){
+	function __construct(Student $s, $container, $id=NULL){
+		$this->c=$container;
 		$masks=$this->masks;
 		$e=array();
 		
@@ -109,9 +110,24 @@ class StudentValidator{
 				
 			}
 		}
+
+		if (($this->checkEmail($s->email,$id))) {
+			$e[]='Такой e-mail уже зарегистрирован';
+		}
 		
 		//Передаём массив ошибок из ф-ии объекту
 		$this->errors=$e;
 	}
 
+	//Проверяет, а нет ли  в базе такого e-mail'а
+	public function checkEmail($email,$id=NULL){
+
+		$isAlredyRegistered=$this->c['table']->checkEmail($email,$id);
+		return $isAlredyRegistered;
+	}
+
+
+	public function getErrors(){
+		return $this->errors;
+	}
 }
