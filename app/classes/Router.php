@@ -4,6 +4,7 @@
  * Разбирает URL
  *
 **/
+namespace Project\Classes;
 class Router{
 	function __construct(){}
 	

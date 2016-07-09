@@ -1,5 +1,5 @@
 <?php
-
+namespace Project\Controllers;
 class RegisterController extends ERController{
 	protected $validModules=array('register','register_ok');
 

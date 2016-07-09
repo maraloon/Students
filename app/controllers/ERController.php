@@ -1,5 +1,5 @@
 <?php
-
+namespace Project\Controllers;
 abstract class ERController extends ViewController{
 	protected $validModules=array();
 	protected $student;

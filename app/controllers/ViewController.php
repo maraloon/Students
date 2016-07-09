@@ -1,5 +1,5 @@
 <?php
-
+namespace Project\Controllers;
 abstract class ViewController  extends Controller{
 	protected $viewData;
 

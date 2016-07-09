@@ -2,6 +2,7 @@
 /*
 *
 */
+namespace Project\Classes;
 class Util{
 
 	static function randHash($count = 20){

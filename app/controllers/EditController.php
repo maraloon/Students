@@ -1,5 +1,5 @@
 <?php
-
+namespace Project\Controllers;
 class EditController extends ERController{
 	protected $validModules=array('edit','edit_ok');
 

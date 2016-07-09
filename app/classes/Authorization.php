@@ -4,6 +4,7 @@
 * Если вернёт true, то c['auth']->user содержит данные авторизованного студента для представления
 * Которые можно получить из getUser
 */
+namespace Project\Classes;
 class Authorization{
 
 	protected $user;

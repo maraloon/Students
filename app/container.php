@@ -3,6 +3,12 @@
 $container = new Pimple\Container;
 
 //
+use Project\Classes\JSONLoader;
+use Project\Classes\Router;
+use Project\Classes\StudentDataGateway;
+use Project\Classes\Authorization;
+
+
 $container['config']=function ($c) {
     return JSONLoader::config();
 };

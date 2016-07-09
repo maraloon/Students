@@ -10,8 +10,9 @@
  * Подключить вид
 **/
 
+namespace Project\Controllers;
+class FrontController extends Controller{
 
-class FrontController extends Controller{	
 	public $isAuthorized=false; //возможно, нужно будет изменить на private
 
 	function __construct($container){
@@ -23,7 +24,8 @@ class FrontController extends Controller{
 
 		$components=$this->setComponents();
 		//var_dump($components);
-		$components['controller'].='Controller';
+		//$components['controller'].='Controller';
+		$components['controller']='\\Project\\Controllers\\'.$components['controller'].'Controller';
 		$controller= new $components['controller']($container,$this->isAuthorized); //new RegisterController extends Controller
 		$controller->showView($components['view']);
 

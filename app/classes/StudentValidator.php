@@ -1,4 +1,5 @@
 <?php
+namespace Project\Classes;
 class StudentValidator{
 	protected $errors=array();
 	protected $c;

@@ -2,6 +2,7 @@
 /*
 *
 */
+namespace Project\Classes;
 class ViewHelper{
 	public $page;
 	public $sortBy;

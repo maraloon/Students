@@ -5,7 +5,7 @@ __construct
 addInfo
 */
 
-
+namespace Project\Classes;
 class Student{
 	protected $id;
 	public $name;

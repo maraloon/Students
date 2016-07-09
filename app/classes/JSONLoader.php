@@ -2,6 +2,7 @@
 /*
 *
 */
+namespace Project\Classes;
  class JSONLoader{
 
 	//Чтение JSON-файла

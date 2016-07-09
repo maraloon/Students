@@ -1,16 +1,6 @@
 <?php
-
+namespace Project\Controllers;
 class MainController extends ViewController{
-
-	/*private $viewData=array(
-		'students'=>'',
-		'viewer'=>'',
-		'authorized'=>'',
-		'find'=>'',
-		'pages'=>'',
-		'currentPage'=>'',
-		'title'
-		);*/
 
 	private $find; //строка поиска, если NULL, то поиск не используется
 	private $currentPage; //текущая страница
@@ -95,7 +85,7 @@ class MainController extends ViewController{
 		//Возможно, нужно сделать viewData объектом (MainViewData), в котором будут перечисленны обязательные переменные, используемые представлением
 		$this->viewData['students']=$this->c['table']->getStudents($this->sortBy,$this->orderBy,$this->limit,$this->offset,$this->find);
 		//Генерация динамического контента для представления
-		$this->viewData['viewer'] = new ViewHelper($this->currentPage,$this->sortBy,$this->orderBy,$this->find,$this->c);
+		$this->viewData['viewer'] = new \Project\Classes\ViewHelper($this->currentPage,$this->sortBy,$this->orderBy,$this->find,$this->c);
 		//Остальное
 		$this->viewData['authorized']=$this->isAuthorized;
 		if ($this->isAuthorized) {
