@@ -1,3 +1,4 @@
+<div name="auth_status">
 <?php if($authorized): ?>
 	
 	Вошли как: <?=$user['name']?> <?=$user['sname']?>
@@ -11,3 +12,4 @@
 	<a href='<?=Router::url('register')?>'>Регистрация</a>
 	
 <?php endif; ?>
+</div>
