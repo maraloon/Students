@@ -2,7 +2,7 @@
 	Совпадений не найдено
 <?php else: ?>
 
-	<table>
+	<table class="table-fill">
 		<tr>
 		
 			<th>
@@ -29,7 +29,7 @@
 		
 		<?php foreach($students as $student):?>
 			<?php if( (isset($user['email'])) and ($user['email']==$student->email) ):?>
-				<tr bgcolor='green'>
+				<tr bgcolor='green' class="current-user">
 			<?php else: ?>
 				<tr>	
 			<?php endif;?>
