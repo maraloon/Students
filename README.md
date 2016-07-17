@@ -1,7 +1,10 @@
 ToDo (по условию):
--PSR-4
+-PSR-4 через композер. Автоподстановка интерфейсов
 -при ошибке ввода отображать --- и выделенным красным цветом ошибочным полем
 -ахуинный css дезигн (стырить)
+	-main.css
+	-всё по центру
+-title из таблицы
 -настроить права для папок 
 -разобраться с зависимостями классов
 -удалить из 503 чтение файла
@@ -9,248 +12,134 @@ ToDo (по условию):
 
 
 //--------------ОТВЕТЫ-------------//
->>748292 
->>755118
+>>796168
 
-<!-- 
-https://github.com/TheSidSpears/Students/blob/master/students.sql#L31
-> `hash` text NOT NULL,
-Неудачный тип поля на мой взгляд - почему TEXT? Он для строк длиной до 65535 символов, и вряд ли хеш будет такой длины, плюс я не уверен можно ли по нему сделать индекс в дальнейшем.
+<!-- > https://github.com/TheSidSpears/Students/blob/master/students.sql#L31
+>  `hash` text NOT NULL,
+Тут лучше подойдет varchar -->
 
-https://github.com/TheSidSpears/Students/blob/master/config.json
-Не стоит делать конфиг слишком большим. В конфиг мы выносим то, что будет менять конечный пользователь. Название папки с контроллерами вряд ли имеет смысл менять.
+https://github.com/TheSidSpears/Students/blob/master/router.json
+Вот тут я не уверен что в роутере должен указываться вью. зачем? Ты планируешь один вью с несколькими контроллерами использовать? Это вряд ли получится, так как вью привязан к своему контроллеру и не совместим с другими. И даже если он совместим, при правке это легко сломать.
+-Мне на самом деле эта строка нужна была, чтобы указать в какой папке вью. Если заменю "view": "status/register_ok" на "folder": "status" - будет норм?
 
-> <a href='index.php'>На главную</a>
-У тебя URL главной - это index.php или / ? Желательно иметь для одной страницы один УРЛ.
+<!--  Ангалогично мне кажется нет смысла в роутере указвать заголовок страницы (если только ты не используешь это еще например для меню - и то, наверно выгоднее как-то в контроллере это хранить). -->
 
+https://github.com/TheSidSpears/Students/blob/master/public/.htaccess#L5
+не очень понятно зачем тут перенаправление всех УРЛ на 503.php. Коментарий бы добавил.
 
-https://github.com/TheSidSpears/Students/blob/master/public/503.php#L11
->   $array=file('errors.log');
-ЧТо если файл огромный? Это будет медленно и займет много памяти. Ну и не очень понятно, зачем ты вообще выводишь лог для посетителей сайта.
+<!-- https://github.com/TheSidSpears/Students/blob/master/public/errors.log
+Почему лог ошибок в публичной папке? и кстати зачем вообще его было делать, если в php уже есть готовый лог? -->
 
-> for ($i=$count-21; $i < $count; $i++) { 
-А что если в файле меньше 21 строки? Плюс, ты выводишь данные без экранирования и тут явно может быть XSS если HTML код от злоумышлеенника попадет в сообщение в логе. Ты путаешь язык HTML и простой текстовый файл. В HTML некоторые символы имеют специальное знаечние (например < обозначает начало тега) и нельзя просто так выводить произвольный текст.
+<!-- https://github.com/TheSidSpears/Students/blob/master/public/index.php
+тут странный код: ты создаешь объект и ничего с ним не делаешь:
 
-Кстати, раз ты путаешься с этим, реши-ка задачку на экранирование отсюда (и заодно прочитай сам урок): https://github.com/codedokode/pasta/blob/master/soft/web-server.md#Экранирование
+> $frontController=new FrontController($container);
 
-https://github.com/TheSidSpears/Students/blob/master/app/models/JSON.php
-json_decode может вернуть null если в JSON ошибка. Тут нет такой проверки.
+Задача конструктора - инициализировать объект, а не обрабатывать запрос. -->
 
-Блок кода после if должен быть в фигурных скобках.
+<!-- https://github.com/TheSidSpears/Students/blob/master/app/bootstrap.php#L12
+Ты используешь относительный путь который зависит например от теущего каталога. надо использовтаь абсолютный путь например с использованием __DIR__ или метода преобразования относительного пути в абсолютный. -->
 
-https://github.com/TheSidSpears/Students/blob/master/app/models/JSON.php
-Название класса мало что говорит о его функции. Надо назвать вроде ConfigLoader.
+https://github.com/TheSidSpears/Students/blob/master/app/bootstrap.php#L19
+Автозагрузку можно было бы через композер сделать. <!-- И тут та же проблема с относительными путями. -->
 
-https://github.com/TheSidSpears/Students/blob/master/errors.log
-Этот файл надо убрать из репозитория, добавив в .gitignore и сделав git rm с нужными флагами
+<!-- https://github.com/TheSidSpears/Students/blob/master/app/container.php#L7
+>  return JSONLoader::config();
+>   return JSONLoader::router();
+Статические методы это не ООП-подход. Не вижу причин тут использовать статический вызов.  -->Также не вижу где написан путь к конфигу.
 
+Более того, ты возвращаешь массив непонятной структуры. Не лучше ли возвращать объект с методами для получения данных?
+- В чём заключается непонятность структуры? Ты предлагаешь делать методы типа getDBLogin(), getDBPass() и т.д. или как?
 
-https://github.com/TheSidSpears/Students/blob/master/app/models/FrontController.php
-Тут единственная функция со стеной кода. Учись разбивать код на части и выносить в отдельные функции. Я тут явно вижу функции вроде определения контроллера или вроде вывода шаблона.
+<!-- https://github.com/TheSidSpears/Students/blob/master/app/controllers/FrontController.php#L15
+> public $isAuthorized=false;
+зачем тут это публичное свойство? Контроллер это не сервис чтобы другие могли к нему обращаться. У тебя есть сервис авторизации для этого. Не надо дублировать его функции. -->
 
-> if ($authorized){
->                //Для вида
->                $userName=$authorized['name'];
-Неправильно что переменная модет существовать, а может и нет. Как в таком случае писать надежный код если ты даже не знаешь, есть ли такая переменная?
+<!-- https://github.com/TheSidSpears/Students/blob/master/app/classes/Router.php
+Роутер странный. Он называется роутер и при этом он не использует даже файл с конфигом. Что он вообще делает? По моему ты не смог изолировать функционал роутинга в одном классе и он у тебя вытек в front controller.
 
-> //Подключаем контроллер
->        if (!empty($controller)){
-А если она пусто то что? Выведем белую страницу?
+https://github.com/TheSidSpears/Students/blob/master/app/controllers/FrontController.php#L33
+Это функционал роутера. -->
 
-> if (!empty($view)){
-Опять же, мне это не нравится, ты полагаешься на то, что код где-то в другом месте приложения выставит переменную. Это очень неочевидно и ненадежно, как мне кажется.
+<!-- > https://github.com/TheSidSpears/Students/blob/master/router.json
+> "controller": "Main",
+Плохая идея писать имя класса не полностью. Если я захочу поискать где используется класс MainController, я не найду это место. -->
 
-https://github.com/TheSidSpears/Students/blob/master/public/503.php#L1
-> header(' ', true, 503); 
-Что это за синтаксис? Что за пустой заголовок? По моему это не будет работать. Там надо отправлять заголоок вроде HTTP/1.1 503 xxxx, почитай хотя бы мануал по функции header().
+<!-- https://github.com/TheSidSpears/Students/blob/master/app/controllers/MainController.php#L96
+> $this->viewData['students']=$this->c['table']->getStudents($this->sortBy,$this->orderBy,$this->limit,$this->offset,$this->find);
+Слишком сложное выражение, плохо читается. Вместо $this->c['table'] лучше писать $this->studentTDG или $studentTDG. -->
 
-https://github.com/TheSidSpears/Students/blob/master/app/bootstrap.php#L12
-А зачем заводить свой собственный лог? Не лучше ли писать в стандартный лог PHP? ты кстати, знаешь, где он находится?
+https://github.com/TheSidSpears/Students/blob/master/app/controllers/MainController.php
+Контроллер переусложнен. По моему он весь пишется в виде одного местода на 15-20 строк, а ты зачем-то надобавлял тут свойств и методов. У тебя как-то все выглядит переусложненно, попробуй упростить и избавиться от лишнего.
+-сократил, но не уверен что верно
 
-https://github.com/TheSidSpears/Students/blob/master/app/models/Router.php
-Для "игнорирования" query string праивльне использовать функцию parse_url а не самодельный сомнительный код. Он еще и работает неправильно в случае /a/b/c?d=e/f
+<!-- https://github.com/TheSidSpears/Students/blob/master/app/controllers/MainController.php#L31
 
-Далее, ты разбиваешь УРЛ на части и берешь последнюю, а что если УРЛ имеет вид /a/b/c/d/e/f - ты берешь только f, а остальные игнорируются?
+>        if ($isAuthorized) {
+>             $user=$this->c['auth']->getUser();
+>            $this->user=$this->filterUserData($user);
+зачем тут filterUserData? Не понимаю. -->
 
-> if( ($module=='index.php') or ($module=='')){
-Непонятно зачем разрешать УРЛ содержащий index.php? У тебя же возможность задавать произвольные УРЛ есть.
+<!-- https://github.com/TheSidSpears/Students/blob/master/app/controllers/EditController.php
+https://github.com/TheSidSpears/Students/blob/master/app/controllers/RegisterController.php
+Не очень удачное решение. Вместо наследования тут проще сделать один контроллер и поставить пару ифов. такой код читать будет проще, чем постоянно переключаться между 2 классами. -->
 
-https://github.com/TheSidSpears/Students/blob/master/app/controllers/main.php
-Если ты используешь ООП, почему бы и контроллер не сделать классом?
+<!-- https://github.com/TheSidSpears/Students/blob/master/app/controllers/RegisterController.php#L29
+> setcookie('hash',$student->hash,time()+360012365,'/',null,false,true);
+Странно, у тебя есть класс отвечающий за авторизацию, но куку почему-то ты ставишь в контроллере. -->
 
+https://github.com/TheSidSpears/Students/blob/master/app/controllers/ERController.php#L73
+> protected function fillStudent(Student $student){
+Непонятно что тут делает цикл ибо он ничего не меняет в массиве.
+-foreach ($_POST as $post) {$post=trim(strval($post));}
+Он делает trim и strval, разве нет?
 
-> $db=new DataBase($config['db']);
-Это раскидано в нескольких местах кода. Вообще-то идея была, чтобы в bootstrap создать нужные объекты один раз. Ты создаешь несколько соединений с базой данных например, несколько StudentDataGateway. Это не очень логично.
 
-Идея нравится. Но вот не пойму, если я пропишу $db=new DataBase($config['db']); в bootstrap.php, как мне к ней обращаться в FrontController и в других классах? 
 
-Тут есть разные варианты. Самый простой - забить на эту проблему и сказать что в контроллере можно создавать оьъекты, но это имеет недостатки. Например каждый новый объект PDO создает соединение с БД.
 
-Второй вариант - сделать какое-то хранилище (контейнер) для объектов. Самый просто вариант - массив:
+Опять же, редактирование переусложнено. Надо радикально упрощать код, убрать наследование, убрать код из конструктора. Свойства во многих случаях проще заменить на обычные переменные.
 
-$services['pdo'] = new PDO...
+Метод showView тоже назван неудачно. Логчинее назвать его "обработать запрос" и сделать абстрактным в базовом контроллере.
 
-или объект:
+https://github.com/TheSidSpears/Students/blob/master/app/classes/Authorization.php#L12
+> function __construct($container){
+перечитай урок про DI. Это service locator и это плохая вещь.
 
-$container->add('pdo', new PDO...);
+Сам класс авторизации странный, половины функций связанных с авторизацией, в нем нет, они в контроллере.
 
-А затем передать контейнер в контроллер через конструктор.
+https://github.com/TheSidSpears/Students/blob/master/app/classes/JSONLoader.php
+Тут зачем-то захардкожены имена файлов.
 
-Третий вариант - передавать сервисы в конструктор контроллера по отдельности.
+> $array=file_get_contents($filename,FILE_IGNORE_NEW_LINES);
+Имя переменной не соответствует тому что она хранит
 
-Урок по теме: https://github.com/codedokode/pasta/blob/master/arch/di.md
+> LIMIT :y OFFSET :x");
+Неудачные названия плейсхолдеров
 
-Я советую не делать слишком сложных решений. Для простой задачи наверно и массив сойдет.  -->
------------------------------------------------
+> $rows = $this->db->prepare("SELECT FROM `students` ORDER BY $sortBy $orderBy LIMIT :y OFFSET :x");
+>        if (isset($search)) {
+>            $rows = $this->db->prepare("SELECT FROM `students` WHERE CONCAT(`name`,' ',`sname`,' ',`group_num`,' ',`points`,' ',`gender`,' ',`email`,' ',`b_year`,' ',`is_resident`) LIKE :search ORDER BY $sortBy $orderBy LIMIT :x,:y");
+Получается первый prepare был сделан зря? зачем тогда его делать?
 
-https://github.com/TheSidSpears/Students/blob/master/app/bootstrap.php#L20
-> spl_autoload_register(
+В student->addInfo есть проблема. У тебя нет фильтрации по разрешенными полям и пользователь может менять любые свойства студента в том числе те, которых нет в форме. ну например что если мы добавим колонку is_admin - пользователь сможет передать $POST['is_admin'] = 1 при редактирвоании. И кстати об этом было написано в моем уроке.
 
-<!-- Тут незачем делать 2 автозагрузчика, проще сделать один, который проверяет разные пути. -->
+> https://github.com/TheSidSpears/Students/blob/master/app/classes/StudentValidator.php#L98
+> foreach($mask['values'] as $value){                    
+>                    if($s->$field=$value){
+in_array()
 
+> 'regexp'=>"/^([а-яa-z][ ']*)+$/iu",
+Где буква ё? Где дефис для фамилий?
 
-<!-- https://github.com/TheSidSpears/Students/tree/master/app/models
-Тут в папку свалены разные классы, часть из которых точно не модели - например, FrontController никак моделью не является. Роутер явно не является частью модели. И вообще, MVC не значит что у тебя должно быть ровно 3 папки view, controller и model. Это деление приложения на 3 части, а не файлов на 3 папки. -->
-
-
-
-<!-- > if($currentPage<=0){$currentPage=1;} 
-Тебе надо лучше форматировать код. Иф пишется в 3 строки, а не в одну. Также, тут можно было обойтись функцией max. -->
-
-<!-- https://github.com/TheSidSpears/Students/blob/master/app/models/ViewHelper.php
-Тут оформление кода ужасное. Что за полотна из пустых строк? Почему скобка на одной строке с заголовком функции? -->
-
-<!-- > $routes = explode('/', $_SERVER['REQUEST_URI']);
->        $routes[count($routes)-1]=$url;
-Это копипаста (причем неточная) кода из роутера. Почему у тебя разбор УРЛ сделан в 2 разных местах, причем еще и по-разному? Принцип "единой ответственности", когда за каждую задачу отвечает кто-то один, не соблюдается. -->
-
-<!-- > static function html($string,$find=NULL){
-По моему экранирование и подсветка совпадений - это две разные функции. --> 
-
-<!-- > $reg="/$find/ui";
-Ты подставляешь то, что ввел пользователь, в регулярку, но что если там есть специсмволы, например, плюс, звездочка, точка? надо либо использовать str_replace либо экранировать спецсимволы с помощью preg_quote. -->
-
-<!-- https://github.com/TheSidSpears/Students/blob/master/app/models/ViewHelper.php#L51
-> $router=new Router();
-Опять же, почему-то у тебя создается несколько экземплятров роутера в приложении.
- -->
-<!-- https://github.com/TheSidSpears/Students/blob/master/app/models/ViewHelper.php#L63
-> return self::html($url);
-Почему функция makeUrl вызывает self::html? А что если нам нужен исходный неискаженный УРЛ (например мы хотим редиректить на него)? -->
-
-
-
-<!-- > https://github.com/TheSidSpears/Students/blob/master/app/models/ViewHelper.php#L57
-> foreach ($blockedParams as $key => $value) {
->                $url.=$key."=".$value."&";
-Что если в value содержится символ &, #, ? или какой-то еще, имеющий специальное значение в УРЛ? -->
-
-<!-- https://github.com/TheSidSpears/Students/blob/master/app/models/Util.php#L12
->  $result .= $array[mt_rand(0, 35)];
-Число 35 надо не вписывать в код, а считать из размера массива.
- -->
-<!-- https://github.com/TheSidSpears/Students/blob/master/app/controllers/edit.php
-Этот класс на 90% копипаста класса register.php. Ты не должен копипастить код, надо остановиться и подумать, а как можно избежать дублирования кода? Вообще, регистрация и редактирование это практически одно и то же действие.
-
-Те кто копипастят, не думают что будет с кодом дальше, ведь дальше им же самим придется править или добавлять что-то в несколько копий кода.
+https://github.com/TheSidSpears/Students/blob/master/app/classes/StudentValidator.php#L66
+> function __construct(Student $s, $container, $id=NULL){
+Почему ты пишешь код валидации в конструкторе? И почему передаешь контейнер? Почитай про DI.
 
-> if (isset($_COOKIE['hash'])) { //нет кука с хешем => не выполнять скрипт
-> ОП, эту куку нужно как-то проверять?
-Надо проверять что она соответствует реальному студенту в БД
- -->
-<!-- > $token= (isset($_COOKIE['token'])) ? $_COOKIE['token'] : Util::randHash(20);
->    setcookie('token',$token,time()+3600,'/',null,false,true);
-Не лучше ли работу с CSRF кукой вынести в отдельный класс? Как ты повторно исплоьзуешь этот код в другом месте? Надо сделать универсальный класс, позволяющий бороться с CSRF в любом контроллере.
- -->
-<!-- > foreach($editStudent as $fieldName=>&$fieldValue){
-Это неправильно. В студенте могут быть поля, которые не должны быть доступны для изменения. более того, их могут добавить уже после написания этого кода.
-
-Более того, ты не уничтожил ссылку после цикла. Перечитай мануал про foreach. -->
-
-<!-- Более того, ты еще и ниже второй раз этот код скопипастил. Не копипасть. -->
-
-<!-- Само редактирвоание на мой взгляд, сделано неправильно. Логичнее взять студента из БД, изменить у него часть полей и сохранить обратно. Ты же предполагаешь что все данные о студенте будет в форме. Но это не обязательно так. Что если например позже добавят какие-то скрытые поля которые есть в студенте но не редактируются через форму? Твой код будет их обнулять. -->
-
-<!-- > $table->editStudent($editStudent);
->                if( empty($table->userErrors) ){
-Вот у тебя есть функция, которая может вернуть ошибки. Почему ты использешь лишнее поле вместо return? Вообще, это плохое поле так как например до вызова функции editStudent оно ничего не содержит. -->
-
-<!-- А если вызвать функцию несколько раз то ошибки накапливаются в ней и перестают соответствовать действительности. То есть это поле большую часть времени содержит недействительные данные. -->
-
-<!-- >  header(' ', true, 400); //Так, вроде правильней
-Мало того, что это в общем неправильный синтаксис, так ты еще и дальше продолжаешь выполнять код как ни в чем не бывало.
- -->
-<!-- https://github.com/TheSidSpears/Students/blob/master/app/models/DataBase.php
-Что делает этот класс? Что он добавляет, чего нет в PDO?
- -->
-<!-- > public function connection(){
-Имена функций начинаются с глагола
- -->
-<!-- https://github.com/TheSidSpears/Students/blob/master/app/models/Student.php#L11
-> public $name; //string(200)
-Этот комментарий может быстро устареть, если поменяют код в валидаторе.
- -->
-<!-- https://github.com/TheSidSpears/Students/blob/master/app/models/StudentDataGateway.php#L38
-> if (!$rows->execute()){
->            throw new StudentDataGatewayException("Ошибка в ф-ии $func_name: ".__CLASS__);  
-Если ты используешь ERRMODE_EXCEPTION то PDO сам выкидывает искючения при ошибке. Этот иф не нужен.
- -->
-<!-- https://github.com/TheSidSpears/Students/blob/master/app/models/StudentDataGateway.php#L63
-> LIKE '%$search%'");
-Это SQL инъекция. Не вставляй данные напрямую в запрос -->
-
-<!-- > $count=$rows->fetchAll(PDO::FETCH_ASSOC);
->        return $count[0]["COUNT(*)"];
-В PDO есть функция чтобы вернуть первое значение из первой строки. -->
-
-<!-- > foreach ($columns as &$column) {
->            $column=$column["Field"];
-Есть array_column для этого -->
-
-<!-- > $students[]=new Student();        
->            $students[count($students)-1]->addInfo($studentRow);
-Вместо count(...) лучше просто завести переменную для объекта -->
-
-<!-- > $student=array();
->        $student=$studentRow[0];
-Есть функция чтобы взять толкьо первую строку результата -->
-
-<!-- > $alredyRegistered=$this->checkEmail($student->email);
->        if($alredyRegistered){
->            $this->userErrors[]='Такой e-mail уже зарегистрирован';
-Разве это не задача валидатора? -->
-
-<!-- > $error_array = $this->db->errorInfo();
->        if($this->db->errorCode() != 0000){
-Это не надо проверять при ERRMODE_EXCEPTION -->
-
-<!-- > //Исключение совпадения e-mail'ов разных юзеров
->        $currentStudentData=$this->getStudentByHash($student->hash);
-Это делается гораздо проще: надо просто искать по условию WHERE email = ? AND id <> ?  -->
-
-https://github.com/TheSidSpears/Students/blob/master/app/views/auth_form.php
-br вернй признак того, что ты не знаешь CSS. Обрати внимание, в ОП посте есть задачи по CSS.
-
-https://github.com/TheSidSpears/Students/blob/master/app/views/student_form.php
-Тут стоит добавить html5 валидацию, хотя бы <!-- required --> например.
-
-<!-- > <?php if($s->is_resident): ?>
->    <input type="radio" name="is_resident" value="resident" checked> Местный
-> <?php else: ?>
->    <input type="radio" name="is_resident" value="resident"> Местный
-Не требуется копипастить input, хватит <?= $resident ? ' checked ' : '' ?> -->
-
-<!-- https://github.com/TheSidSpears/Students/tree/master/app/views
-тут у тебя много файлов и их надо хотя бы по папкам организровать как-то -->
-
-> У меня два файла очень схожи по структуре. Эту копипасту можно как-то сократить? А нужно ли?
-
-Регистрация и редактирования это по сути одно и то же и должен быть 1 контроллер и 1 вью для них.
-
-> засунуть в ф-ию Util::token(). Но тогда ф-ия будет работать с куками и устанавливать глобальную переменную, что, наверное, не очень правильно
-надо вынести всю работу с CSRF в класс. 
-
-<!-- 
-> set_exeption_handler
-
-Это все работает если ошибка произошла до вывода текста. Если вывод уже начат, то ничего не поделать.  -->
+https://github.com/TheSidSpears/Students/blob/master/app/classes/ViewHelper.php
+тут слишком много всего понамешано. Еще и контейнер.
+
+В общем:
+
+1) упрощай код
+2) перечитай урок по DI
+3) перечитай комментарии к задаче

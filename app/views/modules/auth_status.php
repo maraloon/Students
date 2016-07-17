@@ -1,4 +1,4 @@
-<?php if($authorized): ?>
+<?php if($isAuthorized): ?>
 	
 	Вошли как: <?=$user['name']?> <?=$user['sname']?>
 	<br>

@@ -1,70 +1,43 @@
 {
 	"main":
 	{
-		"controller": "Main",
+		"controller": "MainController",
 		"view": "pages/main",
-		"title": "Студенты",
 		"show": "all"
 	},
 	
 	"register":
 	{
-		"controller": "Register",
+		"controller": "ERController",
 		"view": "pages/register",
-		"title": "Регистрация",
 		"show": "guest"
 	},
 	
 	"register_ok":
 	{
-		"controller": "Register",
+		"controller": "ERController",
 		"view": "status/register_ok",
-		"title": "Успешная регистрация",
 		"show": "all"
 	},
 	
 	"edit_ok":
 	{
-		"controller": "Edit",
+		"controller": "ERController",
 		"view": "status/edit_ok",
-		"title": "Успешное изменение данных",
 		"show": "member"
 	},
 
 	"edit":
 	{
-		"controller": "Edit",
+		"controller": "ERController",
 		"view": "pages/edit",
-		"title": "Изменение данных",
 		"show": "member"
 	},
 	
 	"search":
 	{
-		"controller": "Main",
+		"controller": "MainController",
 		"view": "pages/search",
-		"title": "Поиск",
-		"show": "all"
-	},
-
-	"403":
-	{
-		"controller": "",
-		"view": "errors/403",
-		"show": "all"
-	},
-	
-	"404":
-	{
-		"controller": "",
-		"view": "errors/404",
-		"show": "all"
-	},
-	
-	"503":
-	{
-		"controller": "",
-		"view": "errors/503",
 		"show": "all"
 	}
 }

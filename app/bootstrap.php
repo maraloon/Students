@@ -6,14 +6,12 @@ mb_internal_encoding('utf-8');
 
 
 //Ловец ошибок
-set_exception_handler(function (Throwable $exception) {
+/*set_exception_handler(function (Throwable $exception) {
     // Функция будет вызвана при возникновении исключения
 	error_log($exception->__toString()."\n\n",0);
-	include('../public/error_pages/503.php');
-});
-
-
-
+	$path=realpath(__DIR__.'/../public/error_pages/503.php');
+	include($path);
+});*/
 
 //Автозагрузка всех моделей
 spl_autoload_register(
@@ -22,8 +20,9 @@ spl_autoload_register(
 		$folders=array('classes','exeptions','controllers');
 
 		foreach ($folders as $folder) {
-			$path = "../app/$folder/$className.php";
-			if (file_exists($path)) {
+			//$path = "../app/$folder/$className.php";
+			$path=realpath(__DIR__."/../app/$folder/$className.php");
+			if ($path) {
 				require_once $path;
 			}
 		}

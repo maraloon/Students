@@ -5,7 +5,7 @@
  class JSONLoader{
 
 	//Чтение JSON-файла
-	private static function readJSON($filename){
+	private function readJSON($filename){
 		//Подключаем конфиг
 		$filename=Util::getAbsolutePath($filename);
 		if(!file_exists($filename)){
@@ -25,13 +25,13 @@
 	}
 
 	//Чтение JSON-конфига
-	static function config(){
-		return self::readJSON('config.json');
+	function getConfig(){
+		return $this->readJSON('config.json');
 	}
 
 	//Чтение JSON-роутера
-	static function router(){
-		return self::readJSON('router.json');
+	function getRouter(){
+		return $this->readJSON('router.json');
 	}
 
 

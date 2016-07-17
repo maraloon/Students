@@ -3,16 +3,20 @@
 $container = new Pimple\Container;
 
 //
+$container['json']=function ($c) {
+    return new JSONLoader();
+};
+
 $container['config']=function ($c) {
-    return JSONLoader::config();
+    return $c['json']->getConfig();
 };
 
 $container['routerFile']=function ($c) {
-    return JSONLoader::router();
+    return $c['json']->getRouter();
 };
 
 $container['router']=function ($c) {
-    return new Router();
+    return new Router($c);
 };
 
 $container['db']=function ($c) {

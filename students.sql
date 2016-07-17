@@ -3,9 +3,9 @@
 -- http://www.phpmyadmin.net
 --
 -- Хост: 127.0.0.1
--- Время создания: Июн 09 2016 г., 18:38
--- Версия сервера: 10.1.10-MariaDB
--- Версия PHP: 7.0.4
+-- Время создания: Июл 16 2016 г., 12:22
+-- Версия сервера: 10.1.13-MariaDB
+-- Версия PHP: 7.0.8
 
 SET SQL_MODE = "NO_AUTO_VALUE_ON_ZERO";
 SET time_zone = "+00:00";
@@ -67,7 +67,10 @@ INSERT INTO `students` (`id`, `hash`, `name`, `sname`, `group_num`, `points`, `g
 (58, 'qwe', 'testName', 'testSName', '123', 200, 'm', 'z@z14', 2000, 'resident'),
 (59, 'qwe', 'testName', 'testSName', '123', 200, 'm', 'z@z15', 2000, 'resident'),
 (60, 'qwe', 'testName', 'testSName', '123', 200, 'm', 'z@z16', 2000, 'resident'),
-(61, 'dvm8nrt82qh4lxdeicfa', 'Таня', 'Иванова', 'а13', 123, 'f', 'a@k', 1993, 'foreign');
+(61, 'dvm8nrt82qh4lxdeicfa', 'Таня', 'Иванова', 'а13', 123, 'f', 'a@k', 1993, 'foreign'),
+(62, '2wbb2qszinnefps2a2j', 'Tierto', 'Esdiego', '123', 200, 'f', 'tierto@es.com', 2000, 'foreign'),
+(63, 'f9d3z7yg2f9lu7kzxz', 'Kizanio', 'Erghty', '123', 123, 'f', 'kizano@ergh.com', 2000, 'foreign'),
+(64, 'bxtlitbaw178gmdfoyn', 'Лира', 'Белаква', '122', 123, 'f', 'zxc@zxzc.ru', 2003, 'foreign');
 
 --
 -- Индексы сохранённых таблиц
@@ -88,7 +91,7 @@ ALTER TABLE `students`
 -- AUTO_INCREMENT для таблицы `students`
 --
 ALTER TABLE `students`
-  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=62;
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=65;
 /*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
 /*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;

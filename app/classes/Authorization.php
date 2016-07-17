@@ -13,21 +13,34 @@ class Authorization{
 		$this->c=$container;
 	}
 
-	public function checkAuth($cookieHash){
+	public function checkAuth(){
 	/*
 	* Возвращает статус пользователя
+	* При первом обращении сверяет куки с БД
+	* При повторном просто выводит сохранённое значение isAuthorized
 	* Устанавливает значения полей, если авторизован
 	*/
-		$this->isAuthorized=false;
+		if (empty($isAuthorized)) {
+			if (isset($_COOKIE['hash'])) {
+				$this->isAuthorized=false;
 
-		$student=$this->c['table']->getStudentByHash($cookieHash);
-		if ($student!=false){
-			$this->isAuthorized=true;
-			//Переменные для отображения
-			$this->user=$student;
-			
+				$student=$this->c['table']->getStudentByHash($_COOKIE['hash']);
+				if ($student!=false){
+					$this->isAuthorized=true;
+					//Переменные для отображения
+					$this->user=$student;
+					
+				}
+				//return $this->isAuthorized;
+			}
 		}
 		return $this->isAuthorized;
+
+
+	}
+
+	public function setHash($hash){
+		setcookie('hash',$hash,time()+3600*12*365,'/',null,false,true);
 	}
 
 	public function getUser(){

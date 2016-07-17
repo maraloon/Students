@@ -9,11 +9,9 @@ abstract class ViewController  extends Controller{
 				'css'=>'public/src/style.css'
 				);
 		//распаковываем массив в переменные
-		//if (isset($this->viewData)) {
-			foreach ($this->viewData as $key => $value) {
-				$$key=$value;
-			}
-		//}
+		foreach ($this->viewData as $key => $value) {
+			$$key=$value;
+		}
 
 
 		//Показываем страницу
@@ -23,7 +21,6 @@ abstract class ViewController  extends Controller{
 
 		$cssFile=$path['css'];
 		include($path['views'].'/modules/header.php');
-		//include($path['views'].'/pages/'.$view.'.php');
 		include($path['views'].'/'.$view.'.php');
 		include($path['views'].'/modules/footer.php');
 	}

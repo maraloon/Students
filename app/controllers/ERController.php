@@ -1,7 +1,8 @@
 <?php
 
-abstract class ERController extends ViewController{
-	protected $validModules=array();
+class ERController extends ViewController{
+	protected $validModules=array('edit','edit_ok','register','register_ok');
+	protected $controller;
 	protected $student;
 	protected $token;
 	protected $userErrors=array(); //все ошибки во время регистрации
@@ -11,16 +12,27 @@ abstract class ERController extends ViewController{
 
 		if (in_array($this->c['router']->getModule(), $this->validModules)) {
 
-			$module=$this->c['router']->getModule().'Module';
-			$this->$module($this->c);
+			$this->controller=$this->c['router']->getModule();
+			$module=$this->controller.'Module';
+			$this->$module();
 		}
 	}
+
+	protected function registerModule(){
+		$this->Module();
+	}
+	protected function editModule(){
+		$this->Module();
+	}
+
+	protected function register_okModule(){}
+	protected function edit_okModule(){}
 
 	protected function Module(){
 
 		$this->setToken();
 
-		$this->student=static::prepareStudentForForm();
+		$this->student=$this->prepareStudentForForm();
 		//Если данные формы передавались
 		if(!empty($_POST)){
 			
@@ -34,7 +46,7 @@ abstract class ERController extends ViewController{
 				//Тестовый студент
 				$student=new Student();
 
-				$student=static::fillStudent($student);
+				$student=$this->fillStudent($student);
 
 				//Ищем ошибки в заполнении
 				$id=$this->student->getId();
@@ -43,7 +55,12 @@ abstract class ERController extends ViewController{
 
 				//нет ошибок
 				if(empty($validErrors)){
-					static::writeStudentToDB($student);	
+					if ($this->controller=='edit') {
+						$this->editStudent($student);
+					}
+					elseif($this->controller=='register'){
+						$this->addStudent($student);
+					}
 				}
 				//ошибки в форме
 				else{
@@ -54,7 +71,6 @@ abstract class ERController extends ViewController{
 
 		}
 	}
-
 
 	protected function setToken(){
 		$this->token= (isset($_COOKIE['token'])) ? $_COOKIE['token'] : Util::randHash(20);
@@ -75,20 +91,48 @@ abstract class ERController extends ViewController{
 			$post=trim(strval($post));
 		}
 		$student->addInfo($_POST);
+
+		if ($this->controller=='edit') {
+			$student->hash=$_COOKIE['hash'];
+		}
+		elseif($this->controller=='register'){
+			$student->hash=Util::randHash();
+		}
 		return $student;
 	}
 
-	/*
-	* Переопределяется в дочернем классе
-	* Запись или изменение пользователя в БД
-	*/
-	protected function writeStudentToDB(Student $student){}
 
-	/*
-	* Переопределяется в дочернем классе
-	* Какой текст показать в полях формы
-	*/
-	protected function prepareStudentForForm(){}
+
+	//Какой текст показать в полях формы
+	protected function prepareStudentForForm(){
+		if ($this->controller=='edit') {
+			$studentRow=$this->c['table']->getStudentByHash($_COOKIE['hash']);
+
+			//Создаём объект студента
+			$student=new Student();
+			//безопасное получение переданных значений
+			foreach($studentRow as $fieldValue){
+				$fieldValue=trim(strval($fieldValue));
+			}
+			$student->addInfo($studentRow);
+
+			return $student;
+		}
+		elseif($this->controller=='register'){
+			return new Student();
+		}
+	}
+
+	protected function addStudent(Student $student){
+		$this->c['table']->addStudent($student);
+		$c['auth']->setHash($student->hash);
+		header('Location: register_ok');	
+	}
+
+	protected function editStudent(Student $student){
+		$edit=$this->c['table']->editStudent($student);
+		header('Location: edit_ok');
+	}
 
 	public function showView($viewName){
 		$this->viewData['student']=$this->student;
