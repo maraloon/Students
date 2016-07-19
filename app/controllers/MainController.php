@@ -2,13 +2,14 @@
 
 class MainController extends ViewController{
 
-	function __construct($c){
-		parent::__construct($c);
+	function __construct($viewName,$c){
+		parent::__construct($viewName,$c);
 	}
 
-	public function showView($viewName){
+	public function parseRequest(){
 	//Авторизован ли пользователь
-	$isAuthorized=$this->c['auth']->checkAuth();
+	#$isAuthorized=$this->c['auth']->checkAuth();
+	$isAuthorized=$this->c['isAuthorized'];
 	//Получаем данные юзера
 	if ($isAuthorized) {
 		$user=$this->c['auth']->getUser();
@@ -44,15 +45,15 @@ class MainController extends ViewController{
 		$table=$this->c['table'];
 		$students=$table->getStudents($sortBy,$orderBy,$limit,$offset,$find);
 		//Генерация динамического контента для представления
-		$viewer = new ViewHelper($currentPage,$sortBy,$orderBy,$find,$this->c);
+		$viewer = new ViewHelper($currentPage,$sortBy,$orderBy,$find,$this->c['router']);
 		
 
 
-		//Данные, спользуемые в представлении
+		//Данные, используемые в представлении
 		foreach (array('students','viewer','isAuthorized','user','find','pages','currentPage') as $value) {
 			$this->viewData[$value]=$$value;
 		}
 
-		parent::showView($viewName);
+		parent::showView();
 	}
 }

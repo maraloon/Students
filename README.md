@@ -46,7 +46,7 @@ https://github.com/TheSidSpears/Students/blob/master/app/bootstrap.php#L19
 <!-- https://github.com/TheSidSpears/Students/blob/master/app/container.php#L7
 >  return JSONLoader::config();
 >   return JSONLoader::router();
-Статические методы это не ООП-подход. Не вижу причин тут использовать статический вызов.  -->Также не вижу где написан путь к конфигу.
+Статические методы это не ООП-подход. Не вижу причин тут использовать статический вызов.  --><!-- Также не вижу где написан путь к конфигу. -->
 
 Более того, ты возвращаешь массив непонятной структуры. Не лучше ли возвращать объект с методами для получения данных?
 - В чём заключается непонятность структуры? Ты предлагаешь делать методы типа getDBLogin(), getDBPass() и т.д. или как?
@@ -99,44 +99,54 @@ https://github.com/TheSidSpears/Students/blob/master/app/controllers/ERControlle
 
 Опять же, редактирование переусложнено. Надо радикально упрощать код, убрать наследование, убрать код из конструктора. Свойства во многих случаях проще заменить на обычные переменные.
 
-Метод showView тоже назван неудачно. Логчинее назвать его "обработать запрос" и сделать абстрактным в базовом контроллере.
+<!-- Метод showView тоже назван неудачно. Логчинее назвать его "обработать запрос" и сделать абстрактным в базовом контроллере. -->
 
 https://github.com/TheSidSpears/Students/blob/master/app/classes/Authorization.php#L12
 > function __construct($container){
 перечитай урок про DI. Это service locator и это плохая вещь.
+Убрал где можно. Но как я понимаю в контроллеры всё равно контейнер придётся передавать целиком, так?
+
 
 Сам класс авторизации странный, половины функций связанных с авторизацией, в нем нет, они в контроллере.
+-Добавил setHash(). Еще что-то нужно?
 
-https://github.com/TheSidSpears/Students/blob/master/app/classes/JSONLoader.php
-Тут зачем-то захардкожены имена файлов.
+<!-- https://github.com/TheSidSpears/Students/blob/master/app/classes/JSONLoader.php
+Тут зачем-то захардкожены имена файлов. -->
 
-> $array=file_get_contents($filename,FILE_IGNORE_NEW_LINES);
-Имя переменной не соответствует тому что она хранит
+<!-- > $array=file_get_contents($filename,FILE_IGNORE_NEW_LINES);
+Имя переменной не соответствует тому что она хранит -->
 
-> LIMIT :y OFFSET :x");
-Неудачные названия плейсхолдеров
+<!-- > LIMIT :y OFFSET :x");
+Неудачные названия плейсхолдеров -->
 
-> $rows = $this->db->prepare("SELECT FROM `students` ORDER BY $sortBy $orderBy LIMIT :y OFFSET :x");
+<!-- > $rows = $this->db->prepare("SELECT FROM `students` ORDER BY $sortBy $orderBy LIMIT :y OFFSET :x");
 >        if (isset($search)) {
 >            $rows = $this->db->prepare("SELECT FROM `students` WHERE CONCAT(`name`,' ',`sname`,' ',`group_num`,' ',`points`,' ',`gender`,' ',`email`,' ',`b_year`,' ',`is_resident`) LIKE :search ORDER BY $sortBy $orderBy LIMIT :x,:y");
-Получается первый prepare был сделан зря? зачем тогда его делать?
+Получается первый prepare был сделан зря? зачем тогда его делать? -->
 
 В student->addInfo есть проблема. У тебя нет фильтрации по разрешенными полям и пользователь может менять любые свойства студента в том числе те, которых нет в форме. ну например что если мы добавим колонку is_admin - пользователь сможет передать $POST['is_admin'] = 1 при редактирвоании. И кстати об этом было написано в моем уроке.
+-Я подразумеваю, что всё что нельзя редактировать пользователю, то protected. А get_object_vars возвращает только public свойства.
 
-> https://github.com/TheSidSpears/Students/blob/master/app/classes/StudentValidator.php#L98
+<!-- > https://github.com/TheSidSpears/Students/blob/master/app/classes/StudentValidator.php#L98
 > foreach($mask['values'] as $value){                    
 >                    if($s->$field=$value){
-in_array()
+in_array() -->
 
-> 'regexp'=>"/^([а-яa-z][ ']*)+$/iu",
-Где буква ё? Где дефис для фамилий?
+<!-- > 'regexp'=>"/^([а-яa-z][ ']*)+$/iu",
+Где буква ё? Где дефис для фамилий? -->
 
-https://github.com/TheSidSpears/Students/blob/master/app/classes/StudentValidator.php#L66
+<!-- https://github.com/TheSidSpears/Students/blob/master/app/classes/StudentValidator.php#L66
 > function __construct(Student $s, $container, $id=NULL){
-Почему ты пишешь код валидации в конструкторе? И почему передаешь контейнер? Почитай про DI.
+Почему ты пишешь код валидации в конструкторе? И почему передаешь контейнер? Почитай про DI. -->
+- Я прописал в __construct
+		$this->table=$table;
+		$this->validate();
+		return $this->errors;
+потому что этот класс используется только так и никак иначе. Создать, проверить на ошибки, вернуть ошибки. Верно так делать? Это сокращает работу с классом до одной строки: $validErrors=new StudentValidator($student,$this->c['table'],$id); 
 
 https://github.com/TheSidSpears/Students/blob/master/app/classes/ViewHelper.php
-тут слишком много всего понамешано. Еще и контейнер.
+тут слишком много всего понамешано. <!-- Еще и контейнер. -->
+-Понамешано? Я тебя не понял
 
 В общем:
 

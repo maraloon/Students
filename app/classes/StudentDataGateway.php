@@ -28,14 +28,14 @@ class StudentDataGateway{
 	*
 	*/
 	public function countStudents($search=NULL){
-
-		$rows = $this->db->prepare("SELECT COUNT(*) FROM `students`");
-
 		//Если задан поиск по строке $search
 		if (isset($search)) {
 			$rows = $this->db->prepare("SELECT COUNT(*) FROM `students` WHERE CONCAT(`name`,' ',`sname`,' ',`group_num`,' ',`points`,' ',`gender`,' ',`email`,' ',`b_year`,' ',`is_resident`) LIKE '%$search%'");
 			$search='%'.$search.'%';
 			$rows->bindValue(':search', $search, PDO::PARAM_STR);
+		}
+		else{
+			$rows = $this->db->prepare("SELECT COUNT(*) FROM `students`");
 		}
 		
 		$rows->execute();
@@ -64,18 +64,19 @@ class StudentDataGateway{
 		}
 		$orderBy= $orderBy=='asc'? 'asc' : 'desc'; //если передаётся шняга, то desc
 		
-		//Формируем строку запроса
-		$rows = $this->db->prepare("SELECT * FROM `students` ORDER BY $sortBy $orderBy LIMIT :y OFFSET :x");
 		//Если задан поиск по строке $search
 		if (isset($search)) {
 			$rows = $this->db->prepare("SELECT * FROM `students` WHERE CONCAT(`name`,' ',`sname`,' ',`group_num`,' ',`points`,' ',`gender`,' ',`email`,' ',`b_year`,' ',`is_resident`) LIKE :search ORDER BY $sortBy $orderBy LIMIT :x,:y");
 			$search='%'.$search.'%';
 			$rows->bindValue(':search', $search, PDO::PARAM_STR);
 		}
+		else{
+			$rows = $this->db->prepare("SELECT * FROM `students` ORDER BY $sortBy $orderBy LIMIT :limit OFFSET :offset");
+		}
 
 		
-		$rows->bindValue(':y', $limit, PDO::PARAM_INT);
-		$rows->bindValue(':x', $offset, PDO::PARAM_INT);
+		$rows->bindValue(':limit', $limit, PDO::PARAM_INT);
+		$rows->bindValue(':offset', $offset, PDO::PARAM_INT);
 
 		$rows->execute();
 		
@@ -113,11 +114,12 @@ class StudentDataGateway{
 	* false - нет
 	*/
 	public function checkEmail($email,$id=NULL){
-		$rows = $this->db->prepare("SELECT * FROM `students` WHERE `email`=:email");
-
 		if ($id) {
 			$rows = $this->db->prepare("SELECT * FROM `students` WHERE `email`=:email AND `id`<>:id");
 			$rows->bindValue(':id', $id, PDO::PARAM_STR);
+		}
+		else{
+			$rows = $this->db->prepare("SELECT * FROM `students` WHERE `email`=:email");
 		}
 
 		$rows->bindValue(':email', $email, PDO::PARAM_STR);
@@ -133,31 +135,26 @@ class StudentDataGateway{
 		}
 
 		return $status;
-	}	
-
-
+	}
 	
 	//Добавляет новую строку в БД
 	public function addStudent(Student $student){
-		$rows = $this->db->prepare("INSERT INTO `students`
+		$SqlString="INSERT INTO `students`
 					(`name`,`sname`,`group_num`,`points`,`gender`,`email`,`b_year`,`is_resident`,`hash`)
-					VALUES (:name,:sname,:group_num,:points,:gender,:email,:b_year,:is_resident,:hash)
-		");
-		$rows->bindValue(':name', $student->name, PDO::PARAM_STR);
-		$rows->bindValue(':sname', $student->sname, PDO::PARAM_STR);
-		$rows->bindValue(':group_num', $student->group_num, PDO::PARAM_STR);
-		$rows->bindValue(':points', $student->points, PDO::PARAM_INT);
-		$rows->bindValue(':gender', $student->gender, PDO::PARAM_STR);
-		$rows->bindValue(':email', $student->email, PDO::PARAM_STR);
-		$rows->bindValue(':b_year', $student->b_year, PDO::PARAM_INT);
-		$rows->bindValue(':is_resident', $student->is_resident, PDO::PARAM_STR);
-		$rows->bindValue(':hash', $student->hash, PDO::PARAM_STR);
-		$rows->execute();
+					VALUES
+					(:name,:sname,:group_num,:points,:gender,:email,:b_year,:is_resident,:hash)";
+		$this->writeToTable($SqlString,$student);
 	}
 	
 		
 	public function editStudent(Student $student){
-		$rows = $this->db->prepare("UPDATE `students` SET `name`=:name,`sname`=:sname,`group_num`=:group_num,`points`=:points,`gender`=:gender,`email`=:email,`b_year`=:b_year,`is_resident`=:is_resident WHERE `hash`=:hash");
+		$SqlString="UPDATE `students` SET `name`=:name,`sname`=:sname,`group_num`=:group_num,`points`=:points,`gender`=:gender,`email`=:email,`b_year`=:b_year,`is_resident`=:is_resident WHERE `hash`=:hash";
+		$this->writeToTable($SqlString,$student);
+
+	}
+
+	protected function writeToTable($SqlString,$student){
+		$rows = $this->db->prepare($SqlString);
 
 		$rows->bindValue(':name', $student->name, PDO::PARAM_STR);
 		$rows->bindValue(':sname', $student->sname, PDO::PARAM_STR);
@@ -170,6 +167,5 @@ class StudentDataGateway{
 		$rows->bindValue(':hash', $student->hash, PDO::PARAM_STR);
 		$rows->execute();
 	}
-
 
 }

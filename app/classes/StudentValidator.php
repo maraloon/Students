@@ -1,12 +1,12 @@
 <?php
 class StudentValidator{
 	protected $errors=array();
-	protected $c;
+	protected $table;
 	
 	private $masks=array(
 		'name'=>array(
 			'type'=>'string',
-			'regexp'=>"/^([а-яa-z][ ']*)+$/iu",
+			'regexp'=>"/^([а-яёa-z][ ']*)+$/iu",
 			'min' => 1,
 			'max' => 200,
 			'name' => 'Имя',
@@ -14,7 +14,7 @@ class StudentValidator{
 		),
 		'sname'=>array(
 			'type'=>'string',
-			'regexp'=>"/^([а-яa-z][ ']*)+$/iu",
+			'regexp'=>"/^([а-яёa-z][ '-]*)+$/iu",
 			'min' => 1,
 			'max' => 200,
 			'name' => 'Фамилия',
@@ -22,7 +22,7 @@ class StudentValidator{
 		),
 		'group_num'=>array(
 			'type'=>'string',
-			'regexp'=>"/^[а-яa-z0-9]+$/iu",
+			'regexp'=>"/^[а-яёa-z0-9]+$/iu",
 			'min' => 2,
 			'max' => 5,
 			'name' => 'Номер группы',
@@ -63,8 +63,13 @@ class StudentValidator{
 	);
 	
 	
-	function __construct(Student $s, $container, $id=NULL){
-		$this->c=$container;
+	function __construct(Student $s, $table, $id=NULL){
+		$this->table=$table;
+		$this->validate();
+		return $this->errors;
+	}
+
+	public function validate(){
 		$masks=$this->masks;
 		$e=array();
 		
@@ -94,7 +99,7 @@ class StudentValidator{
 				
 			}
 			elseif($mask['type']=='enum'){
-				$inList=false; //переданное значение не соответствует ни одному шаблону
+				/*$inList=false; //переданное значение не соответствует ни одному шаблону
 				foreach($mask['values'] as $value){
 					
 					if($s->$field=$value){
@@ -102,12 +107,15 @@ class StudentValidator{
 					}
 	
 				}
+
 				
 				if (!$inList){
 					$e[]=$mask['message'];					
-				}
+				}*/
 
-				
+				if (!in_array($mask['values'],$s->$field)){
+					$e[]=$mask['message'];					
+				}
 			}
 		}
 
@@ -120,9 +128,9 @@ class StudentValidator{
 	}
 
 	//Проверяет, а нет ли  в базе такого e-mail'а
-	public function checkEmail($email,$id=NULL){
+	protected function checkEmail($email,$id=NULL){
 
-		$isAlredyRegistered=$this->c['table']->checkEmail($email,$id);
+		$isAlredyRegistered=$this->table->checkEmail($email,$id);
 		return $isAlredyRegistered;
 	}
 

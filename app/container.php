@@ -8,15 +8,16 @@ $container['json']=function ($c) {
 };
 
 $container['config']=function ($c) {
-    return $c['json']->getConfig();
+    return $c['json']->readJSON('config.json');
 };
 
 $container['routerFile']=function ($c) {
-    return $c['json']->getRouter();
+    return $c['json']->readJSON('router.json');
 };
 
 $container['router']=function ($c) {
-    return new Router($c);
+    $isAuthorized=$c['auth']->checkAuth();
+    return new Router($c['routerFile'],$isAuthorized);
 };
 
 $container['db']=function ($c) {
@@ -38,5 +39,9 @@ $container['table']=function ($c) {
 };
 
 $container['auth']=function ($c) {
-    return new Authorization($c);
+    return new Authorization($c['table']);
+};
+
+$container['isAuthorized']=function ($c) {
+    return $c['auth']->checkAuth();;
 };

@@ -7,16 +7,27 @@ class ERController extends ViewController{
 	protected $token;
 	protected $userErrors=array(); //все ошибки во время регистрации
 
-	public function __construct($container){
-		parent::__construct($container);
+	public function __construct($viewName,$c){
+		parent::__construct($viewName,$c);
+	}
 
+	public function parseRequest(){
 		if (in_array($this->c['router']->getModule(), $this->validModules)) {
 
 			$this->controller=$this->c['router']->getModule();
 			$module=$this->controller.'Module';
 			$this->$module();
 		}
+		
+
+		#Сделать как в MainController без $this
+		foreach (array('student','token','userErrors') as $value) {
+			$this->viewData[$value]=$this->$value;
+		}
+
+		parent::showView();
 	}
+
 
 	protected function registerModule(){
 		$this->Module();
@@ -50,8 +61,9 @@ class ERController extends ViewController{
 
 				//Ищем ошибки в заполнении
 				$id=$this->student->getId();
-				$validator=new StudentValidator($student,$this->c,$id);
-				$validErrors=$validator->getErrors();
+				/*$validator=new StudentValidator($student,$this->c['table'],$id);
+				$validErrors=$validator->getErrors();*/
+				$validErrors=new StudentValidator($student,$this->c['table'],$id);
 
 				//нет ошибок
 				if(empty($validErrors)){
@@ -68,7 +80,6 @@ class ERController extends ViewController{
 					$this->userErrors=$validErrors;	
 				}
 			}
-
 		}
 	}
 
@@ -101,8 +112,6 @@ class ERController extends ViewController{
 		return $student;
 	}
 
-
-
 	//Какой текст показать в полях формы
 	protected function prepareStudentForForm(){
 		if ($this->controller=='edit') {
@@ -132,14 +141,6 @@ class ERController extends ViewController{
 	protected function editStudent(Student $student){
 		$edit=$this->c['table']->editStudent($student);
 		header('Location: edit_ok');
-	}
-
-	public function showView($viewName){
-		$this->viewData['student']=$this->student;
-		$this->viewData['token']=$this->token;
-		$this->viewData['userErrors']=$this->userErrors;
-
-		parent::showView($viewName);
 	}
 
 }

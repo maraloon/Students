@@ -7,22 +7,15 @@ class ViewHelper{
 	public $sortBy;
 	public $orderBy;
 	public $find;
-	protected $c;
+	protected $router;
 
-	function __construct($page,$sortBy,$orderBy,$find,$container){
+	function __construct($page,$sortBy,$orderBy,$find,$router){
 		$this->page=$page;
 		$this->sortBy=$sortBy;
 		$this->orderBy=$orderBy;
 		$this->find=$find;
-		$this->c=$container;
+		$this->router=$router;
 	}
-
-/*	static function url($url){
-		$routes = explode('/', $_SERVER['REQUEST_URI']);
-		$routes[count($routes)-1]=$url;
-		return implode('/', $routes);
-	}*/
-
 
 	//html->htmlspecialchars
 	static function html($string){
@@ -31,17 +24,17 @@ class ViewHelper{
 
 	//Обозначать цветом найденную подстроку
 	static function highlight($string,$find=NULL){
-		If($find!=NULL){
+		if($find!=NULL){
 		$reg=preg_quote("/$find/ui");
 		$string=preg_replace($reg, "<font style='background-color: yellow;'>$0</font>", $string);
-	}
+		}
 		return $string;
 	}
 
 	function makeUrl(Array $params){
 		$urlVars= array('page' => $this->page, 'sortBy' => $this->sortBy,'orderBy' => $this->orderBy,'find' => $this->find);
 		$blockedParams=array_diff_key($urlVars,$params); //ключи что есть в $urlVars, но нет в $params
-		$module=$this->c['router']->getModule();
+		$module=$this->router->getModule();
 		
 		$url=$module."?".http_build_query(array_merge($blockedParams,$params));
 		return $url;
@@ -72,8 +65,5 @@ class ViewHelper{
 			return false;
 		}
 	}
-
-
-
 
 }

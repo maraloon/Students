@@ -31,7 +31,7 @@ class Student{
 	public function addInfo($infoArray){
 		//В массиве может быть любая чушь, но принимаются значения только с ключами как в классе		
 		foreach($infoArray as $key=>$value){			
-			$object_vars=get_object_vars ($this);
+			$object_vars=get_object_vars($this);
 			//Если есть переменная в объекте
 			if(array_key_exists($key,$object_vars)){
 				//Если значение из массива не пустое

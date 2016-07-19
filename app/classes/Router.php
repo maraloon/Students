@@ -5,12 +5,14 @@
  *
 **/
 class Router{
-	protected $c;
+	protected $list;
+	protected $isAuthorized;
 	protected $controllerName;
 	protected $viewName;
 	
-	function __construct($container){
-		$this->c=$container;
+	function __construct($list,$isAuthorized){
+		$this->list=$list;
+		$this->isAuthorized=$isAuthorized;
 	}
 	
 	public function getModule(){
@@ -46,20 +48,20 @@ class Router{
 		return $this->viewName;
 	}
 
-	public function setComponents(){
-		$isAuthorized=$this->c['auth']->checkAuth();
+	protected function setComponents(){
 		//Получаем текущий модуль
-		$module=$this->c['router']->getModule();
+		$module=$this->getModule();
 		//Читаем зависимости названий контроллеров и представлений от url из JSON-файла
-		$list=$this->c['routerFile'];
+		$list=$this->list;
 		//Определяем нужный контроллер и представление
 		if(array_key_exists($module,$list)){
 			if ( ($list[$module]['show']=='all') or
-				 (  ($list[$module]['show']=='guest') and !$isAuthorized  ) or
-					(($list[$module]['show']=='member') and $isAuthorized)
+				 (  ($list[$module]['show']=='guest') and !$this->isAuthorized  ) or
+					(($list[$module]['show']=='member') and $this->isAuthorized)
 			){
 				$controller=$list[$module]['controller'];
-				$view=$list[$module]['view'];					
+				$folder=$list[$module]['folder'];	
+				$view=$module;	//для понятности что вид в нашем случае всегда соответсвует модулю				
 			}
 			else{
 				include(Util::getAbsolutePath('/public/error_pages/403.php'));
@@ -72,8 +74,7 @@ class Router{
 		}
 
 		$this->controllerName=$controller;
-		$this->viewName=$view;
-		//return array('controller'=>$controller,'view'=>$view);
+		$this->viewName=$folder.'/'.$view;
 	}
 
 }

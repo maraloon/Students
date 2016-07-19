@@ -7,36 +7,30 @@
 class Authorization{
 
 	protected $user;
+	protected $table;
 	protected $isAuthorized;
 
-	function __construct($container){
-		$this->c=$container;
+	function __construct($table){
+		$this->table=$table;
 	}
 
 	public function checkAuth(){
 	/*
 	* Возвращает статус пользователя
-	* При первом обращении сверяет куки с БД
-	* При повторном просто выводит сохранённое значение isAuthorized
 	* Устанавливает значения полей, если авторизован
 	*/
-		if (empty($isAuthorized)) {
-			if (isset($_COOKIE['hash'])) {
-				$this->isAuthorized=false;
 
-				$student=$this->c['table']->getStudentByHash($_COOKIE['hash']);
-				if ($student!=false){
-					$this->isAuthorized=true;
-					//Переменные для отображения
-					$this->user=$student;
-					
-				}
-				//return $this->isAuthorized;
+		if (isset($_COOKIE['hash'])) {
+			$this->isAuthorized=false;
+
+			$student=$this->table->getStudentByHash($_COOKIE['hash']);
+			if ($student!=false){
+				$this->isAuthorized=true;
+				//Переменные для отображения
+				$this->user=$student;	
 			}
+			return $this->isAuthorized;
 		}
-		return $this->isAuthorized;
-
-
 	}
 
 	public function setHash($hash){

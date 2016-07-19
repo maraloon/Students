@@ -1,9 +1,17 @@
 <?php
 
 abstract class ViewController  extends Controller{
+	protected $viewName;
 	protected $viewData;
 
-	public function showView($view){
+	function __construct($viewName,$c){
+		parent::__construct($c);
+		$this->viewName=$viewName;
+	}
+
+	abstract public function parseRequest();
+
+	public function showView(){
 		$path=array(
 				'views'=>'app/views/',
 				'css'=>'public/src/style.css'
@@ -21,7 +29,7 @@ abstract class ViewController  extends Controller{
 
 		$cssFile=$path['css'];
 		include($path['views'].'/modules/header.php');
-		include($path['views'].'/'.$view.'.php');
+		include($path['views'].'/'.$this->viewName.'.php');
 		include($path['views'].'/modules/footer.php');
 	}
 }
