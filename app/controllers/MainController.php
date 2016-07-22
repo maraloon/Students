@@ -45,7 +45,7 @@ class MainController extends ViewController{
 		$table=$this->c['table'];
 		$students=$table->getStudents($sortBy,$orderBy,$limit,$offset,$find);
 		//Генерация динамического контента для представления
-		$viewer = new ViewHelper($currentPage,$sortBy,$orderBy,$find,$this->c['router']);
+		$viewer = new TableUrlMaker($currentPage,$sortBy,$orderBy,$find,$this->c['router']);
 		
 
 

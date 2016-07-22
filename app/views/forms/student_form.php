@@ -1,29 +1,54 @@
 <?php $s=$student; ?>
+<div class="form-group">
+	<label>Имя</label>
+	<input type='text' placeholder='Имя' name='name' class="form-control" required value='<?=Util::html($s->name)?>'>
+</div>
 
-<input type='text' placeholder='Имя' name='name' required value='<?=ViewHelper::html($s->name)?>'>
-<br>
+<div class="form-group">
+	<label>Фамилия</label>
+	<input type='text' placeholder='Фамилия' name='sname' class="form-control" required value='<?=Util::html($s->sname)?>'>
+</div>
 
-<input type='text' placeholder='Фамилия' name='sname' required value='<?=ViewHelper::html($s->sname)?>'>
-<br>
+<div class="row">
+<div class="radio col-xs-1">
+	<label>
+		<input type="radio" class="radio-inline" name="gender" value="m" <?= $s->gender ? ' checked ' : '' ?>>
+		Муж.
+	</label>
+	<label>
+		<input type="radio" class="radio-inline" name="gender" value="f" <?= !$s->gender ? ' checked ' : '' ?>>
+		Жен.
+	</label>
+</div>
 
-<input type="radio" name="gender" value="m" <?= $s->gender ? ' checked ' : '' ?>> Муж.
-<input type="radio" name="gender" value="f" <?= !$s->gender ? ' checked ' : '' ?>> Жен.
-<br>
+<div class="radio col-xs-2">
+	<label>
+		<input type="radio" class="radio-inline" name="is_resident" value="resident" <?= $s->is_resident ? ' checked ' : '' ?>>
+		Местный
+	</label>
+	<label>
+		<input type="radio" class="radio-inline" name="is_resident" value="foreign" <?= !$s->is_resident ? ' checked ' : '' ?>>
+		Иногородний
+	</label>
+</div>
+</div>
 
-<input type='text' placeholder='Номер группы' name='group_num' required value='<?=ViewHelper::html($s->group_num)?>'>
-<br>
+<div class="form-group">
+	<label>Номер группы</label>
+<input type='text' placeholder='Номер группы' name='group_num' class="form-control" required value='<?=Util::html($s->group_num)?>'>
+</div>
 
-<input type='email' placeholder='E-mail' name='email' required value='<?=ViewHelper::html($s->email)?>'>
-<br> 
+<div class="form-group">
+	<label>E-mail</label>
+	<input type='email' placeholder='E-mail' name='email' class="form-control" required value='<?=Util::html($s->email)?>'>
+</div>
 
-<input type='number' placeholder='Суммарное число баллов по ЕГЭ' name='points' value='<?=ViewHelper::html($s->points)?>'>
-<br>
+<div class="form-group">
+	<label>Суммарное число баллов по ЕГЭ</label>
+	<input type='number' min="0" max="300" placeholder='Баллов' class="form-control" name='points' value='<?=Util::html($s->points)?>'>
+</div>
 
-<input type='number' placeholder='Год рождения' name='b_year' value='<?=ViewHelper::html($s->b_year)?>'>
-<br>
-
-<input type="radio" name="is_resident" value="resident" <?= $s->is_resident ? ' checked ' : '' ?>> Местный
-<input type="radio" name="is_resident" value="foreign" <?= !$s->is_resident ? ' checked ' : '' ?>> Иногородний
-
-<br>
-
+<div class="form-group">
+	<label for="name">Год рождения</label>
+	<input type='number' min="1900" max="2016" placeholder='Год рождения' class="form-control" name='b_year' value='<?=Util::html($s->b_year)?>'>
+</div>

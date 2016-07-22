@@ -5,7 +5,7 @@ class ERController extends ViewController{
 	protected $controller;
 	protected $student;
 	protected $token;
-	protected $userErrors=array(); //все ошибки во время регистрации
+	protected $validErrors=array(); //все ошибки во время регистрации
 
 	public function __construct($viewName,$c){
 		parent::__construct($viewName,$c);
@@ -17,15 +17,15 @@ class ERController extends ViewController{
 			$this->controller=$this->c['router']->getModule();
 			$module=$this->controller.'Module';
 			$this->$module();
-		}
-		
 
-		#Сделать как в MainController без $this
-		foreach (array('student','token','userErrors') as $value) {
-			$this->viewData[$value]=$this->$value;
+			#Сделать как в MainController без $this
+			foreach (array('student','token','validErrors') as $value) {
+				$this->viewData[$value]=$this->$value;
+			}
+
+			parent::showView();
 		}
 
-		parent::showView();
 	}
 
 
@@ -43,7 +43,7 @@ class ERController extends ViewController{
 
 		$this->setToken();
 
-		$this->student=$this->prepareStudentForForm();
+		$oldStudentData=$this->prepareStudentForForm();
 		//Если данные формы передавались
 		if(!empty($_POST)){
 			
@@ -55,36 +55,35 @@ class ERController extends ViewController{
 			}
 			else{
 				//Тестовый студент
-				$student=new Student();
+				$newStudentData=new Student();
 
-				$student=$this->fillStudent($student);
+				$newStudentData=$this->fillStudent($newStudentData);
 
 				//Ищем ошибки в заполнении
-				$id=$this->student->getId();
-				/*$validator=new StudentValidator($student,$this->c['table'],$id);
-				$validErrors=$validator->getErrors();*/
-				$validErrors=new StudentValidator($student,$this->c['table'],$id);
+				$id=$oldStudentData->getId();
+				$validErrors=$this->c['validator']->validate($newStudentData,$id);
 
 				//нет ошибок
 				if(empty($validErrors)){
 					if ($this->controller=='edit') {
-						$this->editStudent($student);
+						$this->editStudent($newStudentData);
 					}
 					elseif($this->controller=='register'){
-						$this->addStudent($student);
+						$this->addStudent($newStudentData);
 					}
 				}
 				//ошибки в форме
 				else{
-					$this->student=$student;
-					$this->userErrors=$validErrors;	
+					$this->validErrors=$validErrors; //покажет ошибки
+					$oldStudentData=$newStudentData; //покажет данные студента в форме
 				}
 			}
 		}
+		$this->student=$oldStudentData;
 	}
 
 	protected function setToken(){
-		$this->token= (isset($_COOKIE['token'])) ? $_COOKIE['token'] : Util::randHash(20);
+		$this->token=(isset($_COOKIE['token'])) ? $_COOKIE['token'] : Util::randHash(20);
 		setcookie('token',$this->token,time()+3600,'/',null,false,true);
 	}
 
@@ -96,12 +95,13 @@ class ERController extends ViewController{
 	}
 
 	//Передаём весь POST, не фильтруя лишнее - это сделает класс
-	//безопасное получение переданных значений
 	protected function fillStudent(Student $student){
-		foreach ($_POST as $post) {
-			$post=trim(strval($post));
+		$studentData=$this->filter($_POST);
+		foreach ($studentData as $field) {
+			$post=trim(strval($field));
 		}
-		$student->addInfo($_POST);
+
+		$student->addInfo($studentData);
 
 		if ($this->controller=='edit') {
 			$student->hash=$_COOKIE['hash'];
@@ -114,27 +114,27 @@ class ERController extends ViewController{
 
 	//Какой текст показать в полях формы
 	protected function prepareStudentForForm(){
+		$student=new Student();
 		if ($this->controller=='edit') {
 			$studentRow=$this->c['table']->getStudentByHash($_COOKIE['hash']);
-
-			//Создаём объект студента
-			$student=new Student();
-			//безопасное получение переданных значений
-			foreach($studentRow as $fieldValue){
-				$fieldValue=trim(strval($fieldValue));
-			}
 			$student->addInfo($studentRow);
+		}
+		/*elseif($this->controller=='register'){
+			//return new Student();
+		}*/
+		return $student;
+	}
 
-			return $student;
-		}
-		elseif($this->controller=='register'){
-			return new Student();
-		}
+	//Фильтрует передаваеммые пользователем данные от нежелательных переменных
+	protected function filter($post){
+		$template=array_flip(array('name','sname','group_num','points','gender','email','b_year','is_resident','hash'));
+		$infoArray=array_intersect_key($template,$post);
+		return $post;
 	}
 
 	protected function addStudent(Student $student){
 		$this->c['table']->addStudent($student);
-		$c['auth']->setHash($student->hash);
+		$c['auth']->authorize($student->hash);
 		header('Location: register_ok');	
 	}
 

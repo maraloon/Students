@@ -1,9 +1,6 @@
 <?php
 class StudentValidator{
-	protected $errors=array();
-	protected $table;
-	
-	private $masks=array(
+	protected $masks=array(
 		'name'=>array(
 			'type'=>'string',
 			'regexp'=>"/^([а-яёa-z][ ']*)+$/iu",
@@ -62,14 +59,13 @@ class StudentValidator{
 		),
 	);
 	
+	protected $table;
 	
-	function __construct(Student $s, $table, $id=NULL){
+	function __construct($table){
 		$this->table=$table;
-		$this->validate();
-		return $this->errors;
 	}
 
-	public function validate(){
+	public function validate(Student $s,$id=NULL){
 		$masks=$this->masks;
 		$e=array();
 		
@@ -99,21 +95,7 @@ class StudentValidator{
 				
 			}
 			elseif($mask['type']=='enum'){
-				/*$inList=false; //переданное значение не соответствует ни одному шаблону
-				foreach($mask['values'] as $value){
-					
-					if($s->$field=$value){
-						$inList=true; //нашелся один соответствующий
-					}
-	
-				}
-
-				
-				if (!$inList){
-					$e[]=$mask['message'];					
-				}*/
-
-				if (!in_array($mask['values'],$s->$field)){
+				if (!in_array($s->$field,$mask['values'])){
 					$e[]=$mask['message'];					
 				}
 			}
@@ -124,7 +106,7 @@ class StudentValidator{
 		}
 		
 		//Передаём массив ошибок из ф-ии объекту
-		$this->errors=$e;
+		return $e;
 	}
 
 	//Проверяет, а нет ли  в базе такого e-mail'а
@@ -132,10 +114,5 @@ class StudentValidator{
 
 		$isAlredyRegistered=$this->table->checkEmail($email,$id);
 		return $isAlredyRegistered;
-	}
-
-
-	public function getErrors(){
-		return $this->errors;
 	}
 }

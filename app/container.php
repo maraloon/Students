@@ -2,7 +2,7 @@
 //DI container
 $container = new Pimple\Container;
 
-//
+
 $container['json']=function ($c) {
     return new JSONLoader();
 };
@@ -44,4 +44,8 @@ $container['auth']=function ($c) {
 
 $container['isAuthorized']=function ($c) {
     return $c['auth']->checkAuth();;
+};
+
+$container['validator']=function ($c) {
+    return new StudentValidator($c['table']);
 };

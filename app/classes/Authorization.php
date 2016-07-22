@@ -33,8 +33,13 @@ class Authorization{
 		}
 	}
 
-	public function setHash($hash){
+	public function logIn($hash){
 		setcookie('hash',$hash,time()+3600*12*365,'/',null,false,true);
+	}
+
+	//не используется в коде
+	public function logOut(){
+		setcookie('hash','');
 	}
 
 	public function getUser(){

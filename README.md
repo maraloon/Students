@@ -101,14 +101,14 @@ https://github.com/TheSidSpears/Students/blob/master/app/controllers/ERControlle
 
 <!-- Метод showView тоже назван неудачно. Логчинее назвать его "обработать запрос" и сделать абстрактным в базовом контроллере. -->
 
-https://github.com/TheSidSpears/Students/blob/master/app/classes/Authorization.php#L12
+<!-- https://github.com/TheSidSpears/Students/blob/master/app/classes/Authorization.php#L12
 > function __construct($container){
 перечитай урок про DI. Это service locator и это плохая вещь.
-Убрал где можно. Но как я понимаю в контроллеры всё равно контейнер придётся передавать целиком, так?
+Убрал где можно. Но как я понимаю в контроллеры всё равно контейнер придётся передавать целиком, так? -->
 
 
-Сам класс авторизации странный, половины функций связанных с авторизацией, в нем нет, они в контроллере.
--Добавил setHash(). Еще что-то нужно?
+<!-- Сам класс авторизации странный, половины функций связанных с авторизацией, в нем нет, они в контроллере. -->
+<!-- -Добавил setHash(). Еще что-то нужно? -->
 
 <!-- https://github.com/TheSidSpears/Students/blob/master/app/classes/JSONLoader.php
 Тут зачем-то захардкожены имена файлов. -->
@@ -124,8 +124,7 @@ https://github.com/TheSidSpears/Students/blob/master/app/classes/Authorization.p
 >            $rows = $this->db->prepare("SELECT FROM `students` WHERE CONCAT(`name`,' ',`sname`,' ',`group_num`,' ',`points`,' ',`gender`,' ',`email`,' ',`b_year`,' ',`is_resident`) LIKE :search ORDER BY $sortBy $orderBy LIMIT :x,:y");
 Получается первый prepare был сделан зря? зачем тогда его делать? -->
 
-В student->addInfo есть проблема. У тебя нет фильтрации по разрешенными полям и пользователь может менять любые свойства студента в том числе те, которых нет в форме. ну например что если мы добавим колонку is_admin - пользователь сможет передать $POST['is_admin'] = 1 при редактирвоании. И кстати об этом было написано в моем уроке.
--Я подразумеваю, что всё что нельзя редактировать пользователю, то protected. А get_object_vars возвращает только public свойства.
+<!-- В student->addInfo есть проблема. У тебя нет фильтрации по разрешенными полям и пользователь может менять любые свойства студента в том числе те, которых нет в форме. ну например что если мы добавим колонку is_admin - пользователь сможет передать $POST['is_admin'] = 1 при редактирвоании. И кстати об этом было написано в моем уроке. -->
 
 <!-- > https://github.com/TheSidSpears/Students/blob/master/app/classes/StudentValidator.php#L98
 > foreach($mask['values'] as $value){                    
@@ -138,11 +137,6 @@ in_array() -->
 <!-- https://github.com/TheSidSpears/Students/blob/master/app/classes/StudentValidator.php#L66
 > function __construct(Student $s, $container, $id=NULL){
 Почему ты пишешь код валидации в конструкторе? И почему передаешь контейнер? Почитай про DI. -->
-- Я прописал в __construct
-		$this->table=$table;
-		$this->validate();
-		return $this->errors;
-потому что этот класс используется только так и никак иначе. Создать, проверить на ошибки, вернуть ошибки. Верно так делать? Это сокращает работу с классом до одной строки: $validErrors=new StudentValidator($student,$this->c['table'],$id); 
 
 https://github.com/TheSidSpears/Students/blob/master/app/classes/ViewHelper.php
 тут слишком много всего понамешано. <!-- Еще и контейнер. -->
