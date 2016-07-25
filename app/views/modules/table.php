@@ -49,8 +49,9 @@
 		</tbody>
 	</table>
 	
-<div class="col-md">
-	<?php if(isset($pages)): ?>
+
+<?php if($pages>1): ?>
+	<div class="col-md">
 		<ul class="pagination">
 
 		<?php if($currentPage>1): ?>
@@ -70,7 +71,8 @@
 		<?php endif;?>
 
 		</ul>
-	<?php endif;?>
-</div>
+	</div>
+<?php endif;?>
+
 
 <?php endif;?>

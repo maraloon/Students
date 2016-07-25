@@ -1,4 +1,5 @@
 <?php
+namespace Project\Controllers;
 
 class ERController extends ViewController{
 	protected $validModules=array('edit','edit_ok','register','register_ok');

@@ -1,5 +1,8 @@
 <?php
 //DI container
+use Project\Controllers;
+use Project\Classes\Authorization;
+
 $container = new Pimple\Container;
 
 
@@ -39,7 +42,7 @@ $container['table']=function ($c) {
 };
 
 $container['auth']=function ($c) {
-    return new Authorization($c['table']);
+    return new Project\Classes\Authorization($c['table']);
 };
 
 $container['isAuthorized']=function ($c) {

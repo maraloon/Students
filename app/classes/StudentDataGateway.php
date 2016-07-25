@@ -1,4 +1,5 @@
 <?php
+namespace Project\Сlasses;
 /*implement
 
 __construct
@@ -65,7 +66,7 @@ class StudentDataGateway{
 		
 		//Если задан поиск по строке $search
 		if (isset($search)) {
-			$rows = $this->db->prepare("SELECT * FROM `students` WHERE CONCAT(`name`,' ',`sname`,' ',`group_num`,' ',`points`,' ',`gender`,' ',`email`,' ',`b_year`,' ',`is_resident`) LIKE :search ORDER BY $sortBy $orderBy LIMIT :x,:y");
+			$rows = $this->db->prepare("SELECT * FROM `students` WHERE CONCAT(`name`,' ',`sname`,' ',`group_num`,' ',`points`,' ',`gender`,' ',`email`,' ',`b_year`,' ',`is_resident`) LIKE :search ORDER BY $sortBy $orderBy LIMIT :limit OFFSET :offset");
 			$search='%'.$search.'%';
 			$rows->bindValue(':search', $search, PDO::PARAM_STR);
 		}

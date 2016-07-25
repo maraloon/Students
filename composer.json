@@ -3,5 +3,15 @@
     "description": "StudentDB",
     "require": {
         "pimple/pimple": "^3.0"
+    },
+
+    "autoload": {
+	    "psr-4": {
+	    	"Project\\": "app/",
+	        "Classes\\": "classes/",
+	        "Controllers\\": "controllers/",
+	        "Exeptions\\": "exeptions/"
+        }
     }
+
 }

@@ -1,4 +1,6 @@
 <?php
+namespace Project\Сlasses;
+
 class StudentValidator{
 	protected $masks=array(
 		'name'=>array(

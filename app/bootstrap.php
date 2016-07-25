@@ -14,7 +14,7 @@ mb_internal_encoding('utf-8');
 });*/
 
 //Автозагрузка всех моделей
-spl_autoload_register(
+/*spl_autoload_register(
 	function ($className) {
 		// Получаем путь к файлу из имени класса
 		$folders=array('classes','exeptions','controllers');
@@ -27,11 +27,13 @@ spl_autoload_register(
 			}
 		}
 	}
-);
+);*/
 
 
 
 //Подключаем сторонние библиотеки
-require Util::getAbsolutePath('vendor/autoload.php');
+//require Util::getAbsolutePath('vendor/autoload.php');
+require ('../vendor/autoload.php');
 //DI container
-include Util::getAbsolutePath('app/container.php');
+//include Util::getAbsolutePath('app/container.php');
+include ('../app/container.php');

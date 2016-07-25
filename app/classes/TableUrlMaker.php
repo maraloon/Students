@@ -1,4 +1,5 @@
 <?php
+namespace Project\Сlasses;
 /*
 *
 */
