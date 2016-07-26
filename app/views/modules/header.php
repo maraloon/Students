@@ -1,3 +1,4 @@
+<?php use \Project\Classes\Util; ?>
 <!DOCTYPE html>
 <html lang="en">
   <head>

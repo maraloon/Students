@@ -1,5 +1,5 @@
 <?php
-namespace Project\Сlasses;
+namespace Project\Classes;
 /*
 * Чтение JSON-файла
 */

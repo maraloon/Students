@@ -1,5 +1,5 @@
 <?php
-namespace Project\Сlasses;
+namespace Project\Classes;
 /*
 * c['auth']->checkAuth($_COOKIE['hash']);
 * Если вернёт true, то c['auth']->user содержит данные авторизованного студента для представления

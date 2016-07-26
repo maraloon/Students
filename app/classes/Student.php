@@ -1,5 +1,5 @@
 <?php
-namespace Project\Сlasses;
+namespace Project\Classes;
 /*implement
 
 __construct

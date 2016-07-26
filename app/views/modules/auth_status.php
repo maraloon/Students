@@ -1,3 +1,4 @@
+<?php use \Project\Classes\Router; ?>
 <div class="col-md-3 well">
 	<?php if($isAuthorized): ?>
 		Вошли как: <?=$user['name']?> <?=$user['sname']?>

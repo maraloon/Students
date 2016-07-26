@@ -1,6 +1,6 @@
 <?php
 namespace Project\Controllers;
-
+use \Project\Classes;
 class MainController extends ViewController{
 
 	function __construct($viewName,$c){
@@ -9,12 +9,12 @@ class MainController extends ViewController{
 
 	public function parseRequest(){
 	//Авторизован ли пользователь
-	#$isAuthorized=$this->c['auth']->checkAuth();
-	$isAuthorized=$this->c['isAuthorized'];
+		$isAuthorized=$this->c['isAuthorized'];
 	//Получаем данные юзера
-	if ($isAuthorized) {
-		$user=$this->c['auth']->getUser();
-	}
+		/*if ($isAuthorized) {
+			$user=$this->c['auth']->getUser();
+		}*/
+		$user=$isAuthorized ? $this->c['auth']->getUser() : NULL;
 
 	//Параметры для поиска
 		$find=isset($_GET['find']) ? $_GET['find'] : NULL;
@@ -46,15 +46,22 @@ class MainController extends ViewController{
 		$table=$this->c['table'];
 		$students=$table->getStudents($sortBy,$orderBy,$limit,$offset,$find);
 		//Генерация динамического контента для представления
-		$viewer = new TableUrlMaker($currentPage,$sortBy,$orderBy,$find,$this->c['router']);
+		$viewer = new Classes\TableUrlMaker($currentPage,$sortBy,$orderBy,$find,$this->c['router']);
 		
 
 
-		//Данные, используемые в представлении
-		foreach (array('students','viewer','isAuthorized','user','find','pages','currentPage') as $value) {
+		//Данные, обязательно используемые в представлении
+		foreach (array('students','viewer','isAuthorized','user','find','pages','currentPage') as $value)
+		{
 			$this->viewData[$value]=$$value;
 		}
-
+		//Данные, возможно используемые в представлении
+		/*foreach (array('user') as $value) {
+			if (isset($$value)) {
+				$this->viewData[$value]=$$value;
+			}
+			
+		}*/
 		parent::showView();
 	}
 }

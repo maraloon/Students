@@ -1,6 +1,7 @@
 <?php
 namespace Project\Controllers;
-
+use \Project\Classes\Util;
+use \Project\Classes\Student;
 class ERController extends ViewController{
 	protected $validModules=array('edit','edit_ok','register','register_ok');
 	protected $controller;
@@ -135,7 +136,7 @@ class ERController extends ViewController{
 
 	protected function addStudent(Student $student){
 		$this->c['table']->addStudent($student);
-		$c['auth']->authorize($student->hash);
+		$this->c['auth']->logIn($student->hash);
 		header('Location: register_ok');	
 	}
 

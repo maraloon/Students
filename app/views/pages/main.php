@@ -1,3 +1,4 @@
+<?php use \Project\Classes\Util; ?>
 <div class="row">
 
 	<h1>Список абитуриентов</h1>

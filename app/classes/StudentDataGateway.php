@@ -1,5 +1,5 @@
 <?php
-namespace Project\Сlasses;
+namespace Project\Classes;
 /*implement
 
 __construct
@@ -14,7 +14,7 @@ editStudent
 class StudentDataGateway{
 	protected $db; //Объект PDO
 
-	function __construct(PDO $connection){
+	function __construct(\PDO $connection){
 		$this->db=$connection;
 	}
 
@@ -32,7 +32,7 @@ class StudentDataGateway{
 		if (isset($search)) {
 			$rows = $this->db->prepare("SELECT COUNT(*) FROM `students` WHERE CONCAT(`name`,' ',`sname`,' ',`group_num`,' ',`points`,' ',`gender`,' ',`email`,' ',`b_year`,' ',`is_resident`) LIKE '%$search%'");
 			$search='%'.$search.'%';
-			$rows->bindValue(':search', $search, PDO::PARAM_STR);
+			$rows->bindValue(':search', $search, \PDO::PARAM_STR);
 		}
 		else{
 			$rows = $this->db->prepare("SELECT COUNT(*) FROM `students`");
@@ -47,7 +47,7 @@ class StudentDataGateway{
 	private function getColumns(){
 		$rows = $this->db->prepare("SHOW COLUMNS FROM `students`");
 		$rows->execute();
-		$columns=$rows->fetchAll(PDO::FETCH_ASSOC);
+		$columns=$rows->fetchAll(\PDO::FETCH_ASSOC);
 		$columns = array_column($columns, 'Field');
 
 		return $columns;
@@ -68,19 +68,19 @@ class StudentDataGateway{
 		if (isset($search)) {
 			$rows = $this->db->prepare("SELECT * FROM `students` WHERE CONCAT(`name`,' ',`sname`,' ',`group_num`,' ',`points`,' ',`gender`,' ',`email`,' ',`b_year`,' ',`is_resident`) LIKE :search ORDER BY $sortBy $orderBy LIMIT :limit OFFSET :offset");
 			$search='%'.$search.'%';
-			$rows->bindValue(':search', $search, PDO::PARAM_STR);
+			$rows->bindValue(':search', $search, \PDO::PARAM_STR);
 		}
 		else{
 			$rows = $this->db->prepare("SELECT * FROM `students` ORDER BY $sortBy $orderBy LIMIT :limit OFFSET :offset");
 		}
 
 		
-		$rows->bindValue(':limit', $limit, PDO::PARAM_INT);
-		$rows->bindValue(':offset', $offset, PDO::PARAM_INT);
+		$rows->bindValue(':limit', $limit, \PDO::PARAM_INT);
+		$rows->bindValue(':offset', $offset, \PDO::PARAM_INT);
 
 		$rows->execute();
 		
-		$studentsRows=$rows->fetchAll(PDO::FETCH_ASSOC);
+		$studentsRows=$rows->fetchAll(\PDO::FETCH_ASSOC);
 		//Подготавливаем массив
 		$students=array();
 		foreach($studentsRows as $studentRow){
@@ -94,10 +94,10 @@ class StudentDataGateway{
 	//Принимает хеш. Возвращает строку студента
 	public function getStudentByHash($hashFromCookie){
 		$rows = $this->db->prepare("SELECT * FROM `students` WHERE `hash`=:hash");
-		$rows->bindValue(':hash', $hashFromCookie, PDO::PARAM_STR);
+		$rows->bindValue(':hash', $hashFromCookie, \PDO::PARAM_STR);
 		$rows->execute();
 
-		$studentRow=$rows->fetch(PDO::FETCH_ASSOC);
+		$studentRow=$rows->fetch(\PDO::FETCH_ASSOC);
 
 		if ($studentRow!=NULL) {
 			return $studentRow;
@@ -116,16 +116,16 @@ class StudentDataGateway{
 	public function checkEmail($email,$id=NULL){
 		if ($id) {
 			$rows = $this->db->prepare("SELECT * FROM `students` WHERE `email`=:email AND `id`<>:id");
-			$rows->bindValue(':id', $id, PDO::PARAM_STR);
+			$rows->bindValue(':id', $id, \PDO::PARAM_STR);
 		}
 		else{
 			$rows = $this->db->prepare("SELECT * FROM `students` WHERE `email`=:email");
 		}
 
-		$rows->bindValue(':email', $email, PDO::PARAM_STR);
+		$rows->bindValue(':email', $email, \PDO::PARAM_STR);
 		$rows->execute();
 
-		$studentRow=$rows->fetchAll(PDO::FETCH_ASSOC);	
+		$studentRow=$rows->fetchAll(\PDO::FETCH_ASSOC);	
 
 		if( (count($studentRow)) > 0){
 			$status=true;
@@ -156,15 +156,15 @@ class StudentDataGateway{
 	protected function writeToTable($SqlString,$student){
 		$rows = $this->db->prepare($SqlString);
 
-		$rows->bindValue(':name', $student->name, PDO::PARAM_STR);
-		$rows->bindValue(':sname', $student->sname, PDO::PARAM_STR);
-		$rows->bindValue(':group_num', $student->group_num, PDO::PARAM_STR);
-		$rows->bindValue(':points', $student->points, PDO::PARAM_INT);
-		$rows->bindValue(':gender', $student->gender, PDO::PARAM_STR);
-		$rows->bindValue(':email', $student->email, PDO::PARAM_STR);
-		$rows->bindValue(':b_year', $student->b_year, PDO::PARAM_INT);
-		$rows->bindValue(':is_resident', $student->is_resident, PDO::PARAM_STR);
-		$rows->bindValue(':hash', $student->hash, PDO::PARAM_STR);
+		$rows->bindValue(':name', $student->name, \PDO::PARAM_STR);
+		$rows->bindValue(':sname', $student->sname, \PDO::PARAM_STR);
+		$rows->bindValue(':group_num', $student->group_num, \PDO::PARAM_STR);
+		$rows->bindValue(':points', $student->points, \PDO::PARAM_INT);
+		$rows->bindValue(':gender', $student->gender, \PDO::PARAM_STR);
+		$rows->bindValue(':email', $student->email, \PDO::PARAM_STR);
+		$rows->bindValue(':b_year', $student->b_year, \PDO::PARAM_INT);
+		$rows->bindValue(':is_resident', $student->is_resident, \PDO::PARAM_STR);
+		$rows->bindValue(':hash', $student->hash, \PDO::PARAM_STR);
 		$rows->execute();
 	}
 

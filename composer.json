@@ -6,11 +6,10 @@
     },
 
     "autoload": {
-	    "psr-4": {
-	    	"Project\\": "app/",
-	        "Classes\\": "classes/",
-	        "Controllers\\": "controllers/",
-	        "Exeptions\\": "exeptions/"
+        "psr-4": {
+            "Project\\Classes\\": "app/classes/",
+            "Project\\Controllers\\": "app/controllers/",
+            "Project\\Exeptions\\": "app/exeptions/"
         }
     }
 

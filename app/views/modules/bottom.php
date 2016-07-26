@@ -1,3 +1,4 @@
+<?php use \Project\Classes\Router; ?>
 <footer class="navbar-fixed-bottom row-fluid">
 	<div class="col-md-4">
 		<a href='<?=Router::url('main')?>'>Главная</a>

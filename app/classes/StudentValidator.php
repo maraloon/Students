@@ -1,5 +1,5 @@
 <?php
-namespace Project\Сlasses;
+namespace Project\Classes;
 
 class StudentValidator{
 	protected $masks=array(
