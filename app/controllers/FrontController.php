@@ -1,5 +1,5 @@
 <?php
-namespace Project\Controllers;
+namespace StudentList\Controllers;
 /**
  * Главный контроллер
  * Решает, какой подконтроллер использовать и какие виды показывать
@@ -16,9 +16,10 @@ class FrontController extends Controller{
 	}
 
 	function Start(){
-		$controllerName='\Project\Controllers\\'.$this->c['router']->getControllerName();
-		$viewName=$this->c['router']->getViewName();
-		$controller=new $controllerName($viewName,$this->c);
+		$controllerName='\StudentList\Controllers\\'.$this->c['router']->getControllerName();
+		//$viewName=$this->c['router']->getViewName();
+		$module=$this->c['router']->getModule();
+		$controller=new $controllerName($module,$this->c);
 		$controller->parseRequest();
 	}
 }

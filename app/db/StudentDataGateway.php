@@ -1,5 +1,6 @@
 <?php
-namespace Project\Classes;
+namespace StudentList\DataBase;
+use \StudentList\Models\Student;
 /*implement
 
 __construct

@@ -1,4 +1,4 @@
 <?php
-namespace Project\Exceptions;
+namespace StudentList\Exceptions;
 
 class DataBaseException extends Exception { }

@@ -1,5 +1,5 @@
-<?php use \Project\Classes\Util; ?>
-<?php use \Project\Classes\Router; ?>
+<?php use StudentList\Helpers\Util; ?>
+<?php use StudentList\Router; ?>
 <h1>Поиск абитуриентов</h1>
 <?php include(Util::getAbsolutePath('/app/views/forms/search_form.php'));?>
 

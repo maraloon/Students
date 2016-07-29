@@ -1,5 +1,5 @@
 <?php
-namespace Project\Classes;
+namespace StudentList\Models;
 /*implement
 
 __construct

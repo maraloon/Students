@@ -7,9 +7,13 @@
 
     "autoload": {
         "psr-4": {
-            "Project\\Classes\\": "app/classes/",
-            "Project\\Controllers\\": "app/controllers/",
-            "Project\\Exeptions\\": "app/exeptions/"
+            "StudentList\\": "app/",
+            "StudentList\\Helpers\\": "app/helpers/",
+            "StudentList\\Models\\": "app/models/",
+            "StudentList\\DataBase\\": "app/db/",
+            "StudentList\\Validators\\": "app/validators/",
+            "StudentList\\Controllers\\": "app/controllers/",
+            "StudentList\\Exeptions\\": "app/exeptions/"
         }
     }
 

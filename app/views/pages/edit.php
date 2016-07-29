@@ -1,5 +1,5 @@
 <?php
-use \Project\Classes\Util;
+use StudentList\Helpers\Util;
 $h1="Изменение данных";
 $action="edit";
 $button="Изменить данные";

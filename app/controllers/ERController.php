@@ -1,10 +1,11 @@
 <?php
-namespace Project\Controllers;
-use \Project\Classes\Util;
-use \Project\Classes\Student;
+namespace StudentList\Controllers;
+use StudentList\Helpers\Util;
+use \StudentList\Models\Student;
 class ERController extends ViewController{
 	protected $validModules=array('edit','edit_ok','register','register_ok');
-	protected $controller;
+	protected $keysOfViewVars=array('student','token','validErrors');
+	
 	protected $student;
 	protected $token;
 	protected $validErrors=array(); //все ошибки во время регистрации
@@ -14,35 +15,26 @@ class ERController extends ViewController{
 	}
 
 	public function parseRequest(){
-		if (in_array($this->c['router']->getModule(), $this->validModules)) {
-
-			$this->controller=$this->c['router']->getModule();
-			$module=$this->controller.'Module';
-			$this->$module();
-
-			#Сделать как в MainController без $this
-			foreach (array('student','token','validErrors') as $value) {
-				$this->viewData[$value]=$this->$value;
-			}
-
-			parent::showView();
-		}
-
+		parent::parseRequest();
 	}
-
 
 	protected function registerModule(){
-		$this->Module();
+		$this->mainCode();
+		$this->viewName='pages/register';
 	}
 	protected function editModule(){
-		$this->Module();
+		$this->mainCode();
+		$this->viewName='pages/edit';
 	}
 
-	protected function register_okModule(){}
-	protected function edit_okModule(){}
+	protected function register_okModule(){
+		$this->viewName='status/register_ok';
+	}
+	protected function edit_okModule(){
+		$this->viewName='status/edit_ok';
+	}
 
-	protected function Module(){
-
+	protected function mainCode(){
 		$this->setToken();
 
 		$oldStudentData=$this->prepareStudentForForm();
@@ -67,10 +59,10 @@ class ERController extends ViewController{
 
 				//нет ошибок
 				if(empty($validErrors)){
-					if ($this->controller=='edit') {
+					if ($this->module=='edit') {
 						$this->editStudent($newStudentData);
 					}
-					elseif($this->controller=='register'){
+					elseif($this->module=='register'){
 						$this->addStudent($newStudentData);
 					}
 				}
@@ -100,15 +92,15 @@ class ERController extends ViewController{
 	protected function fillStudent(Student $student){
 		$studentData=$this->filter($_POST);
 		foreach ($studentData as $field) {
-			$post=trim(strval($field));
+			$field=trim(strval($field));
 		}
 
 		$student->addInfo($studentData);
 
-		if ($this->controller=='edit') {
+		if ($this->module=='edit') {
 			$student->hash=$_COOKIE['hash'];
 		}
-		elseif($this->controller=='register'){
+		elseif($this->module=='register'){
 			$student->hash=Util::randHash();
 		}
 		return $student;
@@ -117,7 +109,7 @@ class ERController extends ViewController{
 	//Какой текст показать в полях формы
 	protected function prepareStudentForForm(){
 		$student=new Student();
-		if ($this->controller=='edit') {
+		if ($this->module=='edit') {
 			$studentRow=$this->c['table']->getStudentByHash($_COOKIE['hash']);
 			$student->addInfo($studentRow);
 		}
@@ -137,12 +129,12 @@ class ERController extends ViewController{
 	protected function addStudent(Student $student){
 		$this->c['table']->addStudent($student);
 		$this->c['auth']->logIn($student->hash);
-		header('Location: register_ok');	
+		header('Location: main?register_ok');	
 	}
 
 	protected function editStudent(Student $student){
 		$edit=$this->c['table']->editStudent($student);
-		header('Location: edit_ok');
+		header('Location: main?edit_ok');
 	}
 
 }

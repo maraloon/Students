@@ -1,5 +1,5 @@
-<?php use \Project\Classes\Util; ?>
-<?php use \Project\Classes\Router; ?>
+<?php use StudentList\Helpers\Util; ?>
+<?php use StudentList\Router; ?>
 <h1><?=$h1?></h1>
 
 <?php include(Util::getAbsolutePath('/app/views/modules/form_errors.php')); ?>

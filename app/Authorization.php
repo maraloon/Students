@@ -1,5 +1,6 @@
 <?php
-namespace Project\Classes;
+namespace StudentList;
+use StudentList\Exeptions\AuthExeption;
 /*
 * c['auth']->checkAuth($_COOKIE['hash']);
 * Если вернёт true, то c['auth']->user содержит данные авторизованного студента для представления
@@ -9,7 +10,7 @@ class Authorization{
 
 	protected $user;
 	protected $table;
-	protected $isAuthorized;
+	protected $isAuthorized=NULL;
 
 	function __construct($table){
 		$this->table=$table;
@@ -20,10 +21,8 @@ class Authorization{
 	* Возвращает статус пользователя
 	* Устанавливает значения полей, если авторизован
 	*/
-
 		if (isset($_COOKIE['hash'])) {
 			$this->isAuthorized=false;
-
 			$student=$this->table->getStudentByHash($_COOKIE['hash']);
 			if ($student!=false){
 				$this->isAuthorized=true;

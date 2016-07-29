@@ -1,6 +1,6 @@
 <?php
-namespace Project\Classes;
-
+namespace StudentList\Validators;
+use \StudentList\Models\Student;
 class StudentValidator{
 	protected $masks=array(
 		'name'=>array(

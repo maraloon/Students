@@ -1,4 +1,4 @@
-<?php use \Project\Classes\Util; ?>
+<?php use StudentList\Helpers\Util; ?>
 <?php $s=$student; ?>
 <div class="form-group">
 	<label>Имя</label>

@@ -1,3 +1,3 @@
 <?php
-namespace Project\Exceptions;
-class AuthExeption extends Exception { }
+namespace StudentList\Exceptions;
+class AuthExeption extends \Exception { }

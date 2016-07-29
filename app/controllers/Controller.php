@@ -1,5 +1,5 @@
 <?php
-namespace Project\Controllers;
+namespace StudentList\Controllers;
 abstract class Controller{
 
 	protected $c; //контейнер

@@ -1,6 +1,4 @@
 <?php
-/*$bootstrap=realpath(__DIR__."/../app/bootstrap.php");
-include ($bootstrap);*/
 error_reporting(-1);
 mb_internal_encoding('utf-8');
 
@@ -11,15 +9,8 @@ mb_internal_encoding('utf-8');
 	include($path);
 });*/
 
-/*var_dump(strpos("Project\Сlasses\StudentDataGateway","Project\Classes\\"));
-var_dump(strpos("Project\Сlasses\StudentDataGateway","Project\Сlasses\\"));
-
-if ($s1===$s2) {
-	echo "same";
-}*/
-
 require (__DIR__.'/../vendor/autoload.php');
 include (__DIR__.'/../app/container.php');
 //Запускаем главный контроллер
-$frontController=new Project\Controllers\FrontController($container);
+$frontController=new StudentList\Controllers\FrontController($container);
 $frontController->Start();

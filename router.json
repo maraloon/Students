@@ -2,42 +2,37 @@
 	"main":
 	{
 		"controller": "MainController",
-		"folder": "pages",
 		"show": "all"
 	},
 	
+	"search":
+	{
+		"controller": "MainController",
+		"show": "all"
+	},
+
 	"register":
 	{
 		"controller": "ERController",
-		"folder": "pages",
 		"show": "guest"
 	},
 	
 	"register_ok":
 	{
 		"controller": "ERController",
-		"folder": "status",
 		"show": "all"
 	},
 	
 	"edit_ok":
 	{
 		"controller": "ERController",
-		"folder": "status",
 		"show": "member"
 	},
 
 	"edit":
 	{
 		"controller": "ERController",
-		"folder": "pages",
 		"show": "member"
-	},
-	
-	"search":
-	{
-		"controller": "MainController",
-		"folder": "pages",
-		"show": "all"
 	}
+
 }

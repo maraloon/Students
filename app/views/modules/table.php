@@ -1,4 +1,4 @@
-<?php use \Project\Classes\Util; ?>
+<?php use StudentList\Helpers\Util; ?>
 <?php if(count($students)==0): ?>
 	Совпадений не найдено
 <?php else: ?>

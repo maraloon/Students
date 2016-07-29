@@ -1,10 +1,10 @@
 <?php
 //DI container
-use Project\Classes\Authorization;
-use Project\Classes\JSONLoader;
-use Project\Classes\Router;
-use Project\Classes\StudentDataGateway;
-use Project\Classes\StudentValidator;
+use StudentList\Authorization;
+use StudentList\Helpers\JSONLoader;
+use StudentList\Router;
+use StudentList\DataBase\StudentDataGateway;
+use StudentList\Validators\StudentValidator;
 
 $container = new Pimple\Container;
 
@@ -46,10 +46,6 @@ $container['table']=function ($c) {
 
 $container['auth']=function ($c) {
     return new Authorization($c['table']);
-};
-
-$container['isAuthorized']=function ($c) {
-    return $c['auth']->checkAuth();;
 };
 
 $container['validator']=function ($c) {
