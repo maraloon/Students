@@ -8,23 +8,23 @@
 		<thead>
 			<tr>
 				<th>
-					<a href='<?=Util::html($viewer->makeSortUrl('name'))?>'>Имя</a>
 					<?=$viewer->showSortOrder('name')?>
+					<a href='<?=Util::html($viewer->makeSortUrl('name'))?>'>Имя</a>
 				</th>
 
 				<th>
-					<a href='<?=Util::html($viewer->makeSortUrl('sname'))?>'>Фамилия</a>
 					<?=$viewer->showSortOrder('sname')?>
+					<a href='<?=Util::html($viewer->makeSortUrl('sname'))?>'>Фамилия</a>
 				</th>
 
 				<th>
-					<a href='<?=Util::html($viewer->makeSortUrl('group_num'))?>'>Номер группы</a>
 					<?=$viewer->showSortOrder('group_num')?>
+					<a href='<?=Util::html($viewer->makeSortUrl('group_num'))?>'>Номер группы</a>
 				</th>
 
 				<th>
-					<a href='<?=Util::html($viewer->makeSortUrl('points'))?>'>Баллов</a>
 					<?=$viewer->showSortOrder('points')?>
+					<a href='<?=Util::html($viewer->makeSortUrl('points'))?>'>Баллов</a>
 				</th>
 			</tr>
 		</thead>
@@ -51,29 +51,29 @@
 	</table>
 	
 
-<?php if($pages>1): ?>
-	<div class="col-md">
-		<ul class="pagination">
+	<?php if($pages>1): ?>
+		<div class="col-md">
+			<ul class="pagination">
 
-		<?php if($currentPage>1): ?>
-			<li><a href='<?=Util::html($viewer->makePageUrl($currentPage-1))?>'>&laquo;</a></li>
-		<?php endif;?>
+			<?php if($currentPage>1): ?>
+				<li><a href='<?=Util::html($viewer->makePageUrl($currentPage-1))?>'>&laquo;</a></li>
+			<?php endif;?>
 
-		<?php for($i=1; $i<=$pages; $i++): ?>
-			<?php if($i==$currentPage): ?>
-				<li class="active"><a href='#'><?=$i?></a></li>	
-			<?php else: ?>
-				<li><a href='<?=Util::html($viewer->makePageUrl($i))?>'><?=$i?></a></li>
-			<?php endif;?>	
-		<?php endfor;?>
-		
-		<?php if($currentPage!=$pages): ?>
-			<li><a href='<?=Util::html($viewer->makePageUrl($currentPage+1))?>'>&raquo;</a></li>
-		<?php endif;?>
+			<?php for($i=1; $i<=$pages; $i++): ?>
+				<?php if($i==$currentPage): ?>
+					<li class="active"><a href='#'><?=$i?></a></li>	
+				<?php else: ?>
+					<li><a href='<?=Util::html($viewer->makePageUrl($i))?>'><?=$i?></a></li>
+				<?php endif;?>	
+			<?php endfor;?>
+			
+			<?php if($currentPage!=$pages): ?>
+				<li><a href='<?=Util::html($viewer->makePageUrl($currentPage+1))?>'>&raquo;</a></li>
+			<?php endif;?>
 
-		</ul>
-	</div>
-<?php endif;?>
+			</ul>
+		</div>
+	<?php endif;?>
 
 
 <?php endif;?>

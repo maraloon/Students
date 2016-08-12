@@ -46,7 +46,7 @@ class TableUrlMaker{
 
 	public function showSortOrder($row){
 		if ($row==$this->sortBy) {
-			return $this->orderBy=='asc' ? '[▲]' : '[▼]';
+			return $this->orderBy=='asc' ? '▲' : '▼';
 		}
 		else{
 			return false;

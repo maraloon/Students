@@ -21,16 +21,16 @@ class Authorization{
 	* Возвращает статус пользователя
 	* Устанавливает значения полей, если авторизован
 	*/
+		$this->isAuthorized=false;
 		if (isset($_COOKIE['hash'])) {
-			$this->isAuthorized=false;
 			$student=$this->table->getStudentByHash($_COOKIE['hash']);
 			if ($student!=false){
 				$this->isAuthorized=true;
 				//Переменные для отображения
 				$this->user=$student;	
 			}
-			return $this->isAuthorized;
 		}
+		return $this->isAuthorized;
 	}
 
 	public function logIn($hash){
