@@ -8,7 +8,7 @@ namespace StudentList;
 class Router
 {
 	public $isUriValid;
-	protected $module;
+	protected $action;
 	protected $controllersList;
 	protected $projectFolder;
 	
@@ -33,16 +33,16 @@ class Router
 			$this->controllersList=$controllersList;
 			$this->projectFolder=$projectFolder;
 
-			$this->module=array_pop($explodePath);
-			if($this->module==''){
-				$this->module='main';
+			$this->action=array_pop($explodePath);
+			if($this->action==''){
+				$this->action='main';
 			}
 		}
 
 	}
 	
-	public function getModule($url){
-		return $this->module;
+	public function getAction($url){
+		return $this->action;
 	}
 
 	public function makeUrl($path){
@@ -51,9 +51,9 @@ class Router
 	}
 
 
-	public function getControllerName($module){
-		if (array_key_exists($module, $this->controllersList)) {
-			return $this->controllersList[$module];
+	public function getControllerName($action){
+		if (array_key_exists($action, $this->controllersList)) {
+			return $this->controllersList[$action];
 		}
 		else{
 			return NULL;

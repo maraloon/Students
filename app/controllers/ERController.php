@@ -4,14 +4,14 @@ use StudentList\Helpers\Util;
 use \StudentList\Models\Student;
 class ERController extends ViewController{
 
-	public function registerModule(){
+	public function registerAction(){
 		if ($this->c['auth']->checkAuth()==false) {
 			return $this->prepareForView();
 		}
 		return 403;
 	}
 
-	public function editModule(){
+	public function editAction(){
 		if ($this->c['auth']->checkAuth()==true) {
 			return $this->prepareForView();
 		}
@@ -34,10 +34,10 @@ class ERController extends ViewController{
 				$validErrors=$this->c['validator']->validate($student);
 				//Если нет ошибок
 				if(empty($validErrors)){
-					if ($this->c['module']=='edit') {
+					if ($this->c['action']=='edit') {
 						$this->editStudent($student);
 					}
-					elseif($this->c['module']=='register'){
+					elseif($this->c['action']=='register'){
 						$this->addStudent($student);
 					}
 				}
@@ -64,11 +64,11 @@ class ERController extends ViewController{
 	//Какой текст показать в полях формы
 	protected function prepareStudentForForm(){
 		$student=new Student();
-		if ($this->c['module']=='edit') {
+		if ($this->c['action']=='edit') {
 			$student=$this->c['table']->getStudentByHash($_COOKIE['hash']);
 			//$student->addInfo($studentRow);
 		}
-		/*elseif($this->c['module']=='register'){
+		/*elseif($this->c['action']=='register'){
 			//return new Student();
 		}*/
 		return $student;
@@ -83,10 +83,10 @@ class ERController extends ViewController{
 
 		$student->addInfo($studentData);
 
-		if ($this->c['module']=='edit') {
+		if ($this->c['action']=='edit') {
 			$student->hash=$_COOKIE['hash'];
 		}
-		elseif($this->c['module']=='register'){
+		elseif($this->c['action']=='register'){
 			$student->hash=Util::randHash();
 		}
 		return $student;

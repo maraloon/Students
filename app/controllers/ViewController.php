@@ -2,12 +2,11 @@
 namespace StudentList\Controllers;
 use \StudentList\Helpers\Util;
 abstract class ViewController extends Controller{
-	protected $module;
 	protected $viewName;
 
 	function __construct($c){
 		parent::__construct($c);
-		$this->viewName=$c['module'];
+		$this->viewName=$c['action'];
 	}
 
 	public function showView(){

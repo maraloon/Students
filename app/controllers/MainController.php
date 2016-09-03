@@ -3,10 +3,10 @@ namespace StudentList\Controllers;
 use \StudentList\Helpers;
 class MainController extends ViewController{
 
-	public function mainModule(){
+	public function mainAction(){
 		$this->prepareForView();
 	}
-	public function searchModule(){
+	public function searchAction(){
 		$this->prepareForView();
 	}
 
@@ -51,7 +51,7 @@ class MainController extends ViewController{
 		$table=$this->c['table'];
 		$students=$table->getStudents($sortBy,$orderBy,$limit,$offset,$find);
 		//Генерация динамического контента для представления
-		$viewer = new Helpers\TableUrlMaker($currentPage,$sortBy,$orderBy,$find,$this->c['module']);
+		$viewer = new Helpers\TableUrlMaker($currentPage,$sortBy,$orderBy,$find,$this->c['action']);
 		$router=$this->c['router'];
 
 		//Переменные, используемые в представлении

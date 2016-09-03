@@ -25,8 +25,8 @@ $container['router']=function ($c) {
     return new Router($c['routerFile'],$c['config']['projectFolder']);
 };
 
-$container['module']=function ($c) {
-    return $c['router']->getModule($_SERVER['REQUEST_URI']);;
+$container['action']=function ($c) {
+    return $c['router']->getAction($_SERVER['REQUEST_URI']);;
 };
 
 $container['db']=function ($c) {
