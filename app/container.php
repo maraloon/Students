@@ -22,8 +22,11 @@ $container['routerFile']=function ($c) {
 };
 
 $container['router']=function ($c) {
-    $isAuthorized=$c['auth']->checkAuth();
-    return new Router($c['routerFile'],$isAuthorized);
+    return new Router($c['routerFile'],$c['config']['projectFolder']);
+};
+
+$container['module']=function ($c) {
+    return $c['router']->getModule($_SERVER['REQUEST_URI']);;
 };
 
 $container['db']=function ($c) {

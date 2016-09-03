@@ -1,38 +1,6 @@
 {
-	"main":
-	{
-		"controller": "MainController",
-		"show": "all"
-	},
-	
-	"search":
-	{
-		"controller": "MainController",
-		"show": "all"
-	},
-
-	"register":
-	{
-		"controller": "ERController",
-		"show": "guest"
-	},
-	
-	"register_ok":
-	{
-		"controller": "ERController",
-		"show": "all"
-	},
-	
-	"edit_ok":
-	{
-		"controller": "ERController",
-		"show": "member"
-	},
-
-	"edit":
-	{
-		"controller": "ERController",
-		"show": "member"
-	}
-
+	"main": "MainController",
+	"search": "MainController",
+	"register": "ERController",
+	"edit":  "ERController"
 }

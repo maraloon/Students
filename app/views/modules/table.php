@@ -31,7 +31,7 @@
 		
 		<tbody>
 			<?php foreach($students as $student):?>
-				<?php if( (isset($user['email'])) and ($user['email']==$student->email) ):?>
+				<?php if( (isset($user->email)) and ($user->email==$student->email) ):?>
 					<tr class="active">
 				<?php else: ?>
 					<tr>	

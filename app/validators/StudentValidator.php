@@ -67,7 +67,7 @@ class StudentValidator{
 		$this->table=$table;
 	}
 
-	public function validate(Student $s,$id=NULL){
+	public function validate(Student $s){
 		$masks=$this->masks;
 		$e=array();
 		
@@ -103,7 +103,7 @@ class StudentValidator{
 			}
 		}
 
-		if (($this->checkEmail($s->email,$id))) {
+		if (($this->checkEmail( $s->email,$s->getId() ))) {
 			$e[]='Такой e-mail уже зарегистрирован';
 		}
 		

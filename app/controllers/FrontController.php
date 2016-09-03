@@ -1,5 +1,6 @@
 <?php
 namespace StudentList\Controllers;
+use StudentList\Helpers\Util;
 /**
  * Главный контроллер
  * Решает, какой подконтроллер использовать и какие виды показывать
@@ -10,16 +11,40 @@ namespace StudentList\Controllers;
 **/
 class FrontController extends Controller{
 
-
 	function __construct($container){
 		parent::__construct($container);
 	}
 
 	function Start(){
-		$controllerName='\StudentList\Controllers\\'.$this->c['router']->getControllerName();
-		//$viewName=$this->c['router']->getViewName();
-		$module=$this->c['router']->getModule();
-		$controller=new $controllerName($module,$this->c);
-		$controller->parseRequest();
+		if ($this->c['router']->isUriValid) {
+			$controllerName=$this->c['router']->getControllerName($this->c['module']);
+			if ($controllerName!=NULL) {
+				$controllerPath='\StudentList\Controllers\\'.$controllerName;
+				$controller=new $controllerPath($this->c);
+
+				$moduleFunc=$this->c['module'].'Module';
+				if (method_exists($controller, $moduleFunc)) {
+
+					$error=$controller->$moduleFunc();
+					if ($error==NULL) {
+						$controller->showView();
+					}
+					else{
+						include(Util::getAbsolutePath("/public/error_pages/$error.php"));
+					}
+				}
+				else{
+					include(Util::getAbsolutePath('/public/error_pages/404.php'));
+					//Вывести в лог ошибку, что неправильно написан контроллер или в роутере прописан несуществующее представление
+				}
+			}
+			else{
+				include(Util::getAbsolutePath('/public/error_pages/404.php'));
+			}
+		}
+		else{
+			include(Util::getAbsolutePath('/public/error_pages/404.php'));
+		}
+
 	}
 }

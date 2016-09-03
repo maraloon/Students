@@ -31,7 +31,7 @@ class StudentDataGateway{
 	public function countStudents($search=NULL){
 		//Если задан поиск по строке $search
 		if (isset($search)) {
-			$rows = $this->db->prepare("SELECT COUNT(*) FROM `students` WHERE CONCAT(`name`,' ',`sname`,' ',`group_num`,' ',`points`,' ',`gender`,' ',`email`,' ',`b_year`,' ',`is_resident`) LIKE '%$search%'");
+			$rows = $this->db->prepare("SELECT COUNT(*) FROM `students` WHERE CONCAT(`name`,' ',`sname`,' ',`group_num`,' ',`points`,' ',`gender`,' ',`email`,' ',`b_year`,' ',`is_resident`) LIKE '%:search%'");
 			$search='%'.$search.'%';
 			$rows->bindValue(':search', $search, \PDO::PARAM_STR);
 		}
@@ -61,7 +61,9 @@ class StudentDataGateway{
 		*/
 		//Фильтруем данные
 		if(!in_array($sortBy, $this->getColumns())){
-			$sortBy='points';
+			if ($sortBy=='hash') { //запрещаем сортировать по hash
+				$sortBy='points';
+			}
 		}
 		$orderBy= $orderBy=='asc'? 'asc' : 'desc'; //если передаётся шняга, то desc
 		
@@ -101,7 +103,9 @@ class StudentDataGateway{
 		$studentRow=$rows->fetch(\PDO::FETCH_ASSOC);
 
 		if ($studentRow!=NULL) {
-			return $studentRow;
+			$student=new Student();
+			$student->addInfo($studentRow);
+			return $student;
 		}
 		else{
 			return false;
@@ -116,26 +120,21 @@ class StudentDataGateway{
 	*/
 	public function checkEmail($email,$id=NULL){
 		if ($id) {
-			$rows = $this->db->prepare("SELECT * FROM `students` WHERE `email`=:email AND `id`<>:id");
+			$rows = $this->db->prepare("SELECT COUNT(*) FROM `students` WHERE `email`=:email AND `id`<>:id");
 			$rows->bindValue(':id', $id, \PDO::PARAM_STR);
 		}
 		else{
-			$rows = $this->db->prepare("SELECT * FROM `students` WHERE `email`=:email");
+			$rows = $this->db->prepare("SELECT COUNT(*) FROM `students` WHERE `email`=:email");
 		}
 
 		$rows->bindValue(':email', $email, \PDO::PARAM_STR);
 		$rows->execute();
+		$count=$rows->fetchColumn();		
 
-		$studentRow=$rows->fetchAll(\PDO::FETCH_ASSOC);	
-
-		if( (count($studentRow)) > 0){
-			$status=true;
+		if($count>0){
+			return true;
 		}
-		else{
-			$status=false;
-		}
-
-		return $status;
+		return false;
 	}
 	
 	//Добавляет новую строку в БД

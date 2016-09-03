@@ -8,22 +8,21 @@ class TableUrlMaker{
 	public $sortBy;
 	public $orderBy;
 	public $find;
-	protected $router;
+	protected $module;
 
-	function __construct($page,$sortBy,$orderBy,$find,$router){
+	function __construct($page,$sortBy,$orderBy,$find,$module){
 		$this->page=$page;
 		$this->sortBy=$sortBy;
 		$this->orderBy=$orderBy;
 		$this->find=$find;
-		$this->router=$router;
+		$this->module=$module;
 	}
 
 	private function makeUrl(Array $params){
 		$urlVars= array('page' => $this->page, 'sortBy' => $this->sortBy,'orderBy' => $this->orderBy,'find' => $this->find);
 		$blockedParams=array_diff_key($urlVars,$params); //ключи что есть в $urlVars, но нет в $params
-		$module=$this->router->getModule();
 		
-		$url=$module."?".http_build_query(array_merge($blockedParams,$params));
+		$url=$this->module."?".http_build_query(array_merge($blockedParams,$params));
 		return $url;
 	}
 

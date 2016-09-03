@@ -5,63 +5,58 @@ namespace StudentList;
  * Разбирает URL
  *
 **/
-class Router{
-	protected $list;
-	protected $isAuthorized;
-	protected $controllerName;
-	//protected $viewName;
+class Router
+{
+	public $isUriValid;
+	protected $module;
+	protected $controllersList;
+	protected $projectFolder;
 	
-	function __construct($list,$isAuthorized){
-		$this->list=$list;
-		$this->isAuthorized=$isAuthorized;
-	}
-	
-	public function getModule(){
+	function __construct($controllersList,$projectFolder){
+		
+		
 		$parsedUrl=parse_url($_SERVER['REQUEST_URI']);
 		$explodePath=explode('/', $parsedUrl['path']);
-		$module=$explodePath[count($explodePath)-1];
 
-		if($module==''){
-			$module='main';
+		$urlPath=array(); //путь до папки public
+		for ($i=1; $i < count($explodePath)-1; $i++) { 
+			$urlPath[]=$explodePath[$i];
 		}
-		
-		return $module;
-		
-	}
+		$urlPath='/'.implode('/', $urlPath);
 
-	static function url($url){
-		$explodePath = explode('/', $_SERVER['REQUEST_URI']);
-		$explodePath[count($explodePath)-1]=$url;
-		return implode('/', $explodePath);
-	}
+		if ($urlPath!=$projectFolder) {
+			$this->isUriValid=false;
+		}
+		else{
+			$this->isUriValid=true;
 
+			$this->controllersList=$controllersList;
+			$this->projectFolder=$projectFolder;
 
-	public function getControllerName(){
-		if (empty($this->controllerName)) {
-			//Получаем текущий модуль
-			$module=$this->getModule();
-			//Читаем зависимости названий контроллеров и представлений от url из JSON-файла
-			$list=$this->list;
-			//Определяем нужный контроллер и представление
-			if(array_key_exists($module,$list)){
-				if ( ($list[$module]['show']=='all') or
-					 (  ($list[$module]['show']=='guest') and !$this->isAuthorized  ) or
-						(($list[$module]['show']=='member') and $this->isAuthorized)
-				){
-					$this->controllerName=$list[$module]['controller'];	
-				}
-				else{
-					include(Util::getAbsolutePath('/public/error_pages/403.php'));
-					exit;
-				}
+			$this->module=array_pop($explodePath);
+			if($this->module==''){
+				$this->module='main';
 			}
-			else{
-				include(Util::getAbsolutePath('/public/error_pages/404.php'));
-				exit;
-			}
-		
 		}
 
-		return $this->controllerName;
+	}
+	
+	public function getModule($url){
+		return $this->module;
+	}
+
+	public function makeUrl($path){
+		$projectFolder=$this->projectFolder;
+		return $projectFolder.'/'.$path;
+	}
+
+
+	public function getControllerName($module){
+		if (array_key_exists($module, $this->controllersList)) {
+			return $this->controllersList[$module];
+		}
+		else{
+			return NULL;
+		}
 	}
 }

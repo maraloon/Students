@@ -26,7 +26,7 @@ class Util{
 	//Обозначать цветом найденную подстроку
 	static function highlight($string,$find=NULL){
 		if($find!=NULL){
-		$reg=preg_quote("/$find/ui");
+		$reg=preg_quote("/$find/");
 		$string=preg_replace($reg, "<font style='background-color: yellow;'>$0</font>", $string);
 		}
 		return $string;

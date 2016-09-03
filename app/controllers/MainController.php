@@ -2,27 +2,15 @@
 namespace StudentList\Controllers;
 use \StudentList\Helpers;
 class MainController extends ViewController{
-	protected $validModules=array('main','search');
-	protected $keysOfViewVars=array('students','viewer','isAuthorized','user','find','pages','currentPage','register_ok','edit_ok');
 
-	function __construct($viewName,$c){
-		parent::__construct($viewName,$c);
+	public function mainModule(){
+		$this->prepareForView();
+	}
+	public function searchModule(){
+		$this->prepareForView();
 	}
 
-	public function parseRequest(){
-		parent::parseRequest();
-	}
-
-	protected function mainModule(){
-		$this->mainCode();
-		$this->viewName='pages/main';
-	}
-	protected function searchModule(){
-		$this->mainCode();
-		$this->viewName='pages/search';
-	}
-
-	protected function mainCode(){
+	protected function prepareForView(){
 	//Авторизован ли пользователь
 		$isAuthorized=$this->c['auth']->checkAuth();
 	//Получаем данные юзера
@@ -55,20 +43,19 @@ class MainController extends ViewController{
 		}
 
 	//Статус изменения данных
-		$register_ok=isset($_GET['register_ok']) ? strval($_GET['register_ok']) : NULL;
-		$edit_ok=isset($_GET['edit_ok']) ? strval($_GET['edit_ok']) : NULL;
+		$registerOk=isset($_GET['registerOk']) ? strval($_GET['registerOk']) : NULL;
+		$editOk=isset($_GET['editOk']) ? strval($_GET['editOk']) : NULL;
 
 
 
 		$table=$this->c['table'];
 		$students=$table->getStudents($sortBy,$orderBy,$limit,$offset,$find);
 		//Генерация динамического контента для представления
-		$viewer = new Helpers\TableUrlMaker($currentPage,$sortBy,$orderBy,$find,$this->c['router']);
+		$viewer = new Helpers\TableUrlMaker($currentPage,$sortBy,$orderBy,$find,$this->c['module']);
+		$router=$this->c['router'];
 
-		//Из локальных в глобальные, чтобы передать в packViewVars()
-		foreach ($this->keysOfViewVars as $key) {
-			$this->$key=$$key;
-		}
+		//Переменные, используемые в представлении
+		$this->ViewVars = compact('students','viewer','router','isAuthorized','user','find','pages','currentPage','registerOk','editOk');
 	}
 
 }
