@@ -1,0 +1,6 @@
+{
+	"main": "MainController",
+	"search": "MainController",
+	"register": "ERController",
+	"edit":  "ERController"
+}
