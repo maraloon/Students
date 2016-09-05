@@ -1,6 +1,6 @@
 <?php
 namespace StudentList;
-use StudentList\Exeptions\AuthExeption;
+use StudentList\Exceptions\AuthException;
 /*
 * c['auth']->checkAuth($_COOKIE['hash']);
 * Если вернёт true, то c['auth']->user содержит данные авторизованного студента для представления
@@ -47,7 +47,7 @@ class Authorization{
 			return $this->user;
 		}
 		else{
-			throw new AuthExeption('Попытка гостя получить данные авторизованного пользователя');
+			throw new AuthException('Попытка гостя получить данные авторизованного пользователя');
 		}
 	}
 }

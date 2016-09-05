@@ -1,20 +1,26 @@
 <?php
 namespace StudentList\Controllers;
 use StudentList\Helpers\Util;
+
 /**
- * Главный контроллер
- * Решает, какой подконтроллер использовать и какие виды показывать
- *
- * Определить нужный контроллер и вид
- * Подключить кнтроллер
- * Подключить вид
-**/
+ * Front Controller
+ * 
+ * It's really cool stuff, man!
+ */
 class FrontController extends Controller{
 
+	/**
+	 * Constructor
+	 * 
+	 * @param array $container Pimple Container
+	 */
 	function __construct($container){
 		parent::__construct($container);
 	}
 
+	/**
+	 * Starting this megascript
+	 */
 	function Start(){
 		if ($this->c['router']->isUriValid) {
 			$controllerName=$this->c['router']->getControllerName($this->c['action']);

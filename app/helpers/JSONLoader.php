@@ -1,5 +1,6 @@
 <?php
 namespace StudentList\Helpers;
+use StudentList\Exceptions\ConfigException;
 /*
 * Чтение JSON-файла
 */
@@ -18,7 +19,7 @@ namespace StudentList\Helpers;
 			return $fileContent;
 		}
 		else{
-			throw new ConfigException("Ошибка в $filename");
+			throw new ConfigException(json_last_error(),"Ошибка в $filename: ");
 		}
 	}
 }
