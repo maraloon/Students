@@ -1,0 +1,7 @@
+{
+	"main": "MainController",
+	"search": "MainController",
+	"register": "ProfileController",
+	"edit":  "ProfileController",
+    "error": "ErrorController"
+}

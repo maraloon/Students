@@ -1,0 +1,14 @@
+ToDo:
+-переименовать папки: controllers в Controllers
+-поиск "Хи/г\о" должен работать
+-все файлы табы: 4 пробела
+-комментарии к классам, ф-ям и сложным местам
+-сделать бомбецкий ConfigException
+-phpDocumentor через composer
+-ErrorController: вывод ошибок в лог-файл
+-index.php: не забыть раскоментировать set_exception_handler
+-залить на хостинг и дать ссылку на сайт в репозитории
+
+//--------------ОТВЕТЫ-------------//
+http://arhivach.org/thread/193343/#830037
+http://arhivach.org/thread/197740/#846552

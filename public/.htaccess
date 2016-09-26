@@ -1,0 +1,15 @@
+Options All +Indexes
+
+<IfModule mod_rewrite.c>
+RewriteEngine On
+RewriteCond %{DOCUMENT_ROOT}/503.php -f
+RewriteCond %{SCRIPT_FILENAME} !503.php
+RewriteRule ^.*$ /503.php [R=503,L]
+ErrorDocument 503 /503.php
+Header Set Cache-Control "max-age=0, no-store"
+</IfModule>
+
+RewriteEngine On
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteRule .* index.php [L]

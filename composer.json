@@ -1,0 +1,17 @@
+{
+    "name": "sidspears/students",
+    "description": "StudentDB",
+    "require": {
+        "pimple/pimple": "^3.0"
+    },
+
+
+    "autoload": {
+        "psr-4": {
+            "StudentList\\": "app/"
+        }
+    },
+    "require-dev": {
+        "ext-xsl": "*"
+    }
+}
