@@ -15,12 +15,12 @@ class Authorization{
     function __construct(DataBase\StudentDataGateway $table){
         $this->table=$table;
     }
-
+    /**
+     * Возвращает статус пользователя
+     * Устанавливает значения полей, если авторизован
+     */
     public function checkAuth(){
-    /*
-    * Возвращает статус пользователя
-    * Устанавливает значения полей, если авторизован
-    */
+
         $this->isAuthorized=false;
         if (isset($_COOKIE['hash'])) {
             $student=$this->table->getStudentByHash($_COOKIE['hash']);

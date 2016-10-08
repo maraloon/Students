@@ -49,7 +49,6 @@
         </tbody>
     </table>
     
-
     <?php if($pages>1): ?>
         <div class="col-md">
             <ul class="pagination">

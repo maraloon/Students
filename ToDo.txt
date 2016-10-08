@@ -1,7 +1,6 @@
 ToDo:
 -комментарии к классам, ф-ям и сложным местам
--phpDocumentor через composer (спросить ОПа)
--ErrorController: вывод ошибок в лог-файл
+-phpDocumentor
 -index.php: не забыть раскоментировать set_exception_handler
 -залить на хостинг и дать ссылку на сайт в репозитории
 

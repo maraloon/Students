@@ -13,10 +13,10 @@ class Student{
     public $sname;
     public $group_num;
     public $points;
-    public $gender; //bool; 1 - male, 0 - female
+    public $gender;
     public $email;
-    public $b_year; //string(4); 1900-2016
-    public $is_resident; //bool; 1 - resident, 0 - foreign;
+    public $b_year;
+    public $is_resident;
     public $hash;
     
     function __construct(){}

@@ -26,13 +26,13 @@ class FrontController extends Controller{
             );
 
         if (!$router->isUriValid()){
-            //  header("Location: error?code=404");
+              header("Location: error?code=404");
         }
 
         $controllerName=$router->getControllerName();
 
         if ($controllerName==NULL) {
-            //header("Location: error?code=404");
+            header("Location: error?code=404");
         }
 
         $controllerPath='\StudentList\Controllers\\'.$controllerName;
@@ -43,7 +43,7 @@ class FrontController extends Controller{
         if (!method_exists($controller, $actionFunc)){
             header("Location: error?code=404");
         }
-
+        //Вызываем у нужного контроллера нужный экшн
         $errorCode=$controller->$actionFunc();
         if ($errorCode!=NULL) {
             header("Location: error?code=$errorCode");

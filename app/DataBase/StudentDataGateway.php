@@ -1,17 +1,7 @@
 <?php
 namespace StudentList\DataBase;
 use \StudentList\Models\Student;
-/*implement
 
-__construct
-countStudents
-private function getColumns
-getStudents
-getStudentByHash
-checkEmail
-addStudent
-editStudent
-*/
 class StudentDataGateway{
     protected $db; //Объект PDO
 
@@ -19,22 +9,22 @@ class StudentDataGateway{
         $this->db=$connection;
     }
 
-
-    /* Кол-во записей в таблице
-    *
-    * Если $find=NULL
-    *    Вернуть кол-во всех строк таблицы
-    * Иначе
-    *    Вернуть кол-во строк, в которых есть вхождение $find
-    *
-    */
+    /**
+     * Кол-во записей в таблице
+     * 
+     * Если $find=NULL
+     *    Вернуть кол-во всех строк таблицы
+     * Иначе
+     *    Вернуть кол-во строк, в которых есть вхождение $find
+     */
     public function countStudents($find=NULL){
         //Если задан поиск по строке $find
         if (isset($find)) {
             $rows = $this->db->prepare("
                 SELECT COUNT(*) FROM `students`
                 WHERE CONCAT(`name`,' ',`sname`,' ',`group_num`,' ',`points`)
-                LIKE '%:search%'");
+                LIKE :search");
+            $find = addCslashes($find, '\%_'); // http://phpfaq.ru/mysql/slashes#like
             $find='%'.$find.'%';
             $rows->bindValue(':search', $find, \PDO::PARAM_STR);
         }
@@ -57,12 +47,11 @@ class StudentDataGateway{
         return $columns;
     }
     
+    /**
+     * Возвращает массив, где каждый studentsRows - объект Student
+     * $limit записей, начиная с $offset
+     */
     public function getStudents($sortBy,$orderBy,$limit,$offset,$find=NULL){
-        /*
-        * возвращает массив, где каждый studentsRows - объект Student
-        * $limit записей, начиная с $offset
-        */
-        //Фильтруем данные
         if(!in_array($sortBy, $this->getColumns())){
             if ($sortBy=='hash') { //запрещаем сортировать по hash
                 $sortBy='points';
@@ -106,7 +95,9 @@ class StudentDataGateway{
         return $students;
     }
     
-    //Принимает хеш. Возвращает строку студента
+    /**
+     * Принимает хеш. Возвращает объект студента
+     */
     public function getStudentByHash($hashFromCookie){
         $rows = $this->db->prepare("SELECT * FROM `students` WHERE `hash`=:hash");
         $rows->bindValue(':hash', $hashFromCookie, \PDO::PARAM_STR);
@@ -126,10 +117,19 @@ class StudentDataGateway{
     
     
     
-    /*Проверка на существование e-mail'а
-    * true - уже есть такой email
-    * false - нет
-    */
+    /**
+     * Проверка на существование e-mail'а
+     * 
+     * Если id не указан
+     *  Есть ли e-mail в таблице
+     * Если id указан
+     *  Соответствует ли переданная пара email-id паре в таблице
+     * 
+     * @var string email
+     * @var integer id
+     * 
+     * @return bool 'is e-mail in DB'
+     */
     public function checkEmail($email,$id=NULL){
         if ($id) {
             $rows = $this->db->prepare("SELECT COUNT(*) FROM `students` WHERE `email`=:email AND `id`<>:id");
@@ -149,7 +149,11 @@ class StudentDataGateway{
         return false;
     }
     
-    //Добавляет новую строку в БД
+    /**
+     * Добавляет нового студента в БД
+     * 
+     * @var Student student
+     */
     public function addStudent(Student $student){
         $SqlString="INSERT INTO `students`
                     (`name`,`sname`,`group_num`,`points`,`gender`,`email`,`b_year`,`is_resident`,`hash`)
@@ -158,7 +162,11 @@ class StudentDataGateway{
         $this->writeToTable($SqlString,$student);
     }
     
-        
+     /**
+     * Привит студента в БД
+     * 
+     * @var Student student
+     */       
     public function editStudent(Student $student){
         $SqlString="UPDATE `students`
         SET
@@ -175,6 +183,9 @@ class StudentDataGateway{
 
     }
 
+    /**
+     * Запись изменений в БД
+     */
     protected function writeToTable($SqlString,$student){
         $rows = $this->db->prepare($SqlString);
 

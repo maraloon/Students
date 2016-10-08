@@ -113,8 +113,6 @@ class StudentValidator{
 
     //Проверяет, а нет ли  в базе такого e-mail'а
     protected function checkEmail($email,$id=NULL){
-
-        $isAlredyRegistered=$this->table->checkEmail($email,$id);
-        return $isAlredyRegistered;
+        return $this->table->checkEmail($email,$id);
     }
 }
