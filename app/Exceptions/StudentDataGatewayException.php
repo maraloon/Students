@@ -1,4 +1,4 @@
 <?php
 namespace StudentList\Exceptions;
 
-class StudentDataGatewayException extends Exception { }
+class StudentDataGatewayException extends \Exception { }

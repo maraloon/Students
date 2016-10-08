@@ -5,7 +5,7 @@ use StudentList\Helpers\Util;
 /**
  * Front Controller
  * 
- * It's really cool stuff, man!
+ * Вызывает нужный контроллер
  */
 class FrontController extends Controller{
 
@@ -18,9 +18,6 @@ class FrontController extends Controller{
         parent::__construct($container);
     }
 
-    /**
-     * Starting this megascript
-     */
     function Start(){
         $router=new \StudentList\Router(
                 $this->c['json']->readJSON('router.json'),
@@ -29,13 +26,13 @@ class FrontController extends Controller{
             );
 
         if (!$router->isUriValid()){
-            header("Location: error?code=404");
+            //  header("Location: error?code=404");
         }
 
         $controllerName=$router->getControllerName();
 
         if ($controllerName==NULL) {
-            header("Location: error?code=404");
+            //header("Location: error?code=404");
         }
 
         $controllerPath='\StudentList\Controllers\\'.$controllerName;

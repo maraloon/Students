@@ -1,6 +1,10 @@
 <?php
 namespace StudentList\Controllers;
 use \StudentList\Helpers;
+
+/**
+ * Показывает таблицу студентов
+ */
 class MainController extends ViewController{
 
     public function mainAction(){

@@ -4,8 +4,6 @@ use StudentList\Helpers\Util;
 use \StudentList\Models\Student;
 
 /**
- * Edit/RegistProfileController
- * 
  * Контроллер изменения данных студента или его регистрации
  */
 class ProfileController extends ViewController{

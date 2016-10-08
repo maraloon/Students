@@ -8,46 +8,46 @@ use StudentList\Exceptions\AuthException;
 */
 class Authorization{
 
-	protected $user;
-	protected $table;
-	protected $isAuthorized=NULL;
+    protected $user;
+    protected $table;
+    protected $isAuthorized=NULL;
 
-	function __construct(DataBase\StudentDataGateway $table){
-		$this->table=$table;
-	}
+    function __construct(DataBase\StudentDataGateway $table){
+        $this->table=$table;
+    }
 
-	public function checkAuth(){
-	/*
-	* Возвращает статус пользователя
-	* Устанавливает значения полей, если авторизован
-	*/
-		$this->isAuthorized=false;
-		if (isset($_COOKIE['hash'])) {
-			$student=$this->table->getStudentByHash($_COOKIE['hash']);
-			if ($student!=false){
-				$this->isAuthorized=true;
-				//Переменные для отображения
-				$this->user=$student;	
-			}
-		}
-		return $this->isAuthorized;
-	}
+    public function checkAuth(){
+    /*
+    * Возвращает статус пользователя
+    * Устанавливает значения полей, если авторизован
+    */
+        $this->isAuthorized=false;
+        if (isset($_COOKIE['hash'])) {
+            $student=$this->table->getStudentByHash($_COOKIE['hash']);
+            if ($student!=false){
+                $this->isAuthorized=true;
+                //Переменные для отображения
+                $this->user=$student;    
+            }
+        }
+        return $this->isAuthorized;
+    }
 
-	public function logIn($hash){
-		setcookie('hash',$hash,time()+3600*12*365,'/',null,false,true);
-	}
+    public function logIn($hash){
+        setcookie('hash',$hash,time()+3600*12*365,'/',null,false,true);
+    }
 
-	//не используется в коде
-	public function logOut(){
-		setcookie('hash','',time()-3600);
-	}
+    //не используется в коде
+    public function logOut(){
+        setcookie('hash','',time()-3600);
+    }
 
-	public function getUser(){
-		if ($this->isAuthorized) {
-			return $this->user;
-		}
-		else{
-			throw new AuthException('Попытка гостя получить данные авторизованного пользователя');
-		}
-	}
+    public function getUser(){
+        if ($this->isAuthorized) {
+            return $this->user;
+        }
+        else{
+            throw new AuthException('Попытка гостя получить данные авторизованного пользователя');
+        }
+    }
 }
