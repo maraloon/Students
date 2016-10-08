@@ -1,10 +1,10 @@
 # Программа StudentList
 
 
-# # Используемые технологии
+## Используемые технологии
 ООП, MVC, Twitter Bootstrap, Depency Injection, PDO (MySQL), JSON, паттерн TableDataGateway, Composer Autoload, контейнер (Pimple), Git
 
-# # Как установить
+## Как установить
 Внимание! пример конфига: файл `httpd.conf` в корне проекта
 
 - Скопировать проект в web-директорию
