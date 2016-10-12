@@ -9,7 +9,7 @@ use StudentList\Exceptions\ConfigException;
         //Подключаем конфиг
         $filename=Util::getAbsolutePath($filename);
         if(!file_exists($filename)){
-            throw new ConfigException("Файла $filename не существует");
+            throw new ConfigException("Файл $filename не существует");
         }
         //JSON->Array
         $fileContent=file_get_contents($filename,FILE_IGNORE_NEW_LINES);
@@ -19,7 +19,7 @@ use StudentList\Exceptions\ConfigException;
             return $fileContent;
         }
         else{
-            throw new ConfigException(json_last_error(),"Ошибка в $filename: ");
+            throw new ConfigException("Ошибка в $filename: ",json_last_error());
         }
     }
 }
