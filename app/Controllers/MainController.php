@@ -9,9 +9,7 @@ class MainController extends ViewController{
 
     public function mainAction(){
         $this->showStudentList();
-    }
-    public function searchAction(){
-        $this->showStudentList();
+        $this->showView();
     }
 
     protected function showStudentList(){
@@ -25,7 +23,7 @@ class MainController extends ViewController{
 
     //Параметры для постраничной навигации
         $limit=10; //студентов на странице
-        $studentsNum=$this->c['table']->countStudents($find); //всего студентов в базе
+        $studentsNum=$this->c['studentsGW']->countStudents($find); //всего студентов в базе
         $pages=ceil($studentsNum/$limit); //всего страниц
 
         $currentPage=isset($_GET['page']) ? max($_GET['page'],1) : 1;
@@ -36,30 +34,30 @@ class MainController extends ViewController{
         $orderBy='asc';
 
         if (isset($_GET['sortBy'])) {
-            if (in_array($_GET['sortBy'], array('name','sname','group_num','points'))){
+            if (in_array(strval($_GET['sortBy']), array('name','sname','group_num','points'))){
                 $sortBy=strval($_GET['sortBy']);
             }   
         }
         if (isset($_GET['orderBy'])) {
-            if (in_array($_GET['orderBy'], array('asc','desc'))){
+            if (in_array(strval($_GET['orderBy']), array('asc','desc'))){
                 $orderBy=strval($_GET['orderBy']);
             }
         }
 
     //Статус изменения данных
-        $registerOk=isset($_GET['registerOk']) ? strval($_GET['registerOk']) : NULL;
-        $editOk=isset($_GET['editOk']) ? strval($_GET['editOk']) : NULL;
+        $message=isset($_GET['message']) ? strval($_GET['message']) : NULL;
 
-
-
-        $table=$this->c['table'];
+        $table=$this->c['studentsGW'];
         $students=$table->getStudents($sortBy,$orderBy,$limit,$offset,$find);
         //Генерация динамического контента для представления
         $urlMaker = new Helpers\TableUrlMaker($currentPage,$sortBy,$orderBy,$find,$this->action);
-        $router=$this->router;
 
+        //Устанавливаем другое представление, если осуществляется поиск
+        if (!is_null($find)) {
+            $this->viewName='search';
+        }
         //Переменные, используемые в представлении
-        $this->render(compact('students','urlMaker','router','isAuthorized','user','find','pages','currentPage','registerOk','editOk'));
+        $this->render(compact('students','urlMaker','isAuthorized','user','find','pages','currentPage','message'));
     }
 
 }

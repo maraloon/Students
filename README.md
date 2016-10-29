@@ -5,7 +5,7 @@
 ООП, MVC, Twitter Bootstrap, Depency Injection, PDO (MySQL), JSON, паттерн TableDataGateway, Composer Autoload, контейнер (Pimple), Git
 
 ## Как установить
-Внимание! пример конфига: файл `httpd.conf` в корне проекта
+Внимание! пример конфига Apache: файл `httpd.conf` в корне проекта
 
 - Скопировать проект в web-директорию
 - Импортировать таблицу в БД из дамп-файла `students.sql`

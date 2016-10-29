@@ -5,7 +5,7 @@ abstract class Controller{
     protected $c; //контейнер
 
 
-    function __construct($container){
+    function __construct(\Pimple\Container $container){
         $this->c=$container;
     }
 

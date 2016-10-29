@@ -9,21 +9,34 @@ use \StudentList\Models\Student;
 class ProfileController extends ViewController{
 
     public function registerAction(){
-        if ($this->c['authHelper']->checkAuth()==false) {
-            return $this->handleEditForm();
+        if ($this->c['authHelper']->checkAuth()==true)
+        {
+            header("Location: main?message=access_denied");
+            exit;
         }
-        return 403;
+        $this->showAction();
     }
 
     public function editAction(){
-        if ($this->c['authHelper']->checkAuth()==true) {
-            return $this->handleEditForm();
+        if ($this->c['authHelper']->checkAuth()==false)
+        {
+            header("Location: main?message=access_denied");
+            exit;
         }
-        return 403;
+        $this->showAction();
+    }
+
+    protected function showAction(){
+        $error=$this->handleEditForm();
+        if ($error!=NULL)
+        {
+            return $error;
+        }
+        return $this->showView();
     }
 
     protected function handleEditForm(){
-        $token=Util::setToken();
+        $token=Util::setCsrfToken();
         $student=$this->prepareStudentForForm();
         if (!$student) {
             return 403;
@@ -33,7 +46,7 @@ class ProfileController extends ViewController{
         //Если данные формы передавались
         if(!empty($_POST)){
             //Проверка токена
-            if(!Util::checkToken()){
+            if(!Util::checkCsrfToken()){
                 return 400; //Попытка взлома
             }
             else{
@@ -53,9 +66,8 @@ class ProfileController extends ViewController{
             }
         }
         //Переменные, используемые в представлении
-        $router=$this->router;
         $action=$this->action;
-        $this->render(compact('student','token','validErrors','router','action'));
+        $this->render(compact('student','token','validErrors','action'));
         $this->viewName='profile_edit';
     }
 
@@ -67,11 +79,8 @@ class ProfileController extends ViewController{
     protected function prepareStudentForForm(){
         $student=new Student();
         if ($this->action=='edit') {
-            $student=$this->c['table']->getStudentByHash($_COOKIE['hash']);
+            $student=$this->c['studentsGW']->getStudentByHash($_COOKIE['hash']);
         }
-        /*if (!$student) {
-            return 403;
-        }*/
         return $student;
     }
 
@@ -92,15 +101,14 @@ class ProfileController extends ViewController{
 
     /**
      * Фильтрация передаваеммых пользователем данных от нежелательных переменных
+     * Фильтрует поля по белому списку
      * 
-     * Удаляет всё, что не 'name','sname','group_num','points','gender','email','b_year','is_resident','hash'
-     * 
-     * @param array $post Глобальная переменная $_POST
+     * @param array $post Данные из формы в виде ассоциативного массива
      * 
      * @return array $post
      */
     protected function filter(array $post){
-        $template=array_flip(array('name','sname','group_num','points','gender','email','b_year','is_resident','hash'));
+        $template=array_flip(array('name','sname','group_num','points','gender','email','b_year','residence','hash'));
         $infoArray=array_intersect_key($template,$post);
         return $post;
     }
@@ -113,9 +121,10 @@ class ProfileController extends ViewController{
      * Перенаправляет на главную с оповещением статуса регистрации
      */
     protected function addStudent(Student $student){
-        $this->c['table']->addStudent($student);
+        $this->c['studentsGW']->addStudent($student);
         $this->c['authHelper']->logIn($student->hash);
-        header('Location: main?registerOk');    
+        header('Location: main?message=register_succsess');
+        exit;
     }
 
     /**
@@ -125,8 +134,9 @@ class ProfileController extends ViewController{
      * Перенаправляет на главную с оповещением статуса редактирования данных
      */
     protected function editStudent(Student $student){
-        $edit=$this->c['table']->editStudent($student);
-        header('Location: main?editOk');
+        $edit=$this->c['studentsGW']->editStudent($student);
+        header('Location: main?message=edit_succsess');
+        exit;
     }
 
 }

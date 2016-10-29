@@ -28,7 +28,7 @@ SET time_zone = "+00:00";
 
 CREATE TABLE `students` (
   `id` int(11) NOT NULL,
-  `hash` varchar(200) NOT NULL,
+  `hash` varchar(200) NOT NULL, /*хеш, используемый для авторизации юзера*/
   `name` varchar(200) NOT NULL,
   `sname` varchar(200) NOT NULL,
   `group_num` varchar(5) NOT NULL,
@@ -36,14 +36,14 @@ CREATE TABLE `students` (
   `gender` enum('m','f') NOT NULL,
   `email` varchar(200) NOT NULL,
   `b_year` year(4) NOT NULL COMMENT 'Birthday year',
-  `is_resident` enum('resident','foreign') NOT NULL
+  `residence` enum('resident','foreign') NOT NULL
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8;
 
 --
 -- Дамп данных таблицы `students`
 --
 
-INSERT INTO `students` (`id`, `hash`, `name`, `sname`, `group_num`, `points`, `gender`, `email`, `b_year`, `is_resident`) VALUES
+INSERT INTO `students` (`id`, `hash`, `name`, `sname`, `group_num`, `points`, `gender`, `email`, `b_year`, `residence`) VALUES
 (1, '', 'Артём', 'Озорнин', '11a', 123, 'm', 'art@mail.ru', 1993, 'resident'),
 (2, '', 'Анастасия', 'Моисеева', '11a', 45, 'f', 'ansts@mail.net', 1994, ''),
 (3, '', 'Евгений', 'Князев', '11a', 123, 'm', 'gena@mail.ru', 1993, 'foreign'),

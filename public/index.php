@@ -25,4 +25,4 @@ include (__DIR__.'/../app/container.php');
  * Запуск главного контроллера
  */
 $frontController=new StudentList\Controllers\FrontController($container);
-$frontController->Start();
+$frontController->start();

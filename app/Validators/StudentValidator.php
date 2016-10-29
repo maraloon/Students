@@ -1,6 +1,7 @@
 <?php
 namespace StudentList\Validators;
-use \StudentList\Models\Student;
+use StudentList\DataBase\StudentDataGateway;
+use StudentList\Models\Student;
 class StudentValidator{
     protected $masks=array(
         'name'=>array(
@@ -36,7 +37,7 @@ class StudentValidator{
         ),
         'gender'=>array(
             'type'=>'enum',
-            'values' => array('m','f'),
+            'values' => array(Student::GENDER_MALE,Student::GENDER_FEMALE),
             'message' => 'Выбран неверный параметр в Мужской/Женский пол'
         ),
         'email'=>array(
@@ -54,16 +55,16 @@ class StudentValidator{
             'name' => 'Год рождения',
             'message' => 'должнен быть от 1900 до 2016'
         ),
-        'is_resident'=>array(
+        'residence'=>array(
             'type'=>'enum',
-            'values' => array('resident','foreign'),
+            'values' => array(Student::RESIDENCE_RESIDENT,Student::RESIDENCE_FOREIGN),
             'message' => 'Выбран неверный параметр в Местный/Иногородний'
         ),
     );
     
     protected $table;
     
-    function __construct($table){
+    function __construct(StudentDataGateway $table){
         $this->table=$table;
     }
 
@@ -111,7 +112,7 @@ class StudentValidator{
         return $e;
     }
 
-    //Проверяет, а нет ли  в базе такого e-mail'а
+    //Проверяет, а нет ли в базе такого e-mail'а
     protected function checkEmail($email,$id=NULL){
         return $this->table->checkEmail($email,$id);
     }

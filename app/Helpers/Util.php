@@ -14,13 +14,13 @@ class Util{
         return $result;
     }
 
-    static function setToken(){
+    static function setCsrfToken(){
         $token=(isset($_COOKIE['token'])) ? $_COOKIE['token'] : static::randHash(20);
         setcookie('token',$token,time()+3600,'/',null,false,true);
         return $token;
     }
 
-    static function checkToken(){
+    static function checkCsrfToken(){
         if( (empty($_COOKIE['token'])) or (empty($_POST['token'])) or ($_COOKIE['token']!==$_POST['token']) ){
             return false;
         }
@@ -39,10 +39,9 @@ class Util{
     //Обозначать цветом найденную подстроку
     static function highlight($string,$find=NULL){
         if($find!=NULL){
-            $find=preg_quote($find); //экранируем обратные слешы и пр.
-            $find=str_replace("/","\/",$find); //экранируем прямой слеш
+            $find=preg_quote($find,"/"); //экранируем слешы и пр.
             $find="/".$find."/ui"; //теперь это регулярка
-            $string=preg_replace($find, "<div class='finded_text'>$0</div>", $string);
+            $string=preg_replace($find, "<mark>$0</mark>", $string);
         }
         return $string;
     }

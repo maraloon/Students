@@ -43,6 +43,13 @@ class TableUrlMaker{
         return $this->makeUrl(array('page'=>$row));
     }
 
+    public function makeToMainUrl(){
+        $changedParams['find']=NULL;
+        $changedParams['page']=NULL;
+
+        return $this->makeUrl($changedParams);
+    }
+
     /**
      * Строит url
      * 

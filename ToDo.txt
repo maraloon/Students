@@ -1,8 +1,4 @@
-ToDo:
--комментарии к классам, ф-ям и сложным местам phpDocumentor
--index.php: не забыть раскоментировать set_exception_handler
--залить на хостинг и дать ссылку на сайт в репозитории
-
 //--------------ОТВЕТЫ-------------//
 http://arhivach.org/thread/193343/#830037
 http://arhivach.org/thread/197740/#846552
+http://arhivach.org/thread/204328/#858807

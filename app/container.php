@@ -8,19 +8,18 @@
  */
 use StudentList\Authorization;
 use StudentList\Helpers\JSONLoader;
-use StudentList\Router;
 use StudentList\DataBase\StudentDataGateway;
 use StudentList\Validators\StudentValidator;
 
 $container = new Pimple\Container;
 
 
-$container['json']=function ($c) {
+$container['JSONLoader']=function ($c) {
     return new JSONLoader();
 };
 
 $container['config']=function ($c) {
-    return $c['json']->readJSON('config.json');
+    return $c['JSONLoader']->readJSON('config.json');
 };
 
 $container['db']=function ($c) {
@@ -37,14 +36,14 @@ $container['db']=function ($c) {
     return $db;
 };
 
-$container['table']=function ($c) {
+$container['studentsGW']=function ($c) {
     return new StudentDataGateway($c['db']);
 };
 
 $container['authHelper']=function ($c) {
-    return new Authorization($c['table']);
+    return new Authorization($c['studentsGW']);
 };
 
 $container['validator']=function ($c) {
-    return new StudentValidator($c['table']);
+    return new StudentValidator($c['studentsGW']);
 };

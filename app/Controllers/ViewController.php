@@ -4,14 +4,12 @@ use \StudentList\Helpers\Util;
 abstract class ViewController extends Controller{
     protected $action;
     protected $viewName;
-    protected $router;
     protected $viewVars;
 
-    function __construct($c,$router){
+    function __construct(\Pimple\Container $c,$action){
         parent::__construct($c);
-        $this->action=$router->getAction();
+        $this->action=$action;
         $this->viewName=$this->action; //Если имя представления != action, это указывается в самом контроллере
-        $this->router=$router;
 
     }
 

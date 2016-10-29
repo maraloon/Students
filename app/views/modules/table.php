@@ -1,7 +1,8 @@
 <?php use StudentList\Helpers\Util; ?>
 <?php if(count($students)==0): ?>
-    Совпадений не найдено
+    <h4>Совпадений не найдено</h4>
 <?php else: ?>
+
     <table class="table table-striped">
         
         <thead>
@@ -30,7 +31,7 @@
         
         <tbody>
             <?php foreach($students as $student):?>
-                <?php if( (isset($user->email)) and ($user->email==$student->email) ):?>
+                <?php if( (isset($user->email)) and ($user->getId()==$student->getId()) ):?>
                     <tr class="active">
                 <?php else: ?>
                     <tr>    
@@ -59,7 +60,7 @@
 
             <?php for($i=1; $i<=$pages; $i++): ?>
                 <?php if($i==$currentPage): ?>
-                    <li class="active"><a href='#'><?=$i?></a></li>    
+                    <li class="active"><span><?=$i?></span></li>    
                 <?php else: ?>
                     <li><a href='<?=Util::html($urlMaker->makePageUrl($i))?>'><?=$i?></a></li>
                 <?php endif;?>    

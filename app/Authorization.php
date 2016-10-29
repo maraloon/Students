@@ -2,7 +2,7 @@
 namespace StudentList;
 use StudentList\Exceptions\AuthException;
 /*
-* c['authHelper']->checkAuth($_COOKIE['hash']);
+* $this->checkAuth();
 * Если вернёт true, то c['authHelper']->user содержит данные авторизованного студента для представления
 * Которые можно получить из getUser
 */
@@ -27,7 +27,7 @@ class Authorization{
             if ($student!=false){
                 $this->isAuthorized=true;
                 //Переменные для отображения
-                $this->user=$student;    
+                $this->user=$student;
             }
         }
         return $this->isAuthorized;

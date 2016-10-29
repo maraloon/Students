@@ -12,7 +12,7 @@ use StudentList\Exceptions\ConfigException;
             throw new ConfigException("Файл $filename не существует");
         }
         //JSON->Array
-        $fileContent=file_get_contents($filename,FILE_IGNORE_NEW_LINES);
+        $fileContent=file_get_contents($filename);
         $fileContent=json_decode($fileContent,true);
 
         if ($fileContent!=NULL) {

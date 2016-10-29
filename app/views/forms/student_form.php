@@ -13,22 +13,22 @@
 <div class="row">
 <div class="radio col-xs-1">
     <label>
-        <input type="radio" class="radio-inline" name="gender" value="m" <?= $s->gender ? ' checked ' : '' ?>>
+        <input type="radio" class="radio-inline" name="gender" value="<?=$s::GENDER_MALE?>" <?= ($s->gender==$s::GENDER_MALE) ? ' checked ' : '' ?>>
         Муж.
     </label>
     <label>
-        <input type="radio" class="radio-inline" name="gender" value="f" <?= !$s->gender ? ' checked ' : '' ?>>
+        <input type="radio" class="radio-inline" name="gender" value="<?=$s::GENDER_FEMALE?>" <?= ($s->gender==$s::GENDER_FEMALE) ? ' checked ' : '' ?>>
         Жен.
     </label>
 </div>
 
 <div class="radio col-xs-2">
     <label>
-        <input type="radio" class="radio-inline" name="is_resident" value="resident" <?= $s->is_resident ? ' checked ' : '' ?>>
+        <input type="radio" class="radio-inline" name="residence" value="<?=$s::RESIDENCE_RESIDENT?>" <?= $s->isResident() ? ' checked ' : '' ?>>
         Местный
     </label>
     <label>
-        <input type="radio" class="radio-inline" name="is_resident" value="foreign" <?= !$s->is_resident ? ' checked ' : '' ?>>
+        <input type="radio" class="radio-inline" name="residence" value="<?=$s::RESIDENCE_FOREIGN?>" <?= !$s->isResident() ? ' checked ' : '' ?>>
         Иногородний
     </label>
 </div>
